@@ -1,0 +1,445 @@
+/* ============================================
+   تحسينات Hero Section - عزم الإنجاز
+   تصميم احترافي وإبداعي ✨
+   ============================================ */
+
+/* ============ Hero Section Enhancements ============ */
+.hero-section {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 100px 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    overflow: hidden;
+}
+
+.hero-advanced-bg {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    background-size: 200% 200%;
+    animation: gradientFlow 15s ease infinite;
+}
+
+@keyframes gradientFlow {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* ============ Animated Background Shapes ============ */
+.hero-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.1;
+    animation: floatShape 20s infinite ease-in-out;
+}
+
+.shape-1 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255,255,255,0.3), transparent);
+    top: -200px;
+    right: -200px;
+    animation-delay: 0s;
+}
+
+.shape-2 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255,255,255,0.2), transparent);
+    bottom: -150px;
+    left: -150px;
+    animation-delay: 5s;
+}
+
+.shape-3 {
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(255,255,255,0.15), transparent);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-delay: 10s;
+}
+
+@keyframes floatShape {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+    }
+    33% {
+        transform: translate(30px, -30px) scale(1.1);
+    }
+    66% {
+        transform: translate(-30px, 30px) scale(0.9);
+    }
+}
+
+/* ============ Hero Badge ============ */
+.hero-badge {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px);
+    color: #667eea !important;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    animation: badgePulse 3s ease-in-out infinite;
+}
+
+.badge-icon {
+    font-size: 1.2em;
+    animation: rotate 3s linear infinite;
+}
+
+@keyframes badgePulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
+    }
+}
+
+/* ============ Gradient Text ============ */
+.gradient-text {
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: inline-block;
+}
+
+/* ============ Enhanced Hero Buttons ============ */
+.btn-hero-primary {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    color: #667eea !important;
+    border: none;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.btn-hero-primary:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    color: #764ba2 !important;
+}
+
+.btn-hero-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff !important;
+    font-weight: 600;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.btn-hero-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    color: #ffffff !important;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+}
+
+.btn-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    z-index: 2;
+}
+
+.btn-shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.6s;
+}
+
+.btn-hero-primary:hover .btn-shine {
+    left: 100%;
+}
+
+/* ============ Trust Badges ============ */
+.trust-badges {
+    margin-top: 2rem;
+}
+
+.trust-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    min-width: 100px;
+}
+
+.trust-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px);
+}
+
+.trust-icon {
+    font-size: 2em;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.trust-item:nth-child(2) .trust-icon {
+    animation-delay: 0.3s;
+}
+
+.trust-item:nth-child(3) .trust-icon {
+    animation-delay: 0.6s;
+}
+
+.trust-text {
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* ============ Enhanced Hero Card ============ */
+.hero-card {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.hero-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2) !important;
+}
+
+.card-icon-wrapper {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    animation: iconFloat 3s ease-in-out infinite;
+}
+
+.card-icon {
+    font-size: 2em;
+}
+
+@keyframes iconFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-10px) rotate(10deg);
+    }
+}
+
+.feature-icon {
+    font-size: 1.5em;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #667eea15, #764ba215);
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+/* ============ Section Badges ============ */
+.section-badge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #ffffff !important;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    animation: sectionBadgePulse 2s ease-in-out infinite;
+}
+
+@keyframes sectionBadgePulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* ============ Enhanced FAQ Accordion ============ */
+.accordion-item {
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(102, 126, 234, 0.2) !important;
+    transition: all 0.3s ease;
+    margin-bottom: 15px !important;
+}
+
+.accordion-item:hover {
+    border-color: rgba(102, 126, 234, 0.5) !important;
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.1);
+    transform: translateX(-5px);
+}
+
+.accordion-button {
+    background: transparent !important;
+    font-weight: 600;
+    color: #111827 !important;
+    padding: 20px !important;
+}
+
+.accordion-button:not(.collapsed) {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05)) !important;
+    color: #667eea !important;
+}
+
+.accordion-body {
+    padding: 20px !important;
+    line-height: 1.8;
+}
+
+/* ============ Enhanced Link Cards ============ */
+.soft-link {
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(102, 126, 234, 0.2) !important;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.soft-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    transition: left 0.5s;
+    z-index: 0;
+}
+
+.soft-link:hover::before {
+    left: 0;
+}
+
+.soft-link:hover {
+    border-color: rgba(102, 126, 234, 0.5) !important;
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2) !important;
+    transform: translateY(-10px) scale(1.03);
+}
+
+.soft-link .card-body {
+    position: relative;
+    z-index: 1;
+}
+
+.soft-link h5 {
+    color: #667eea;
+    transition: all 0.3s ease;
+}
+
+.soft-link:hover h5 {
+    color: #764ba2;
+    transform: scale(1.05);
+}
+
+/* ============ Text Colors in Hero ============ */
+.hero-section h1,
+.hero-section h2,
+.hero-section h3,
+.hero-section p,
+.hero-section span {
+    color: #ffffff;
+}
+
+.hero-section .text-muted {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.hero-section .link-body-emphasis {
+    color: rgba(255, 255, 255, 0.9) !important;
+    text-decoration: underline;
+}
+
+.hero-section .link-body-emphasis:hover {
+    color: #ffffff !important;
+}
+
+/* ============ Responsive Adjustments ============ */
+@media (max-width: 992px) {
+    .hero-section {
+        min-height: auto;
+        padding: 60px 0;
+    }
+    
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+    
+    .trust-badges {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 40px 0;
+    }
+    
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-badge {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+    
+    .btn-hero-primary,
+    .btn-hero-secondary {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .shape {
+        display: none;
+    }
+}
+
+/* ============ Smooth Fade In ============ */
+.min-vh-75 {
+    min-height: 75vh;
+}
+

@@ -1,0 +1,45 @@
+# .htaccess for CROSING Project
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Laravel routing - redirect to public/index.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !^/crosing-laravel/
+    RewriteRule ^(.*)$ crosing-laravel/public/index.php [L]
+
+    # Redirect requests for /form/slug to form.php?slug=slug (PHP)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !^/crosing-laravel/
+    RewriteRule ^form/([a-zA-Z0-9_-]+)$ form.php?slug=$1 [L,QSA]
+
+    # Handle requests for slug.php (PHP)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !^/crosing-laravel/
+    RewriteRule ^([a-zA-Z0-9_-]+)\.php$ form.php?slug=$1 [L,QSA]
+
+</IfModule>
+
+# Protect sensitive files
+<Files ".env">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</Files>
+
+<FilesMatch "\.(db|sqlite)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>

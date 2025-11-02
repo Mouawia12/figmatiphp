@@ -1,0 +1,60 @@
+/* ===== FAQ (Light) stylesheet ===== */
+:root{
+  --faq-bg:#ffffff;        /* خلفية البطاقة */
+  --faq-text:#222;         /* لون النص */
+  --faq-muted:#6b7280;     /* نص ثانوي */
+  --faq-line:#e5e7eb;      /* حدود */
+  --faq-shadow:0 8px 20px rgba(0,0,0,.06);
+  --faq-radius:14px;
+  --faq-accent:#22a3ff;    /* شريط علوي لأول عنصر مفتوح */
+}
+
+.faq-wrap{max-width:980px;margin:32px auto}
+.faq-title{
+  font:800 28px/1.3 "Cairo",system-ui;
+  margin:0 0 14px;
+  color:var(--faq-text);
+  text-align:right
+}
+
+.faq-acc{display:grid; gap:12px}
+
+.faq-acc details{
+  background:var(--faq-bg);
+  border:1px solid var(--faq-line);
+  border-radius:var(--faq-radius);
+  box-shadow:var(--faq-shadow);
+  overflow:hidden;
+}
+
+.faq-acc summary{
+  list-style:none; cursor:pointer;
+  display:flex; align-items:flex-start; gap:10px;
+  padding:16px 18px;
+  font:800 16px/1.5 "Cairo",system-ui;
+  color:var(--faq-text);
+}
+.faq-acc summary::-webkit-details-marker{display:none}
+
+/* أيقونة السهم */
+.faq-acc .chev{
+  margin-inline-start:8px;
+  transform:rotate(180deg);      /* RTL: السهم يبدأ يمين */
+  transition:transform .2s ease;
+  flex:0 0 20px; height:20px
+}
+[dir="rtl"] .faq-acc .chev{order:2}  /* السهم على أقصى اليمين */
+.faq-acc details[open] .chev{transform:rotate(90deg)}
+
+.faq-acc .answer{
+  padding:0 18px 16px;
+  color:var(--faq-muted);
+  font-weight:600
+}
+
+/* أول عنصر مفتوح يظهر بشريط علوي ملوّن */
+.faq-acc details:first-child[open]{border-top:4px solid var(--faq-accent)}
+
+@media (hover:hover){
+  .faq-acc summary:hover{background:#fafafa}
+}

@@ -1,0 +1,58 @@
+# ملفات الحساسة
+.env
+.env.*
+!.env.example
+
+# ملفات قاعدة البيانات
+data/*.db
+data/*.db-shm
+data/*.db-wal
+*.sqlite
+*.sqlite3
+
+# الملفات المرفوعة
+uploads/*
+!uploads/.gitkeep
+
+# ملفات السجلات
+*.log
+php_error_log.log
+mail_errors.log
+error_log
+
+# ملفات النسخ الاحتياطي
+*.bak
+*.backup
+*.old
+*~
+
+# ملفات النظام
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ملفات IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ملفات Composer
+/vendor/
+composer.lock
+
+# ملفات Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# ملفات مؤقتة
+*.tmp
+*.temp
+/tmp/
+
+# ملفات ZIP القديمة
+*.zip
+!vendor.zip
+

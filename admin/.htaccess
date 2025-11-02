@@ -1,0 +1,8 @@
+# Map admin/assets/* to the existing template assets without duplicating files
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # Serve /crosing/admin/assets/... from /crosing/for templet admin/assets/...
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^assets/(.*)$ ../for%20templet%20admin/assets/$1 [L,NC]
+</IfModule>

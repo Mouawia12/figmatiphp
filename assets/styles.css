@@ -1,0 +1,121 @@
+/* ========= ألوان هادئة وعصرية ========= */
+:root{
+  --bg: #F7FAFC;            /* خلفية فاتحة مريحة */
+  --surface: #FFFFFF;       /* بطاقات بيضاء */
+  --primary: #4F8CCB;       /* أزرق باهت مائل للرمادي */
+  --primary-600:#3E79B5;
+  --primary-050:#EAF2FA;
+  --muted: #6B7280;         /* رمادي نصوص */
+  --soft: #F1F5F9;          /* رمادي فاتح للأقسام */
+  --border:#E5E7EB;
+  --shadow: 0 6px 20px rgba(17,24,39,.06);
+  --radius: 16px;
+}
+
+html,body{background: var(--bg); color:#111827;}
+.app-bg{background: radial-gradient(1200px 600px at 80% -10%, var(--primary-050), transparent), var(--bg);}
+
+/* ====== عام ====== */
+.brand-text{color:#0F172A;}
+.nav-link{color:#334155;}
+.nav-link:hover{color:var(--primary-600);}
+
+.btn-primary{
+  --bs-btn-bg: var(--primary);
+  --bs-btn-border-color: var(--primary);
+  --bs-btn-hover-bg: var(--primary-600);
+  --bs-btn-hover-border-color: var(--primary-600);
+  --bs-btn-focus-shadow-rgb: 79,140,203;
+  border-radius: 12px;
+  padding-inline: 18px;
+}
+.btn-outline-secondary{
+  border-radius: 12px;
+  padding-inline: 18px;
+}
+
+/* ====== Hero ====== */
+.hero-section{
+  padding: 72px 0 48px;
+}
+
+/* Drag & drop upload */
+.dnd-zone{border:1px dashed #ced4da; background:#fffbe6; display:flex; align-items:center; justify-content:center; min-height:48px; padding:6px 10px; border-radius:.375rem}
+.dnd-zone.dnd-over{border-color:#17c1cc; background:#ecfeff}
+.soft-badge{
+  background: var(--soft)!important;
+  color: #334155!important;
+  border: 1px solid var(--border);
+}
+.hero-card{
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* ====== أقسام ====== */
+.section-pad{padding: 64px 0;}
+.bg-soft{background: var(--soft);}
+
+/* ====== روابط مهمة ====== */
+.soft-link{
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.soft-link:hover{
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: #d1d5db;
+}
+
+/* ====== أكورديون الأسئلة ====== */
+.accordion-item{
+  border-radius: 12px!important;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  margin-bottom: 10px;
+  background: var(--surface);
+}
+.accordion-button{
+  background: var(--surface);
+  color:#111827;
+}
+.accordion-button:not(.collapsed){
+  color:#0F172A;
+  background: #F8FAFC;
+  box-shadow: inset 0 -1px 0 var(--border);
+}
+.accordion-body{color:#334155;}
+
+/* ====== Footer ====== */
+.footer{
+  background: linear-gradient(0deg, #F8FAFC, #FFFFFF);
+  border-top: 1px solid var(--border);
+}
+.footer .link-body-emphasis{color:#334155;text-decoration:none;}
+.footer .link-body-emphasis:hover{color:var(--primary-600);text-decoration:underline;}
+
+/* ====== تحسينات صغيرة ====== */
+.card{border-radius: var(--radius);}
+.shadow-sm{box-shadow: var(--shadow)!important;}
+
+.upload-progress-container {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.progress-bar {
+  height: 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.progress-bar-inner {
+  height: 100%;
+  width: 0;
+  background-color: #007bff;
+  transition: width 0.25s;
+}

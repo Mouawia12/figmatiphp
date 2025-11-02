@@ -1,0 +1,579 @@
+/* ============================================
+   أنيميشن متقدمة وإبداعية - عزم الإنجاز
+   تصميم احترافي مع تأثيرات حديثة ✨
+   ============================================ */
+
+/* ============ Glassmorphism Effects ============ */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.navbar.glass-nav {
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* ============ 3D Transformations ============ */
+@keyframes rotate3D {
+    0% {
+        transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+    }
+    50% {
+        transform: perspective(1000px) rotateY(10deg) rotateX(5deg);
+    }
+    100% {
+        transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+    }
+}
+
+.hero-card-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.hero-card-3d:hover {
+    transform: perspective(1000px) rotateY(-5deg) rotateX(5deg) translateZ(20px);
+    animation: rotate3D 3s ease-in-out infinite;
+}
+
+/* ============ Advanced Gradient Background ============ */
+.hero-advanced-bg {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-advanced-bg::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+        radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(240, 147, 251, 0.2) 0%, transparent 50%);
+    animation: gradientRotate 20s ease infinite;
+    z-index: 0;
+}
+
+@keyframes gradientRotate {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+}
+
+/* ============ Text Glow Animation ============ */
+@keyframes textGlow {
+    0%, 100% {
+        text-shadow: 
+            0 0 10px rgba(102, 126, 234, 0.5),
+            0 0 20px rgba(102, 126, 234, 0.3),
+            0 0 30px rgba(102, 126, 234, 0.2);
+    }
+    50% {
+        text-shadow: 
+            0 0 20px rgba(102, 126, 234, 0.8),
+            0 0 30px rgba(102, 126, 234, 0.5),
+            0 0 40px rgba(102, 126, 234, 0.3);
+    }
+}
+
+.hero-title-glow {
+    animation: textGlow 3s ease-in-out infinite;
+}
+
+/* ============ Liquid Button Effect ============ */
+.btn-liquid {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    z-index: 1;
+}
+
+.btn-liquid::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.5s;
+    z-index: -1;
+}
+
+.btn-liquid:hover::before {
+    left: 100%;
+}
+
+.btn-liquid::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+    z-index: -1;
+}
+
+.btn-liquid:active::after {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-liquid:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        0 10px 25px rgba(102, 126, 234, 0.4),
+        0 0 30px rgba(102, 126, 234, 0.2);
+}
+
+/* ============ Magnetic Hover Effect ============ */
+.magnetic-hover {
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.magnetic-hover:hover {
+    transform: translateY(-8px) scale(1.05);
+}
+
+/* ============ Advanced Card Hover ============ */
+.card-advanced {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.card-advanced::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.6s;
+}
+
+.card-advanced:hover::before {
+    left: 100%;
+}
+
+.card-advanced:hover {
+    transform: translateY(-10px) rotateX(2deg);
+    box-shadow: 
+        0 20px 40px rgba(0,0,0,0.1),
+        0 0 0 1px rgba(102, 126, 234, 0.1);
+}
+
+/* ============ Particle Wave Effect ============ */
+.particle-wave {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.particle-wave::before,
+.particle-wave::after {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: waveMove 20s linear infinite;
+}
+
+.particle-wave::after {
+    animation-delay: -10s;
+    opacity: 0.5;
+}
+
+@keyframes waveMove {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    100% {
+        transform: translate(-50px, -50px) rotate(360deg);
+    }
+}
+
+/* ============ Staggered List Animation ============ */
+.stagger-list li {
+    opacity: 0;
+    transform: translateX(-30px);
+    animation: staggerFadeIn 0.6s ease-out forwards;
+}
+
+.stagger-list li:nth-child(1) { animation-delay: 0.1s; }
+.stagger-list li:nth-child(2) { animation-delay: 0.2s; }
+.stagger-list li:nth-child(3) { animation-delay: 0.3s; }
+.stagger-list li:nth-child(4) { animation-delay: 0.4s; }
+.stagger-list li:nth-child(5) { animation-delay: 0.5s; }
+.stagger-list li:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes staggerFadeIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ============ Morphing Background ============ */
+.morph-bg {
+    position: relative;
+    overflow: hidden;
+}
+
+.morph-bg::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: 
+        radial-gradient(ellipse at top left, rgba(102, 126, 234, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at bottom right, rgba(118, 75, 162, 0.2) 0%, transparent 50%);
+    animation: morph 15s ease-in-out infinite;
+    z-index: 0;
+}
+
+@keyframes morph {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    }
+    50% {
+        transform: translate(-20%, 20%) scale(1.1);
+        border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+    }
+}
+
+/* ============ Floating Elements ============ */
+.floating {
+    animation: floating 6s ease-in-out infinite;
+}
+
+.floating-delayed {
+    animation: floating 6s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
+@keyframes floating {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    33% {
+        transform: translateY(-20px) rotate(5deg);
+    }
+    66% {
+        transform: translateY(-10px) rotate(-5deg);
+    }
+}
+
+/* ============ Neon Glow Effect ============ */
+.neon-glow {
+    text-shadow: 
+        0 0 5px rgba(102, 126, 234, 0.5),
+        0 0 10px rgba(102, 126, 234, 0.5),
+        0 0 15px rgba(102, 126, 234, 0.5),
+        0 0 20px rgba(102, 126, 234, 0.5);
+    animation: neonPulse 2s ease-in-out infinite;
+}
+
+@keyframes neonPulse {
+    0%, 100% {
+        opacity: 1;
+        filter: brightness(1);
+    }
+    50% {
+        opacity: 0.8;
+        filter: brightness(1.2);
+    }
+}
+
+/* ============ Split Text Animation ============ */
+.split-text {
+    display: inline-block;
+    overflow: hidden;
+}
+
+.split-text span {
+    display: inline-block;
+    transform: translateY(100%);
+    animation: splitUp 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
+
+.split-text span:nth-child(1) { animation-delay: 0.1s; }
+.split-text span:nth-child(2) { animation-delay: 0.2s; }
+.split-text span:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes splitUp {
+    to {
+        transform: translateY(0);
+    }
+}
+
+/* ============ Interactive Cursor ============ */
+.cursor-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--primary);
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.2s ease;
+    mix-blend-mode: difference;
+}
+
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transition: all 0.15s ease;
+    mix-blend-mode: difference;
+}
+
+/* ============ Hover Scale with Shadow ============ */
+.hover-scale {
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.hover-scale:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 10px 20px rgba(102, 126, 234, 0.3));
+}
+
+/* ============ Gradient Border Animation ============ */
+.gradient-border {
+    position: relative;
+    background: white;
+    border-radius: 16px;
+    padding: 2px;
+}
+
+.gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 2px;
+    background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: gradientRotate 3s linear infinite;
+}
+
+/* ============ Reveal Animation ============ */
+.reveal {
+    position: relative;
+    overflow: hidden;
+}
+
+.reveal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary);
+    transform: translateX(-100%);
+    animation: reveal 1s ease-out forwards;
+    z-index: 1;
+}
+
+.reveal > * {
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes reveal {
+    to {
+        transform: translateX(100%);
+    }
+}
+
+/* ============ 3D Flip Card ============ */
+.flip-card {
+    perspective: 1000px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 16px;
+}
+
+.flip-card-back {
+    transform: rotateY(180deg);
+}
+
+/* ============ Shimmer Loading ============ */
+.shimmer {
+    background: linear-gradient(
+        90deg,
+        #f0f0f0 0%,
+        #e0e0e0 50%,
+        #f0f0f0 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* ============ Magnetic Button ============ */
+.magnetic-btn {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.magnetic-btn:hover {
+    transform: translateY(-5px);
+}
+
+/* ============ Glitch Effect ============ */
+@keyframes glitch {
+    0%, 100% {
+        transform: translate(0);
+    }
+    20% {
+        transform: translate(-2px, 2px);
+    }
+    40% {
+        transform: translate(-2px, -2px);
+    }
+    60% {
+        transform: translate(2px, 2px);
+    }
+    80% {
+        transform: translate(2px, -2px);
+    }
+}
+
+.glitch:hover {
+    animation: glitch 0.3s infinite;
+    color: var(--primary);
+}
+
+/* ============ Progress Bar Animation ============ */
+.progress-bar-animated {
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar-animated::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    animation: progressShine 2s infinite;
+}
+
+@keyframes progressShine {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* ============ Scroll Indicator ============ */
+.scroll-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(102, 126, 234, 0.1);
+    z-index: 10000;
+}
+
+.scroll-progress {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    width: 0%;
+    transition: width 0.1s ease;
+}
+
+/* ============ Mobile Optimizations ============ */
+@media (max-width: 768px) {
+    .hero-card-3d:hover {
+        transform: none;
+        animation: none;
+    }
+    
+    .morph-bg::before {
+        animation-duration: 10s;
+    }
+    
+    .floating {
+        animation-duration: 4s;
+    }
+}
+
+/* ============ Reduced Motion ============ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+

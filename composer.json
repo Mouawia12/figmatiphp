@@ -1,0 +1,22 @@
+{
+    "name": "azmalenjaz/crosing",
+    "description": "نظام إدارة الطلبات والخدمات - شركة عزم الإنجاز",
+    "type": "project",
+    "require": {
+        "php": ">=7.4",
+        "phpmailer/phpmailer": "^6.9"
+    },
+    "autoload": {
+        "files": [
+            "inc/functions.php",
+            "inc/email.php"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
+

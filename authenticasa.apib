@@ -1,0 +1,1060 @@
+FORMAT: 1A
+HOST: https://api.authentica.sa/api/v2
+
+# Authentica API Documentation
+
+Authentica provides secure and flexible customer authentication through **OTP verification** via **SMS**, **WhatsApp**, and **Email**. It also supports **Nafath**, **Face**, and **Voice** verification for enhanced identity assurance.
+
+You can easily integrate with our system using RESTful APIs and manage your authentication process through multiple secure and customizable channels.
+
+Our system provides many templates to send OTP messages via SMS channel using Authentica default sender name.
+You also have the option to send custom SMS messages to your clients by registering your own SMS sender  name with Authentica.
+
+Our APIs are designed for easy integration, offering clear endpoints to help you implement robust authentication solutions in your applications.
+* This manual is for developers integrating with Authentica.
+
+
+
+## OTP Verification Workflow
+
+To implement OTP verification, follow these steps:
+
+###### 1- Send OTP
+Use the ```/send-otp``` endpoint to send an OTP via SMS, WhatsApp, or Email.
+
+* Supports.
+    * Custom OTPs.
+    * SMS delivery via your own sender name registered with Authentica or default sender name offered by Authentica.
+    * Email delivery via your own email address registered with Authentica or default email address offered by Authentica.
+    * Control fallback channel, templates with ids 1 and 2 will be used for the fallback OTP based on the language of the main template you used in the request.
+
+  Note: Check Application setting on Authentica dashboard to set default values for OTP options. 
+
+###### 2- Verify OTP
+Use the Verify OTP endpoint to validate the OTP entered by your customer.
+
+## Nafath Verification Workflow
+
+To implement Nafath verification, follow these steps:
+
+###### 1- Initiate Verify By Nafath Process
+Use the ```/verify-by-nafath``` endpoint to get a code for your customer to select in the Nafath app.
+
+###### 2- Recive Webhook
+Upon customer verification, Authentica sends a POST request to your configured webhook.
+
+Note: Contact [Authentica support team](https://wa.me/966550021781) to configure the webhook.    
+
+
+## Nafath Verification with data Workflow
+
+To implement Nafath verification with data, follow these steps:
+
+###### 1- Initiate Verify By Nafath Process
+Use the ```/nafath/request``` endpoint to get a code otp on your customer's phone.
+
+###### 2- Verify otp and get code
+Use the ```/nafath/verify``` endpoint to get a code for your customer to select in the Nafath app.
+
+
+###### 3- Recive Webhook
+Upon customer verification, Authentica sends a POST request to your configured webhook.
+
+Note: Contact [Authentica support team](https://wa.me/966550021781) to configure the webhook.
+
+## Face Verification Workflow
+To perform face verification, use the ```/verify-by-face``` endpoint to compare two images: a reference image ```registered_face_image``` and a real-time image ```query_face_image``` captured by your application. 
+Authentica analyzes both images and determines whether they match.
+
+You can store the reference image with Authentica in advance. In that case, during verification, you only need to send the real-time image, and Authentica will automatically use the stored image for comparison.
+## Voice Verification Workflow
+To perform voice verification, use the ```/verify-by-voice``` endpoint to compare two audio samples: a reference audio ```registered_audio``` and a real-time audio ```query_audio``` recorded by your application. Authentica will analyze both samples and determine if they match.
+
+You can store the reference audio with Authentica in advance. If the audio is already saved for the user, you only need to send the real-time recording during verification, and Authentica will handle the comparison using the stored audio.
+ 
+## Send Custom SMS Messages
+
+To send custom SMS messages, follow these steps:
+
+###### 1- Register your SMS sender name with Authentica
+
+###### 2- Use Send SMS end point to communicate with your customers
+
+
+#Group Balance Monitoring
+
+## Get Current Balance [/balance]
+
+### Get Current Balance [GET]
+
+This endpoint is to get the current balance.
+
+#### Get Current Balance request headers
+* X-Authorization : "YOUR_API_KEY"
+    - This header is used for authentication, replace "YOUR_API_KEY" with  the actual API Key,
+    which can be easily generated from your Authentica account (https://portal.authentica.sa/settings/apikeys/).
+* Accept: application/json
+* Content-Type: application/json  
+
+#### curl for get current balance request
+
+    
+```
+    curl --location 'api.authentica.sa/api/v2/balance' \
+    --header 'X-Authorization: $2y$10XXXXXXXXXXXXXXXXXXXXX' \
+    --header 'Accept: application/json' 
+```
+
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+            X-Authorization: api-key-provided-by-authentica
+
+    + Body
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": true,
+                "data": {
+                    "balance": 21934
+                },
+                "message": "Balance retrieved successfully"
+            }
+      
+
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "errors": [
+                  {
+                     "message": "Unauthorized"
+                  }
+                ]
+            }
+            
+#Group OTP Verification  
+
+## Send OTP [/send-otp]
+
+### Send OTP [POST]
+
+This endpoint is used to send an OTP to user's mobile number or email.
+    
+#### Send OTP request headers
+* X-Authorization : "YOUR_API_KEY"
+    - This header is used for authentication, replace "YOUR_API_KEY" with  the actual API Key,
+    which can be easily generated from Authentica dashboard.
+* Accept: application/json
+* Content-Type: application/json  
+
+#### Send OTP request body parameters
+
+* method: whatsapp
+    - required if no default channel is not configured.
+    - valid options are [whatsapp, sms, email].
+   
+* phone : +96655XXXXXX
+    - required if used method is sms or whatsapp. 
+    - should be a valid international phone number.
+    
+* email : email@test.test
+    - required if used method is email. 
+    - should be a valid email address.
+    
+* template_id: 8
+    - optional, default is 1.
+    - you can send OTPs to your customers using various templates provided by Authentica. Each template is designed for a specific channel, so the selected method should align with the template's designated channel.
+
+* fallback_phone : +96655XXXXXX
+    - required if app's fallback channel is  sms or whatsapp. 
+    - should be a valid international phone number.  
+    
+* fallback_email : email@test.test
+    - required if app's fallback channel is  email. 
+    - should be a valid email address.      
+    
+* otp : 123456
+    - optional.
+    - custom OTP to be sent to your customer, accept only numbers.
+
+   
+    
+#### curl for send otp request
+
+```` 
+    curl --location 'api.authentica.sa/api/v2/send-otp' \
+    --header 'Accept: application/json' \
+    --header 'X-Authorization: $2y$10$XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' \
+    --header 'Content-Type: application/json' \
+    --data '{
+        "method":"sms",
+        "phone":"+9665XXXXXXXXX",
+        "template_id":31,
+        "fallback_email":"email@test.test",
+        "otp":"123456"
+    }'
+```   
+  
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+            X-Authorization: api-key-provided-by-authentica
+
+    + Body
+
+            {
+                "method": "sms-or-whatsapp",
+                "phone": "phone-number-of-the-recipient-in-international-format",
+                "template_id":"valid-template-id-from-Authentica",
+                "fallback_email":"valid-email-address",
+                "otp":"123456"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                 "success": true,
+                 "data": null,
+                 "message": "OTP send successfully"
+            }
+        
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "errors": [
+                  {
+                     "message": "Unauthorized"
+                  }
+                ]
+            }
+            
+            
+## Verify OTP [/verify-otp]
+
+### Verify OTP [POST]
+
+This endpoint is used to verify the OTP for user authentication.
+
+
+#### Verify OTP request headers
+* X-Authorization : "YOUR_API_KEY"
+    - This header is used for authentication, replace "YOUR_API_KEY" with  the actual API Key,
+    which can be easily generated from your Authentica account (https://portal.authentica.sa/settings/apikeys/).
+* Accept: application/json
+* Content-Type: application/json  
+
+#### Verify OTP request body parameters
+* phone : +96655XXXXXX
+    - required if sms or whatsapp is used as primary or fallback channel.
+    - should be a valid international phone number.
+    
+* email : email@test.test
+    - required if email is used as primary or fallback channel.
+    - should be a valid email address.    
+   
+* otp : XXXXXX
+    - required. 
+    - the value to be validated against the OTP sent to your customer.
+
+#### curl for verify otp request
+
+```
+    curl --location 'api.authentica.sa/api/v2/verify-otp' \
+    --header 'X-Authorization: $XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' \
+    --header 'Accept: application/json' \
+    --header 'Content-Type: application/json' \
+    --data '{
+        "phone":"+9665XXXXXXXX",
+        "email":"email@test.test",
+        "otp":"OTP-ENTERED-BY-THE-USER"
+    }'
+```    
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+            X-Authorization: api-key-provided-by-authentica
+
+    + Body
+
+            {
+                "phone": "phone-number-of-the-recipient-in-international-format",
+                "email":"email-address-of-the-recipient",
+                "otp": "the-otp-entered-by-the-customer"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "status": true,
+                "message": "OTP verified successfully"
+            }
+            
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "errors": [
+                  {
+                     "message": "Unauthorized"
+                  }
+                ]
+            }
+
+#Group Nafath Verification
+
+            
+## Verify By Nafath [/verify-by-nafath]
+
+### Verify By Nafath [POST]
+
+This endpoint is used to initiate verification process via Nafath.
+
+#### Verify By Nafath request headers
+* X-Authorization : "YOUR_API_KEY"
+    - This header is used for authentication, replace "YOUR_API_KEY" with  the actual API Key,
+    which can be easily generated from your Authentica account (https://portal.authentica.sa/settings/apikeys/).
+* Accept: application/json
+* Content-Type: application/json  
+
+#### Verify By Nafath request body parameters
+* national_id : 123XXXXXXX
+    - required,valid national id number.
+
+#### curl for verify by nafath request
+
+```
+    curl --location 'api.authentica.sa/api/v2/verify-by-nafath' \
+    --header 'X-Authorization: $XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' \
+    --header 'Accept: application/json' \
+    --header 'Content-Type: application/json' \
+    --data '{
+        "national_id":"123XXXXXXX"
+    }'
+```    
+        
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+            X-Authorization: api-key-provided-by-authentica
+
+    + Body
+
+            {
+                "national_id": "valid-national-id"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": true,
+                "data": {
+                    "TransactionId": "unique-id-for-verification-process",
+                    "Code": "code-must-be-selected-by-your-customer"
+                }
+            }
+            
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "errors": [
+                  {
+                     "message": "Unauthorized"
+                  }
+                ]
+            }
+
+
+#Group Nafath with Data
+## Get Data by Nafath [/nafath/request]
+
+### Get Data by Nafath [POST]
+
+This endpoint is used to initiate verification with data process via Nafath.
+
+#### Verify By Nafath request headers
+* X-Authorization : "YOUR_API_KEY"
+    - This header is used for authentication, replace "YOUR_API_KEY" with  the actual API Key,
+    which can be easily generated from your Authentica account (https://portal.authentica.sa/settings/apikeys/).
+* Accept: application/json
+* Content-Type: application/json  
+
+#### Verify By Nafath request body parameters
+* national_id : 123XXXXXXX
+    - required,valid national id number.
+* phone_number : 966XXXXXXX
+    - required,valid mobile number.
+
+#### curl for verify by nafath request
+
+```
+    curl --location 'api.authentica.sa/api/v2/nafath/request' \
+    --header 'X-Authorization: $XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' \
+    --header 'Accept: application/json' \
+    --header 'Content-Type: application/json' \
+    --data '{
+        "national_id":"123XXXXXXX",
+        "phone_number": "966XXXXXXX"
+    }'
+```    
+        
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+            X-Authorization: api-key-provided-by-authentica
+
+    + Body
+
+            {
+                "national_id": "valid-national-id",
+                "phone_number": "valid-phone-number"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "request_id": "abf74ba4-SAMPLE-4b17-bb88-4e9ac255985a"
+            }
+            
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "errors": [
+                  {
+                     "message": "Unauthorized"
+                  }
+                ]
+            }
+            
+## Verify request [/nafath/verify]
+
+### Verify Request [POST]
+
+This endpoint is used to verify the request.
+
+#### Verify request headers
+* X-Authorization : "YOUR_API_KEY"
+    - This header is used for authentication, replace "YOUR_API_KEY" with  the actual API Key,
+    which can be easily generated from your Authentica account (https://portal.authentica.sa/settings/apikeys/).
+* Accept: application/json
+* Content-Type: application/json  
+
+#### Verify request body parameters
+* otp : xxxxxx
+    - required.
+* request_id : xxxxxx
+    - required.
+
+#### curl for verify by nafath request
+
+```
+    curl --location 'api.authentica.sa/api/v2/nafath/verify' \
+    --header 'X-Authorization: $XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' \
+    --header 'Accept: application/json' \
+    --header 'Content-Type: application/json' \
+    --data '{
+        "otp":"xxxx",
+        "request_id":"xxxxx-xxxx-xxxx-xxxx-xxxxxxxxx"
+    }'
+```    
+        
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+            X-Authorization: api-key-provided-by-authentica
+
+    + Body
+
+            {
+                "otp": "valid-otp",
+                "request_id": "valid-id"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+           {
+                "success": true,
+                "data": {
+                    "TransactionId": "unique-id-for-verification-process",
+                    "Code": "code-must-be-selected-by-your-customer"
+                }
+            }
+            
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "errors": [
+                  {
+                     "message": "Unauthorized"
+                  }
+                ]
+            }
+#Group Webhook Notifications
+
+
+Authentica sends a notification to the client’s registered webhook URL once NAFATH completes the verification.
+
+### Webhook Request Details
+
+* Method : POST
+* URL: Client’s registered webhook URL.
+
+Note: Contact [Authentica support team](https://wa.me/966550021781) to set up a webhook for your application to start receiving notifications.    
+
+### Webhook Payload Fields
+* TransactionId:
+    * Type: String.
+    * Description: Unique ID for the transaction
+* NationalId:
+    * Type: String.
+    * Description: National ID of your customer.
+* Status:
+    * Type: String.
+    * Description: Verification status (COMPLETED or REJECTED.)
+* Password:
+    * Type: String.
+    * Description: Verification password for request authenticity.
+
+### Webhook Payload Example
+
+```
+    {
+      "TransactionId": "6419747b-b0d7-4564-8755-a7f554d16b10",
+      "NationalId": "1234567891",
+      "Status": "COMPLETED",
+      "Password": "your-secure-password"
+    }
+```
+
+#### Webhook Security
+
+Clients should verify the Password field to ensure the notification is from Authentica.
+
+#Group Face Verification
+
+## Verify By Face [/verify-by-face]
+
+### Verify By Face [POST]
+
+This endpoint is used to verify whether the reference image and the real-time image match.
+
+#### Verify By Face request headers
+* X-Authorization : "YOUR_API_KEY"
+    - This header is used for authentication, replace "YOUR_API_KEY" with  the actual API Key,
+    which can be easily generated from your Authentica account (https://portal.authentica.sa/settings/apikeys/).
+* Accept: application/json
+* Content-Type: multipart/form-data;
+
+#### Verify By Face request body parameters
+* user_id : 123XXXXXXX
+    - required, the unique identifier of your user.
+* registered_face_image : /9j/4AAQSkZJRXXXXXXXXX
+    - base64-encoded reference image.
+    - required only if no face image is already stored in Authentica for this user_id.
+* query_face_image : /9j/4AAQSkZJRXXXXXXXXX
+    - required, base64-encoded real-time image captured by your application.
+    
+    
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+            X-Authorization: api-key-provided-by-authentica
+
+    + Body
+    
+            {
+                "user_id":"your-user-id",
+                "registered_face_image":"base64-image",
+                "query_face_image":"base64-image"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": true,
+                "data": {
+                    "user_id":"user-id-sent-in-the-request",
+                    "result": "True" 
+                }
+            }
+      
+
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "errors": [
+                  {
+                     "message": "Unauthorized"
+                  }
+                ]
+            }
+
+
+## Reference Face Image [/users/{user_id}/image]
+
+### Store Reference Face Image  [POST]
+This endpoint is used to store reference images for your users
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+            X-Authorization: api-key-provided-by-authentica
+
+    + Body
+    
+            {
+                "face_image":"required-base64-image"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": true,
+                "data": {
+                    "user_id": "sent_user_id",
+                    "image_size": "7 KB",
+                    "image_format": "jpeg",
+                    "updated_at": "2025-07-10 07:50:38",
+                    "created_at": "2025-07-10 07:50:38",
+                    "id": "stored-image-id",
+                    "app": {
+                        "id": "your-application-id",
+                        "name": "your-application-name",
+                    }
+                },
+                "message": "Face image stored successfully"
+            }
+      
+
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "errors": [
+                  {
+                     "message": "Unauthorized"
+                  }
+                ]
+            }
+
+
+### Get Reference Face Image  [GET]
+This endpoint is used to get reference images for your users
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+            X-Authorization: api-key-provided-by-authentica
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": true,
+                "data": {
+                    "user_id": "sent_user_id",
+                    "image_size": "7 KB",
+                    "image_format": "jpeg",
+                    "updated_at": "2025-07-10 07:50:38",
+                    "created_at": "2025-07-10 07:50:38",
+                    "id": "stored-image-id",
+                    "app": {
+                        "id": "your-application-id",
+                        "name": "your-application-name",
+                    }
+                },
+                "message": "Face image retrieved successfully"
+            }
+      
+
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "errors": [
+                  {
+                     "message": "Unauthorized"
+                  }
+                ]
+            }
+            
+
+### Delete Reference Face Image  [DELETE]
+This endpoint is used to delete reference images for your users
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+            X-Authorization: api-key-provided-by-authentica
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": true,
+                "data": null,
+                "message": "Face image deleted successfully"
+            }
+      
+
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "errors": [
+                  {
+                     "message": "Unauthorized"
+                  }
+                ]
+            }            
+            
+#Group Voice Verification
+
+## Verify By Voice [/verify-by-voice]
+
+### Verify By Voice [POST]
+
+This endpoint is used to verify whether the reference audio and the real-time audio match.
+
+#### Verify By Voice request headers
+* X-Authorization : "YOUR_API_KEY"
+    - This header is used for authentication, replace "YOUR_API_KEY" with  the actual API Key,
+    which can be easily generated from your Authentica account (https://portal.authentica.sa/settings/apikeys/).
+* Accept: application/json
+* Content-Type: application/json  
+
+#### Verify By Voice request body parameters
+* user_id : 123XXXXXXX
+    - required, the unique identifier of your user.
+* registered_audio : SUQzBAAAAAABIXXXXXXXXX
+    - base64-encoded reference audio.
+    - required only if no audio is already stored in Authentica for this user_id.
+* query_audio : SUQzBAAAAAABIXXXXXXXXX
+    - required, base64-encoded real-time audio captured by your application.
+    
+    
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+            X-Authorization: api-key-provided-by-authentica
+
+    + Body
+    
+            {
+                "user_id":"your-user-id",
+                "registered_audio":"base64-audio",
+                "query_audio":"base64-audio"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": true,
+                "data": {
+                    "user_id":"user-id-sent-in-the-request",
+                    "result": true
+                }
+            }
+      
+
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "errors": [
+                  {
+                     "message": "Unauthorized"
+                  }
+                ]
+            }
+
+
+## Reference Audio [/users/{user_id}/voice]
+
+### Store Reference Audio  [POST]
+This endpoint is used to store reference audio for your users
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+            X-Authorization: api-key-provided-by-authentica
+
+    + Body
+    
+            {
+                "audio":"required-base64-audio"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": true,
+                "data": {
+                    "user_id": "sent_user_id",
+                    "audio_size": "7 KB",
+                    "audio_format": "mpeg",
+                    "updated_at": "2025-07-10 07:50:38",
+                    "created_at": "2025-07-10 07:50:38",
+                    "id": "stored-audio-id",
+                    "app": {
+                        "id": "your-application-id",
+                        "name": "your-application-name",
+                    }
+                },
+                "message": "Audio stored successfully"
+            }
+      
+
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "errors": [
+                  {
+                     "message": "Unauthorized"
+                  }
+                ]
+            }
+
+
+### Get Reference Audio  [GET]
+This endpoint is used to get stored reference audio for your users
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+            X-Authorization: api-key-provided-by-authentica
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": true,
+                "data": {
+                    "user_id": "sent_user_id",
+                    "image_size": "7 KB",
+                    "image_format": "mpeg",
+                    "updated_at": "2025-07-10 07:50:38",
+                    "created_at": "2025-07-10 07:50:38",
+                    "id": "stored-audio-id",
+                    "app": {
+                        "id": "your-application-id",
+                        "name": "your-application-name",
+                    }
+                },
+                "message": "Audio retrieved successfully"
+            }
+      
+
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "errors": [
+                  {
+                     "message": "Unauthorized"
+                  }
+                ]
+            }
+            
+
+### Delete Reference Audio  [DELETE]
+This endpoint is used to delete stored reference audio for your users
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+            X-Authorization: api-key-provided-by-authentica
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": true,
+                "data": null,
+                "message": "Audio deleted successfully"
+            }
+      
+
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "errors": [
+                  {
+                     "message": "Unauthorized"
+                  }
+                ]
+            }                        
+            
+            
+#Group Custom SMS Messages
+
+## Send SMS [/send-sms]
+
+### Send SMS [POST]
+
+This endpoint is to send SMS messages to your customers.
+
+#### Send SMS request headers
+* X-Authorization : "YOUR_API_KEY"
+    - This header is used for authentication, replace "YOUR_API_KEY" with  the actual API Key,
+    which can be easily generated from your Authentica account (https://portal.authentica.sa/apps/).
+* Accept: application/json
+* Content-Type: application/json  
+
+#### curl for send SMS request
+
+    
+```
+    curl --location 'api.authentica.sa/api/v2/send-sms' \
+    --header 'Accept: application/json' \
+    --header 'X-Authorization: $2y$1xxxxxxxxxxxxxxxxxxx' \
+    --header 'Content-Type: application/json' \
+    --data '{
+        "phone":"+9665XXXXXXXX",
+        "message":"your-custom-message",
+        "sender_name":"your-registered-sender-name"
+    }'
+```
+
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+            X-Authorization: api-key-provided-by-authentica
+
+    + Body
+    
+            {
+                "phone":"phone-number-of-the-recipient-in-international-format",
+                "message":"the message that needs to be sent",
+                "sender_name":"your-valid-sender-name"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": true,
+                "message": "Message sent successfully."
+            }
+      
+
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "errors": [
+                  {
+                     "message": "Unauthorized"
+                  }
+                ]
+            }
+
+             
+            
+
+
+             
+            
+
+
+
+
+

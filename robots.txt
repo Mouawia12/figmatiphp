@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /uploads/
+Allow: /
+
+Sitemap: /crosing/sitemap.xml
+

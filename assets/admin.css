@@ -1,0 +1,204 @@
+/* ===============================
+   THEME TOKENS
+   =============================== */
+
+/* Light (نهاري) — مطابق لهوية الموقع */
+:root{
+  --bg:#f7f9fc;        /* خلفية عامة */
+  --panel:#ffffff;     /* بطاقات/جداول */
+  --panel-2:#eef2f7;   /* عناصر ثانوية/رؤوس */
+  --ink:#0f172a;       /* نص أساسي */
+  --muted:#64748b;     /* نص ثانوي */
+  --border:#e5e7eb;    /* حدود خفيفة */
+  --accent:#0ea5e9;    /* Primary */
+  --accent-2:#06b6d4;  /* Gradient stop */
+  --ok:#10b981; --warn:#f59e0b; --danger:#ef4444;
+
+  --radius:16px;
+  --shadow:0 8px 24px rgba(15,23,42,.08);
+
+  --header-h:64px;
+  --sidebar-w:260px;
+  --brand-logo-h:44px; /* تحكم سريع بحجم الشعار */
+}
+
+/* Dark (ليلي) — قريب من Google dark */
+:root[data-theme="dark"]{
+  --bg:#202124;
+  --panel:#303134;
+  --panel-2:#2b2c2f;
+  --ink:#e8eaed;
+  --muted:#9aa0a6;
+  --border:rgba(255,255,255,.1);
+  --accent:#8ab4f8;          /* Google blue */
+  --accent-2:#5eead4;
+  --shadow:0 14px 30px rgba(0,0,0,.35);
+}
+
+/* ===============================
+   RESET & BASE
+   =============================== */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Kufi Arabic", "Noto Naskh Arabic", "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+/* Helpers */
+.container{width:min(1200px,94%);margin-inline:auto}
+.icon-btn{
+  border:1px solid var(--border);
+  background:var(--panel-2);
+  color:var(--ink);
+  border-radius:12px;
+  padding:8px 10px;
+  cursor:pointer;
+}
+.icon-btn:hover{filter:brightness(1.02)}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  border-radius:999px;border:1px solid var(--border);
+  padding:10px 14px;font-weight:700;text-decoration:none;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  color:#00131a;
+}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn:disabled{opacity:.6}
+
+/* ===============================
+   HEADER
+   =============================== */
+.header{
+  position:sticky; top:0; z-index:50;
+  height:var(--header-h);
+  background:linear-gradient(180deg, var(--panel-2) 0%, var(--bg) 100%);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:saturate(120%) blur(6px);
+}
+.header .h-inner{
+  height:100%;display:flex;align-items:center;justify-content:space-between;
+  gap:12px; padding-inline:12px; width:min(1200px,94%); margin-inline:auto;
+}
+.brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit}
+.brand-logo{
+  height:var(--brand-logo-h); width:auto; display:block;
+}
+.brand-name{font-weight:800; letter-spacing:.3px}
+
+/* ===============================
+   LAYOUT
+   =============================== */
+.app{
+  display:grid; grid-template-columns: var(--sidebar-w) 1fr;
+  min-height:calc(100vh - var(--header-h));
+}
+@media (max-width:1100px){
+  .app{ grid-template-columns: 1fr; }
+}
+
+/* Sidebar */
+.sidebar{
+  background:var(--panel);
+  border-inline-end:1px solid var(--border);
+  position:sticky; top:var(--header-h);
+  height:calc(100vh - var(--header-h));
+  overflow:auto; z-index:40;
+}
+@media (max-width:1100px){
+  .sidebar{ position:fixed; inset:var(--header-h) 0 0 auto; width:var(--sidebar-w); transform:translateX(100%); transition:transform .25s ease; }
+  .sidebar.open{ transform:none; }
+  .sidebar-backdrop{ position:fixed; inset:var(--header-h) 0 0 0; background:rgba(0,0,0,.35); z-index:39; }
+}
+
+/* Sidebar header */
+.s-logo{display:flex; align-items:center; gap:10px; padding:14px; border-bottom:1px solid var(--border)}
+.s-logo .name{font-weight:800; color:var(--ink); flex:1}
+.s-logo .brand-logo{height:36px; width:auto}
+
+/* Nav */
+.s-nav{display:grid; padding:8px}
+.s-nav a{
+  display:flex; align-items:center; gap:10px;
+  padding:10px 12px; border-radius:12px; color:var(--ink); text-decoration:none;
+  border:1px solid transparent;
+}
+:root:not([data-theme="dark"]) .s-nav a:hover{ background:#eef2f7 }
+:root[data-theme="dark"] .s-nav a:hover{ background:#2b2c2f }
+.s-nav a.active{
+  background:linear-gradient(135deg, rgba(14,165,233,.14), rgba(6,182,212,.14));
+  border-color:var(--accent);
+}
+
+/* Main */
+main{ position:relative; z-index:1; padding:28px 20px 40px; }
+.container > .card,
+.container > .grid,
+.container > .section{ margin-block:16px }
+
+/* ===============================
+   CARDS / GRID / KPI
+   =============================== */
+.grid{display:grid;gap:16px}
+.grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:1100px){.grid.cols-3,.grid.cols-2{grid-template-columns:1fr}}
+
+.card{
+  background:var(--panel); border:1px solid var(--border);
+  border-radius:var(--radius); box-shadow:var(--shadow); padding:16px
+}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin:6px 0 12px}
+.section-head h3{margin:0}
+
+/* KPI */
+.kpi{display:flex;align-items:center;gap:12px}
+.kpi .icon{width:40px;height:40px;border-radius:10px;display:grid;place-items:center}
+:root:not([data-theme="dark"]) .kpi .icon{background:#eef6ff;color:#0284c7}
+:root[data-theme="dark"] .kpi .icon{background:rgba(138,180,248,.15);color:var(--accent)}
+.kpi .num{font-size:26px;font-weight:800}
+.kpi .label{color:var(--muted)}
+
+/* ===============================
+   TABLE
+   =============================== */
+.table{width:100%;border-collapse:separate;border-spacing:0}
+.table thead th{
+  text-align:right;font-weight:700;color:var(--ink);
+  background:var(--panel-2);padding:10px 12px;border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:2
+}
+.table tbody td{padding:10px 12px;border-top:1px solid var(--border);color:var(--ink)}
+.table tbody tr:hover{background:rgba(2,132,199,.06)}
+:root[data-theme="dark"] .table tbody tr:hover{background:#2b2c2f}
+
+/* ===============================
+   FORMS
+   =============================== */
+.input,.select,.textarea{
+  width:100%;padding:10px 12px;border-radius:10px;
+  border:1px solid var(--border);background:var(--panel-2);color:var(--ink)
+}
+.form-row{display:grid;gap:10px}
+.form-row.cols-2{grid-template-columns:1fr 1fr}
+@media (max-width:800px){ .form-row.cols-2{grid-template-columns:1fr} }
+
+.badge-soft{padding:2px 8px;border-radius:999px;font-size:12px;background:rgba(0,0,0,.06);color:var(--muted)}
+:root[data-theme="dark"] .badge-soft{background:rgba(255,255,255,.08)}
+
+/* User pill */
+.user-pill{
+  display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;
+  border:1px solid var(--border);background:var(--panel-2);color:var(--ink)
+}
+.user-pill .dot{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+
+/* ===============================
+   MISC
+   =============================== */
+.empty{padding:34px 12px;color:var(--muted);text-align:center}
+.sidebar-backdrop[hidden]{display:none}
+
+/* احترس من قواعد عامة للصوَر — ثبّت حجم الشعار */
+img{max-width:100%;height:auto}
+img.brand-logo{width:auto !important;max-width:none !important}
