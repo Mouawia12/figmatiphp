@@ -14,180 +14,367 @@ $siteDesc = "تعتز شركة عزم الإنجاز بعملائها وتسعى
 // حالة المصادقة
 $isAuth = !empty($_SESSION['user']['id']);
 
+$heroStats = [
+    ['value' => '+150', 'label' => 'مشروع مكتمل'],
+    ['value' => '96%', 'label' => 'رضا العملاء'],
+    ['value' => '24/7', 'label' => 'دعم فوري'],
+];
+
+$serviceCards = [
+    [
+        'icon' => 'fa-file-signature',
+        'title' => 'طلبات عرض السعر',
+        'description' => 'اطلب عرض سعر دقيق يلائم احتياجات مشروعك، مع توصيات المتخصصين وخيارات التوريد المناسبة.',
+        'cta' => 'اطلب عرض سعر',
+        'href' => app_href('request-for-quote.php'),
+    ],
+    [
+        'icon' => 'fa-hand-holding-dollar',
+        'title' => 'البيع بالأجل',
+        'description' => 'حلول تمويل مرنة للشركات والمنشآت الصغيرة والمتوسطة بأسعار شفافة وخطط سداد ميسرة.',
+        'cta' => 'ابدأ خدمة البيع بالأجل',
+        'href' => app_href('form.php'),
+    ],
+    [
+        'icon' => 'fa-ruler-combined',
+        'title' => 'التصميم الداخلي',
+        'description' => 'صمّم مساحاتك مع مهندسين محترفين، واحصل على رؤية متكاملة للتوريد والتنفيذ قبل البدء.',
+        'cta' => 'اطلب جلسة تصميم',
+        'href' => app_href('interior-design-request.php'),
+    ],
+    [
+        'icon' => 'fa-store',
+        'title' => 'المتجر الإلكتروني',
+        'description' => 'تسوق منتجات البناء والتشطيب من منصة موثوقة مع خيارات شحن سريعة ودعم متخصص.',
+        'cta' => 'تصفح المنتجات',
+        'href' => 'https://azmalenjaz.com/',
+    ],
+];
+
+$aboutHighlights = [
+    'فريق متخصص في إدارة سلاسل الإمداد وتوريد مواد البناء بجودة عالية.',
+    'شراكات مع أفضل الموردين لضمان توفر المنتجات بسرعة وأسعار تنافسية.',
+    'نظام رقمي متكامل لتتبع الطلبات والتواصل مع فريق الدعم في كل لحظة.',
+    'حلول تصميم داخلي تجمع الجمالية بالوظيفية، مع التزام بتنفيذ متقن.',
+];
+
+$whyReasons = [
+    ['title' => 'خبرة توريد عميقة', 'description' => 'خبرة تراكمية في توفير مواد البناء والتشطيب لمشاريع كبرى ومتوسطة.'],
+    ['title' => 'تكامل كامل للخدمات', 'description' => 'من التصور الأولي وحتى التسليم، نوفر التصميم، التوريد، والتمويل في منصة واحدة.'],
+    ['title' => 'تسهيلات سداد مرنة', 'description' => 'خطط دفع بالأجل تعطي منظمتك مساحة للتحرك والنمو بدون ضغوط مالية.'],
+    ['title' => 'دعم ذكي ومتواصل', 'description' => 'شات بوت ذكي وفريق دعم بشري لمتابعة طلباتك والاستجابة الفورية لاستفساراتك.'],
+    ['title' => 'سرعة في التسليم', 'description' => 'شبكة لوجستية تضمن وصول الموارد بدقة وفي الوقت المتفق عليه.'],
+];
+
+$faqItems = [
+    [
+        'question' => 'ماهو الدفع الآجل (BNPL)؟',
+        'answer' => 'الدفع الآجل هو خدمة تمويل تتيح لك شراء المنتجات أو الخدمات الآن وتسديد قيمتها على دفعات ميسرة خلال فترة محددة، مما يساعدك على إدارة تدفقاتك النقدية بمرونة.',
+    ],
+    [
+        'question' => 'من يمكنه الاستفادة من خدمة الدفع الآجل؟',
+        'answer' => 'تتوفر الخدمة لجميع الشركات المسجلة رسميًا في المملكة العربية السعودية، بما في ذلك المؤسسات الصغيرة والمتوسطة، التي تستوفي شروط الأهلية المحددة.',
+    ],
+    [
+        'question' => 'ما هي المنتجات التي تقدمها شركة عزم الإنجاز؟',
+        'answer' => 'نقدم مجموعة واسعة من مواد البناء والتشطيب والخدمات اللوجستية المرتبطة بها، بالإضافة إلى حلول التصميم الداخلي وخيارات التمويل بالأجل.',
+    ],
+    [
+        'question' => 'ما هي خدمات التصميم الداخلي التي تقدمها الشركة؟',
+        'answer' => 'نوفر خدمات التصميم الداخلي الشاملة من التخطيط المفاهيمي وحتى التوريد والتنفيذ، مع مراعاة هوية المشروع وميزانيته.',
+    ],
+    [
+        'question' => 'هل توفرون توصيل للمنتجات؟',
+        'answer' => 'نعم، نغطي التوصيل إلى مختلف مناطق المملكة عبر شبكة لوجستية موثوقة، مع إمكانية تتبع الطلب لحظة بلحظة.',
+    ],
+    [
+        'question' => 'هل يمكنني الحصول على استشارة قبل الشراء؟',
+        'answer' => 'بالطبع، يوفر فريقنا الاستشاري جلسات مجانية لمناقشة الحلول الأنسب لمشروعك واختيار التوريد أو الخدمة المثلى.',
+    ],
+];
+
+$quickLinks = [
+    [
+        'title' => 'قدّم طلب البيع بالأجل',
+        'description' => 'ابدأ نموذج الطلب الإلكتروني ووفّر علينا البيانات الأساسية لمتابعة فريقنا معك.',
+        'href' => app_href('form.php'),
+        'icon' => 'fa-file-pen',
+    ],
+    [
+        'title' => 'تتبّع حالة طلبك',
+        'description' => 'أدخل رقم الطلب لمعرفة آخر التحديثات وخطوات المعالجة الحالية.',
+        'href' => app_href('track.php'),
+        'icon' => 'fa-location-dot',
+    ],
+    [
+        'title' => 'استعرض وثائق الـAPI',
+        'description' => 'تكامل برمجي سلس مع منصاتكم عبر واجهات موثقة وواضحة.',
+        'href' => app_href('api_docs.php'),
+        'icon' => 'fa-code',
+    ],
+];
+
 // تضمين SEO قبل header
 include __DIR__ . "/partials/seo.php";
 require __DIR__ . '/partials/header.php';
 ?>
 
-<main>
-  <!-- Hero -->
-  <section class="hero-section">
-    <div class="container">
-      <div class="row align-items-center gy-4">
-        <div class="col-12 col-lg-7">
-          <span class="badge rounded-pill text-bg-light soft-badge"></span>
-          <h1 class="display-5 fw-bold mb-3"><?= e($modelName) ?></h1>
-          <p class="lead text-muted mb-4"><?= e($siteDesc) ?></p>
-          <div class="d-flex flex-wrap gap-2">
-            <a href="<?= e(app_href('form.php')) ?>" class="btn btn-primary btn-lg px-4">قدّم الآن</a>
-            <a href="<?= e(app_href('track.php')) ?>" class="btn btn-outline-secondary btn-lg px-4">تتبّع طلبك</a>
-          </div>
-          <div class="mt-3 small">
-            <?php if(!$isAuth): ?>
-              <span>للمسؤولين:</span>
-              <a href="<?= e(app_href('login.php')) ?>" class="link-body-emphasis me-2">تسجيل الدخول</a>
-              <a href="<?= e(app_href('register.php')) ?>" class="link-body-emphasis">إنشاء حساب</a>
-            <?php else: ?>
-              
-            <?php endif; ?>
-          </div>
-        </div>
-        <div class="col-12 col-lg-5">
-          <div class="hero-card card border-0 shadow-sm">
-            <div class="card-body">
-              <h2 class="h5 mb-3">لماذا "اشترِ الآن وسدّد لاحقًا"؟</h2>
-              <ul class="list-unstyled mb-0 small">
-                <li class="mb-2">دفعات ميسّرة بآجال مرنة</li>
-                <li class="mb-2">إجراءات بسيطة وسريعة</li>
-                <li class="mb-2">حلول للشركات والمنشآت الصغيرة والمتوسطة</li>
-                <li class="mb-0">خصوصية وأمان على أعلى مستوى</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div><!-- row -->
-    </div><!-- container -->
-  </section>
 
-  <!-- FAQ -->
-  <section id="faq" class="section-pad bg-soft">
+<main class="overflow-hidden">
+  <section class="hero-section" id="hero">
     <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-10">
-          <h3 class="mb-4 text-center">الأسئلة الشائعة</h3>
-
-          <div class="accordion" id="faqAccordion">
-            <!-- 1 -->
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="q1">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a1" aria-expanded="false">
-                  ١- ما هو الدفع الآجل (BNPL)؟
-                </button>
-              </h2>
-              <div id="a1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                  الدفع الآجل هو خدمة تمويل تتيح لك شراء المنتجات أو الخدمات الآن وتسديد قيمتها على دفعات ميسرة خلال فترة محددة، مما يساعدك على إدارة تدفقاتك النقدية بمرونة.
+      <div class="row align-items-center gy-5">
+        <div class="col-lg-6">
+          <span class="hero-eyebrow animate-fade">
+            <i class="fas fa-bolt"></i>
+            حلول البناء المتكاملة
+          </span>
+          <h1 class="hero-title animate-fade delay-1">
+            عزمنا في <span class="accent">التوريد</span> أساس كل إنجاز
+          </h1>
+          <p class="hero-subtitle animate-fade delay-2">
+            من خلال منصة عزم الإنجاز نوفر لك مسارًا واحدًا يضم التصميم، التوريد، والبيع بالأجل لتنجز مشروعك بثقة وسرعة وبجودة تتجاوز التوقعات.
+          </p>
+          <div class="hero-actions animate-fade delay-3">
+            <a href="<?= e(app_href('form.php')) ?>" class="btn btn-primary d-inline-flex align-items-center gap-2">
+              <i class="fas fa-credit-card"></i>
+              <span>ابدأ خدمة البيع بالأجل</span>
+            </a>
+            <a href="https://azmalenjaz.com/" class="btn btn-outline-secondary d-inline-flex align-items-center gap-2" target="_blank" rel="noopener">
+              <i class="fas fa-store"></i>
+              <span>تصفح المتجر</span>
+            </a>
+          </div>
+          <ul class="hero-checklist animate-fade delay-4 list-unstyled">
+            <li>
+              <span class="icon"><i class="fas fa-circle-check"></i></span>
+              <span>خطط تمويل مرنة تلائم الشركات والمنشآت الطموحة.</span>
+            </li>
+            <li>
+              <span class="icon"><i class="fas fa-circle-check"></i></span>
+              <span>تصميم، توريد، وتنفيذ في رحلة رقمية موحدة.</span>
+            </li>
+            <li>
+              <span class="icon"><i class="fas fa-circle-check"></i></span>
+              <span>دعم فوري عبر الشات الذكي وفريق مبيعات متخصص.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="col-lg-6">
+          <div class="hero-illustration animate-fade delay-2">
+            <div class="hero-visual text-white position-relative overflow-hidden">
+              <div class="position-relative z-1 p-4 p-md-5 d-flex flex-column h-100">
+                <div>
+                  <span class="badge bg-white text-primary fw-semibold px-3 py-2 rounded-pill text-nowrap">خدمات متكاملة</span>
+                  <h3 class="fs-3 fw-bold mt-4 mb-3">من الاستشارة إلى التسليم</h3>
+                  <p class="mb-0 text-white-50">فريقنا يدير تفاصيل المشروع كاملة: توريد، تمويل، وتنفيذ بموثوقية عالية.</p>
+                </div>
+                <div class="d-flex flex-wrap gap-3 mt-auto pt-4">
+                  <div class="glass px-4 py-3 rounded-4 text-center text-primary fw-semibold">توريد</div>
+                  <div class="glass px-4 py-3 rounded-4 text-center text-primary fw-semibold">تصميم</div>
+                  <div class="glass px-4 py-3 rounded-4 text-center text-primary fw-semibold">تمويل</div>
                 </div>
               </div>
             </div>
-            <!-- 2 -->
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="q2">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a2" aria-expanded="false">
-                  ٢- من يمكنه الاستفادة من خدمة الدفع الآجل؟
-                </button>
-              </h2>
-              <div id="a2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                  تتوفر الخدمة لجميع الشركات المسجلة رسميًا في المملكة العربية السعودية، بما في ذلك المؤسسات الصغيرة والمتوسطة، التي تستوفي شروط الأهلية المحددة من قبلنا.
-                </div>
+            <div class="hero-floating-card">
+              <div class="row g-3">
+                <?php foreach ($heroStats as $stat): ?>
+                  <div class="col-6 col-md-4">
+                    <div class="hero-stat-card text-center">
+                      <h3><?= e($stat['value']) ?></h3>
+                      <p class="mb-0 text-muted-soft"><?= e($stat['label']) ?></p>
+                    </div>
+                  </div>
+                <?php endforeach; ?>
               </div>
             </div>
-            <!-- 3 -->
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="q3">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a3" aria-expanded="false">
-                  ٣- كيف يتم تحديد مبلغ الدفعات وفترتها؟
-                </button>
-              </h2>
-              <div id="a3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                  يتم تحديد مبلغ الدفعات وفترتها بناءً على حجم الطلب، تاريخ الشركة، وسجلها الائتماني.
-                </div>
-              </div>
-            </div>
-            <!-- 4 -->
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="q4">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a4" aria-expanded="false">
-                  ٤- كيف يمكنني التقديم للحصول على خدمة الدفع الآجل؟
-                </button>
-              </h2>
-              <div id="a4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                  يمكنك التقديم من خلال ملء النموذج الإلكتروني المتاح على موقعنا، أو عبر التواصل المباشر معنا عبر الواتساب أو البريد الإلكتروني.
-                </div>
-              </div>
-            </div>
-            <!-- 5 -->
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="q5">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a5" aria-expanded="false">
-                  ٥- هل تؤثر خدمة الدفع الآجل على سجلي الائتماني؟
-                </button>
-              </h2>
-              <div id="a5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                  نعم، قد يتم الإبلاغ عن معاملات الدفع الآجل إلى الجهات المعنية، مما قد يؤثر على سجلك الائتماني. الالتزام بمواعيد السداد يساعد في تحسين تاريخك الائتماني.
-                </div>
-              </div>
-            </div>
-            <!-- 6 -->
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="q6">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a6" aria-expanded="false">
-                  ٦- هل يمكنني استخدام خدمة الدفع الآجل لشراء أي منتج أو خدمة؟
-                </button>
-              </h2>
-              <div id="a6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">
-                  نعم، يمكنك استخدام الخدمة لشراء المنتجات أو الخدمات المتاحة لدينا، بشرط أن تتوافق مع شروط الاستخدام المحددة.
-                </div>
-              </div>
-            </div>
-          </div><!-- accordion -->
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- روابط مهمة -->
-  <section id="links" class="section-pad">
+  <section class="services-section" id="services">
+    <div class="container">
+      <div class="services-header">
+        <span class="section-eyebrow animate-fade">
+          <i class="fas fa-layer-group"></i>
+          خدماتنا
+        </span>
+        <h2 class="section-title animate-fade delay-1">خدمات البناء في مكان واحد</h2>
+        <p class="section-subtitle mx-auto animate-fade delay-2">
+          اختر الخدمة المناسبة وابدأ رحلتك بثقة مع فريق يتابع كل تفاصيل مشروعك ويضمن وصول الموارد في الوقت المناسب.
+        </p>
+      </div>
+      <div class="services-grid">
+        <?php foreach ($serviceCards as $index => $card): ?>
+          <?php
+            $delayClass = 'delay-' . min(4, $index + 1);
+            $isExternal = strpos($card['href'], 'http') === 0;
+          ?>
+          <article class="service-card animate-fade <?= $delayClass ?>">
+            <div class="service-icon">
+              <i class="fas <?= e($card['icon']) ?>"></i>
+            </div>
+            <h3><?= e($card['title']) ?></h3>
+            <p><?= e($card['description']) ?></p>
+            <a class="btn d-inline-flex align-items-center gap-2" href="<?= e($card['href']) ?>"<?= $isExternal ? ' target="_blank" rel="noopener"' : '' ?>>
+              <span><?= e($card['cta']) ?></span>
+              <i class="fas fa-arrow-left"></i>
+            </a>
+          </article>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-section" id="about">
+    <div class="container">
+      <div class="row gy-4 align-items-center">
+        <div class="col-lg-6 order-lg-2">
+          <div class="about-visual animate-fade delay-2 text-white">
+            <span class="badge d-inline-flex align-items-center gap-2 fw-semibold">
+              <i class="fas fa-shield-heart"></i>
+              ثقة وشراكات
+            </span>
+            <strong>منشآت رائدة تثق بنا لإنجاز مشاريعها الكبرى.</strong>
+            <p class="mb-0 text-white-50">نحن الشريك الموثوق للقطاعات التجارية والإنشائية في المملكة، نقدم حلولًا متكاملة تدعم رؤيتكم للنمو.</p>
+          </div>
+        </div>
+        <div class="col-lg-6 order-lg-1">
+          <span class="section-eyebrow animate-fade">من نحن</span>
+          <h2 class="section-title animate-fade delay-1">
+            منصة سعودية تجمع <span class="accent">حلول البناء</span> والتمويل تحت سقف واحد.
+          </h2>
+          <p class="section-subtitle animate-fade delay-2">
+            منذ انطلاقتنا ونحن نمكّن الشركات من تنفيذ مشاريعها بمرونة، مع باقة خدمات تشمل الاستشارة، التوريد، والبيع بالأجل وفق أعلى المعايير.
+          </p>
+          <ul class="about-features animate-fade delay-3">
+            <?php foreach ($aboutHighlights as $highlight): ?>
+              <li>
+                <span class="icon"><i class="fas fa-check"></i></span>
+                <span><?= e($highlight) ?></span>
+              </li>
+            <?php endforeach; ?>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="why-section" id="why">
+    <div class="container">
+      <div class="row gy-4 align-items-start">
+        <div class="col-lg-5">
+          <span class="section-eyebrow animate-fade">لماذا عزم؟</span>
+          <h2 class="section-title animate-fade delay-1">
+            لماذا تختار <span class="accent">عزم الإنجاز</span> لإدارة مشروعك؟
+          </h2>
+          <p class="section-subtitle animate-fade delay-2">
+            لأننا نؤمن بأن النجاح الحقيقي يتحقق عندما نجمع بين السرعة، الجودة، والالتزام الكامل بالوعد.
+          </p>
+        </div>
+        <div class="col-lg-7">
+          <div class="why-grid">
+            <?php foreach ($whyReasons as $index => $reason): ?>
+              <?php $delayClass = 'delay-' . min(4, $index + 1); ?>
+              <div class="why-card animate-fade <?= $delayClass ?>">
+                <div class="badge"><?= sprintf('%02d', $index + 1) ?></div>
+                <div>
+                  <strong><?= e($reason['title']) ?></strong>
+                  <p><?= e($reason['description']) ?></p>
+                </div>
+              </div>
+            <?php endforeach; ?>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section" id="faq">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-10">
-          <h3 class="mb-4 text-center">روابط مهمة</h3>
-          <div class="row g-3">
-            <div class="col-md-4">
-              <a class="card soft-link h-100 text-decoration-none" href="<?= e(app_href('form.php')) ?>">
-                <div class="card-body">
-                  <h5 class="mb-1">تعبئة النموذج</h5>
-                  <p class="text-muted small mb-0">قدّم طلب السداد لاحقًا عبر النموذج الإلكتروني.</p>
+          <div class="text-center mb-5">
+            <span class="section-eyebrow animate-fade">الأسئلة الشائعة</span>
+            <h2 class="section-title animate-fade delay-1">إجابات سريعة على أهم استفساراتكم</h2>
+            <p class="section-subtitle mx-auto animate-fade delay-2">جمعنا أبرز الأسئلة التي تصلنا من شركائنا لنساعدكم على اتخاذ القرار الصحيح بأسرع وقت.</p>
+          </div>
+          <div class="faq-wrapper animate-fade delay-3">
+            <div class="accordion" id="faqAccordion">
+              <?php foreach ($faqItems as $index => $faq): ?>
+                <?php
+                  $headingId = 'faqHeading' . $index;
+                  $collapseId = 'faqCollapse' . $index;
+                  $isFirst = $index === 0;
+                ?>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="<?= e($headingId) ?>">
+                    <button class="accordion-button<?= $isFirst ? '' : ' collapsed' ?>" type="button" data-bs-toggle="collapse" data-bs-target="#<?= e($collapseId) ?>" aria-expanded="<?= $isFirst ? 'true' : 'false' ?>" aria-controls="<?= e($collapseId) ?>">
+                      <?= e(($index + 1) . '. ' . $faq['question']) ?>
+                    </button>
+                  </h2>
+                  <div id="<?= e($collapseId) ?>" class="accordion-collapse collapse<?= $isFirst ? ' show' : '' ?>" aria-labelledby="<?= e($headingId) ?>" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                      <?= e($faq['answer']) ?>
+                    </div>
+                  </div>
                 </div>
-              </a>
+              <?php endforeach; ?>
             </div>
-            <div class="col-md-4">
-              <a class="card soft-link h-100 text-decoration-none" href="<?= e(app_href('track.php')) ?>">
-                <div class="card-body">
-                  <h5 class="mb-1">تتبّع الطلب</h5>
-                  <p class="text-muted small mb-0">تحقّق من حالة طلبك بسهولة.</p>
-                </div>
-              </a>
-            </div>
-            <div class="col-md-4">
-              <a class="card soft-link h-100 text-decoration-none" href="<?= e(app_href('#')) ?>">
-                <div class="card-body">
-                  <h5 class="mb-1">واجهة برمجية (API)</h5>
-                  <p class="text-muted small mb-0">وثائق الربط والاندماج التقني.</p>
-                </div>
-              </a>
-            </div>
-          </div><!-- row -->
+          </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="links-section" id="links">
+    <div class="container">
+      <div class="row gy-4 align-items-center">
+        <div class="col-lg-4">
+          <span class="section-eyebrow animate-fade">روابط مهمة</span>
+          <h2 class="section-title animate-fade delay-1">ابدأ خطوتك التالية الآن</h2>
+          <p class="section-subtitle animate-fade delay-2">
+            سواء كنت ترغب في تقديم طلب جديد أو متابعة حالة طلب سابق، هذه الروابط تختصر عليك الوقت.
+          </p>
+        </div>
+        <div class="col-lg-8">
+          <div class="links-grid">
+            <?php foreach ($quickLinks as $index => $link): ?>
+              <?php $delayClass = 'delay-' . min(4, $index + 1); ?>
+              <a class="link-card d-block animate-fade <?= $delayClass ?>" href="<?= e($link['href']) ?>">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h4 class="mb-0"><?= e($link['title']) ?></h4>
+                  <span class="badge-soft"><i class="fas <?= e($link['icon']) ?>"></i></span>
+                </div>
+                <p class="mb-0 text-muted-soft"><?= e($link['description']) ?></p>
+              </a>
+            <?php endforeach; ?>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section text-center text-white">
+    <div class="container">
+      <h2 class="fw-bold mb-3">جاهزون لتجهيز مشروعك؟</h2>
+      <p class="lead mb-4 text-white-50">تواصل معنا الآن لحلول مخصصة لمشروعك، وسنكون شريكك في كل خطوة من التخطيط حتى التسليم.</p>
+      <div class="d-flex flex-wrap justify-content-center gap-3">
+        <a href="<?= e(app_href('support/index.php')) ?>" class="btn btn-outline-light d-inline-flex align-items-center gap-2">
+          <i class="fas fa-comments"></i>
+          <span>تواصل مع فريق الدعم</span>
+        </a>
+        <a href="<?= e(app_href('form.php')) ?>" class="btn btn-primary d-inline-flex align-items-center gap-2">
+          <i class="fas fa-calendar-check"></i>
+          <span>احجز مكالمة استشارية</span>
+        </a>
       </div>
     </div>
   </section>
 </main>
+
 
 <!-- نظام الدردشة الذكي - عزم -->
 <script src="<?= e(asset_href('assets/ai-decorator-module.js')) ?>"></script>

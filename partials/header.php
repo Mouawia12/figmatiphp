@@ -37,6 +37,28 @@ $siteTitle = $siteTitle ?? ($APP->site_title ?? 'شركة عزم الإنجاز'
 $modelName = $modelName ?? '';
 if (!isset($siteDesc) || !is_string($siteDesc)) { $siteDesc = ''; }
 $isAuth = $isAuth ?? (!empty($_SESSION['user']['id']));
+$avatarUrl = null;
+if ($isAuth) {
+    if (!empty($_SESSION['avatar_path'])) {
+        $avatarUrl = $_SESSION['avatar_path'];
+    } elseif (!empty($_SESSION['user']['id']) && function_exists('pdo_open')) {
+        try {
+            $db_avatar = pdo_open('users');
+            $st_avatar = $db_avatar->prepare('SELECT avatar_path FROM users WHERE id = ?');
+            $st_avatar->execute([(int)$_SESSION['user']['id']]);
+            $user_avatar = $st_avatar->fetch(PDO::FETCH_ASSOC);
+            if ($user_avatar && !empty($user_avatar['avatar_path'])) {
+                $avatarUrl = $user_avatar['avatar_path'];
+                $_SESSION['avatar_path'] = $avatarUrl;
+            }
+        } catch (Throwable $e) {
+            error_log("Error fetching avatar: " . $e->getMessage());
+        }
+    }
+    if ($avatarUrl && strpos($avatarUrl, 'http://') !== 0 && strpos($avatarUrl, 'https://') !== 0) {
+        $avatarUrl = asset_href($avatarUrl);
+    }
+}
 ?>
 <!doctype html>
 <html lang="ar" dir="rtl">
@@ -65,78 +87,68 @@ if (isset($json_ld_output) && !empty($json_ld_output)) {
 <!-- Font Awesome للأيقونات -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2Pkf6CG5s8zUqDbgHgtE7SNY7VZqC2T9gFSkKf+DQ5BqZbP6Vx1E06R9uA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+<!-- خطوط Google -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 <!-- النمط المخصص -->
 <link rel="stylesheet" href="<?= e(asset_href('assets/styles.css')) ?>">
 </head>
-<body class="app-bg">
+<body class="app-bg has-floating-nav">
 
-<!-- Avatar Dropdown (إذا كان المستخدم مسجل دخول) -->
-<?php if ($isAuth): ?>
-<div style="position: fixed; top: 1rem; left: 1rem; z-index: 1050;">
-  <div class="dropdown">
-    <a class="nav-link dropdown-toggle position-relative" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <?php 
-        $avatarUrl = null;
-        if (!empty($_SESSION['avatar_path'])) {
-            $avatarUrl = $_SESSION['avatar_path'];
-        } elseif (!empty($_SESSION['user']['id']) && function_exists('pdo_open')) {
-            try {
-                $db_avatar = pdo_open('users');
-                $st_avatar = $db_avatar->prepare('SELECT avatar_path FROM users WHERE id = ?');
-                $st_avatar->execute([(int)$_SESSION['user']['id']]);
-                $user_avatar = $st_avatar->fetch(PDO::FETCH_ASSOC);
-                if ($user_avatar && !empty($user_avatar['avatar_path'])) {
-                    $avatarUrl = $user_avatar['avatar_path'];
-                    $_SESSION['avatar_path'] = $avatarUrl;
-                }
-            } catch (Throwable $e) {
-                error_log("Error fetching avatar: " . $e->getMessage());
-            }
-        }
-        if ($avatarUrl && strpos($avatarUrl, 'http://') !== 0 && strpos($avatarUrl, 'https://') !== 0) {
-            $avatarUrl = asset_href($avatarUrl);
-        }
-        ?>
-        <img src="<?= e($avatarUrl ?: asset_href('assets/img/avatar-placeholder.png')) ?>" alt="avatar" class="rounded-circle" style="width:32px;height:32px;object-fit:cover;">
-        <?php if ($unread_count > 0): ?>
-        <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
-            <span class="visually-hidden">New alerts</span>
-        </span>
-        <?php endif; ?>
-    </a>
-    <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdown">
-        <li><a class="dropdown-item" href="<?= e(app_href('dashboard.php')) ?>"><i class="fas fa-user me-2 text-muted"></i>ملفي الشخصي</a></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item text-danger" href="<?= e(app_href('logout.php')) ?>"><i class="fas fa-sign-out-alt me-2"></i>تسجيل الخروج</a></li>
-    </ul>
-  </div>
-</div>
-<?php endif; ?>
-
-<header class="shadow-sm bg-white sticky-top" id="top">
-  <nav class="navbar container navbar-expand-lg py-3">
-    <a class="navbar-brand d-flex align-items-center" href="<?= e(app_href('')) ?>" aria-label="<?= e($siteTitle) ?>">
-      <img src="<?= e(asset_href('assets/img/logo.svg')) ?>" alt="شركة عزم الإنجاز" class="brand-logo" decoding="async" fetchpriority="high" width="250" height="70">
-      <span class="visually-hidden"><?= e($siteTitle) ?></span>
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div id="navMenu" class="collapse navbar-collapse">
-      <ul class="navbar-nav ms-auto align-items-lg-center">
-        <li class="nav-item"><a class="nav-link" href="<?= e(app_href('index.php')) ?>">الرئيسية</a></li>
-        <li class="nav-item"><a class="nav-link" href="<?= e(app_href('index.php#about')) ?>">عن الخدمة</a></li>
-        <li class="nav-item"><a class="nav-link" href="<?= e(app_href('index.php#faq')) ?>">الأسئلة الشائعة</a></li>
-        <li class="nav-item"><a class="nav-link" href="<?= e(app_href('index.php#links')) ?>">روابط مهمة</a></li>
-        <li class="nav-item me-lg-2"></li>
-        <?php if(!$isAuth): ?>
-          <li class="nav-item"><a class="nav-link" href="<?= e(app_href('login.php')) ?>">تسجيل الدخول</a></li>
-          <li class="nav-item"><a class="btn btn-outline-secondary ms-lg-2 mt-2 mt-lg-0" href="<?= e(app_href('register.php')) ?>">إنشاء حساب</a></li>
-        <?php else: ?>
-          <li class="nav-item"><a class="nav-link" href="<?= e(app_href('dashboard.php')) ?>">لوحة التحكم</a></li>
-          <li class="nav-item"><a class="btn btn-outline-danger ms-lg-2 mt-2 mt-lg-0" href="<?= e(app_href('logout.php')) ?>">تسجيل الخروج</a></li>
-        <?php endif; ?>
-      </ul>
+<header id="top">
+  <nav class="navbar navbar-expand-lg floating-nav navbar-light">
+    <div class="container-fluid px-3 px-lg-4">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="<?= e(app_href('')) ?>" aria-label="<?= e($siteTitle) ?>">
+        <img src="<?= e(asset_href('assets/img/logo.svg')) ?>" alt="شركة عزم الإنجاز" class="brand-logo" decoding="async" fetchpriority="high" width="210" height="64">
+        <span class="visually-hidden"><?= e($siteTitle) ?></span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="تبديل القائمة">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div id="navMenu" class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-2 w-100 w-lg-auto">
+          <li class="nav-item"><a class="nav-link" href="<?= e(app_href('index.php#top')) ?>">الرئيسية</a></li>
+          <li class="nav-item"><a class="nav-link" href="<?= e(app_href('index.php#services')) ?>">خدماتنا</a></li>
+          <li class="nav-item"><a class="nav-link" href="<?= e(app_href('index.php#about')) ?>">من نحن</a></li>
+          <li class="nav-item"><a class="nav-link" href="<?= e(app_href('index.php#why')) ?>">لماذا عزم؟</a></li>
+          <li class="nav-item"><a class="nav-link" href="<?= e(app_href('index.php#faq')) ?>">الأسئلة الشائعة</a></li>
+          <li class="nav-item"><a class="nav-link" href="<?= e(app_href('index.php#contact')) ?>">تواصل</a></li>
+          <?php if(!$isAuth): ?>
+            <li class="nav-item"><a class="nav-link" href="<?= e(app_href('login.php')) ?>">تسجيل الدخول</a></li>
+            <li class="nav-item d-lg-flex">
+              <a class="btn btn-primary d-inline-flex align-items-center gap-2 w-100" href="<?= e(app_href('register.php')) ?>">
+                <i class="fas fa-user-plus small opacity-75"></i>
+                <span>إنشاء حساب</span>
+              </a>
+            </li>
+          <?php else: ?>
+            <li class="nav-item"><a class="nav-link" href="<?= e(app_href('dashboard.php')) ?>">لوحة التحكم</a></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" id="navAccountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="<?= e($avatarUrl ?: asset_href('assets/img/avatar-placeholder.png')) ?>" alt="صورة الحساب" class="nav-avatar">
+                <span class="d-none d-lg-inline">حسابي</span>
+                <?php if ($unread_count > 0): ?>
+                  <span class="badge rounded-pill bg-danger-subtle text-danger-emphasis small"><?= (int)$unread_count ?></span>
+                <?php endif; ?>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-start text-end shadow" aria-labelledby="navAccountDropdown">
+                <li><a class="dropdown-item" href="<?= e(app_href('dashboard.php')) ?>"><i class="fas fa-user ms-2 text-muted"></i>ملفي الشخصي</a></li>
+                <li><a class="dropdown-item" href="<?= e(app_href('support/index.php')) ?>"><i class="fas fa-headset ms-2 text-muted"></i>دعم العملاء</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="<?= e(app_href('logout.php')) ?>"><i class="fas fa-sign-out-alt ms-2"></i>تسجيل الخروج</a></li>
+              </ul>
+            </li>
+          <?php endif; ?>
+          <li class="nav-item d-lg-flex">
+            <a class="btn btn-primary d-inline-flex align-items-center gap-2 w-100" href="<?= e(app_href('form.php')) ?>">
+              <i class="fas fa-file-signature small opacity-75"></i>
+              <span>اطلب عرض سعر</span>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </nav>
 </header>

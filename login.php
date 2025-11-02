@@ -226,344 +226,271 @@ try {
 
 require __DIR__ . '/partials/header.php';
 ?>
-<style>
-/* ====== أنماط عامة + Motion ====== */
-.card-auth{border:0;box-shadow:0 10px 30px rgba(0,0,0,.06);border-radius:24px}
-.input-soft{background:#fffbe6;border:1px solid #ffe58f}
-.btn-main{background:#17c1cc;color:#fff;border:0}
-.btn-main:hover{background:#13aab4;color:#fff}
-.badge-soft{background:#ecfeff;color:#0369a1}
-.hero-frame{border-radius:24px;overflow:hidden}
-.carousel .carousel-item img{object-fit:cover;width:100%;height:100%}
-.carousel-height{height:480px}
-@media (max-width: 991.98px){ .showcase-col{display:none} } /* اخفاء القالب اليسار بالجوال */
 
-/* Motion */
-.fade-in{animation:fadeIn .35s ease-out both}
-.fade-out{animation:fadeOut .25s ease-in both}
-.slide-in{animation:slideIn .35s ease-out both}
-.crossfade-enter{animation:crossIn .45s ease both}
-.crossfade-leave{animation:crossOut .35s ease both}
+<main class="auth-wrapper">
+  <div class="auth-card">
+    <div class="auth-header text-center text-lg-start">
+      <h1 class="fw-bold mb-2">مرحبًا بك في عزم الإنجاز</h1>
+      <p class="lead mb-0">إدارة الطلبات، التوريد، وخدمات البيع بالأجل تبدأ من هنا.</p>
+    </div>
+    <div class="auth-body">
+      <ul class="nav nav-tabs justify-content-center mb-4">
+        <li class="nav-item"><a class="nav-link <?= $mode==='login' ? 'active' : '' ?>" href="?mode=login">تسجيل الدخول</a></li>
+        <li class="nav-item"><a class="nav-link <?= $mode==='register' ? 'active' : '' ?>" href="?mode=register">إنشاء حساب</a></li>
+      </ul>
 
-@keyframes fadeIn{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:none}}
-@keyframes fadeOut{from{opacity:1}to{opacity:0}}
-@keyframes slideIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-@keyframes crossIn{from{opacity:0;transform:translateX(-16px) scale(.98)}to{opacity:1;transform:none}}
-@keyframes crossOut{from{opacity:1}to{opacity:0;transform:translateX(16px) scale(.98)}}
+      <?php if ($err): ?><div class="alert alert-danger"><?= e($err) ?></div><?php endif; ?>
+      <?php if ($info): ?><div class="alert alert-info"><?= e($info) ?></div><?php endif; ?>
 
-/* مربعات OTP */
-.otp-box{width:56px;height:56px;font-size:24px;text-align:center;direction:ltr;}
-</style>
+      <?php if ($mode==='login'): ?>
+        <?php
+          $hasFlow  = isset($_SESSION['login_flow']);
+          $hasForgotFlow = isset($_SESSION['forgot_password_flow']);
 
-<div class="container py-5">
-  <div class="row g-4 align-items-stretch">
+          $flowStep = $_GET['flow'] ?? $flow;
 
-    <!-- يمين: البطاقة (النموذج) - ملء العرض -->
-    <div class="col-lg-12">
-      <div id="authCard" class="card card-auth fade-in">
-        <div class="card-body p-4">
-
-          <!-- Tabs أعلى البطاقة -->
-          <ul class="nav nav-pills nav-fill mb-4">
-            <li class="nav-item"><a id="tabLogin" class="nav-link <?= $mode==='login'?'active':'' ?>" href="?mode=login">تسجيل الدخول</a></li>
-            <li class="nav-item"><a id="tabRegister" class="nav-link <?= $mode==='register'?'active':'' ?>" href="?mode=register">إنشاء حساب</a></li>
-          </ul>
-
-          <?php if ($err): ?><div class="alert alert-danger"><?= e($err) ?></div><?php endif; ?>
-          <?php if ($info): ?><div class="alert alert-info"><?= e($info) ?></div><?php endif; ?>
-
-          <!-- ====== محتوى وضع تسجيل الدخول ====== -->
-          <?php if ($mode==='login'): ?>
-            <?php
-              $hasFlow  = isset($_SESSION['login_flow']);
-              $hasForgotFlow = isset($_SESSION['forgot_password_flow']);
-
-              $flowStep = $_GET['flow'] ?? $flow;
-
-              if (!$hasFlow && !$hasForgotFlow) {
-                  if ($flowStep !== 'forgot_password') {
-                      $flowStep = 'email';
-                  }
+          if (!$hasFlow && !$hasForgotFlow) {
+              if ($flowStep !== 'forgot_password') {
+                  $flowStep = 'email';
               }
+          }
 
-              if ($action==='login_email' && empty($err))    $flowStep = 'password';
-              if ($action==='login_password' && empty($err)) $flowStep = 'otp';
-              if ($action==='forgot_password_request' && empty($err)) $flowStep = 'forgot_password_otp';
-            ?>
+          if ($action==='login_email' && empty($err))    $flowStep = 'password';
+          if ($action==='login_password' && empty($err)) $flowStep = 'otp';
+          if ($action==='forgot_password_request' && empty($err)) $flowStep = 'forgot_password_otp';
+        ?>
 
-            <?php if ($flowStep==='email' || (!$hasFlow && !$hasForgotFlow && $flowStep !== 'forgot_password')):
-            ?>
-              <form method="post" class="slide-in" novalidate>
-                <input type="hidden" name="action" value="login_email">
-                <div class="mb-3">
-                  <input class="form-control input-soft" type="email" name="email" placeholder="name@example.com" required value="<?= e($email) ?>">
-                </div>
-                <?php if ($TURNSTILE_SITEKEY && $TURNSTILE_SECRET && need_turnstile()): ?>
-                  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-                  <div class="cf-turnstile mb-3" data-sitekey="<?= e($TURNSTILE_SITEKEY) ?>" data-theme="auto"></div>
-                <?php endif; ?>
-                <div class="d-grid"><button class="btn btn-main py-2">استمرار</button></div>
-              </form>
-
-            <?php elseif ($flowStep==='password'): ?>
-              <form method="post" class="slide-in">
-                <input type="hidden" name="action" value="login_password">
-                <div class="mb-3">
-                  <label class="form-label">البريد الإلكتروني</label>
-                  <input class="form-control input-soft" type="email" name="email" required value="<?= e($email ?: ($_SESSION['login_flow']['email'] ?? '')) ?>">
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">كلمة المرور</label>
-                  <div class="input-group">
-                    <input id="pwd" class="form-control input-soft" type="password" name="password" required>
-                    <button class="btn btn-outline-secondary" type="button" onclick="const p=document.getElementById('pwd');p.type=p.type==='password'?'text':'password'">👁</button>
-                  </div>
-                </div>
-                <div class="d-flex justify-content-between small mb-3">
-                  <a href="?mode=login&flow=forgot_password" class="link-secondary">نسيت كلمة المرور؟</a>
-                </div>
-                <div class="d-grid"><button class="btn btn-main py-2">دخول</button></div>
-              </form>
-
-            <?php elseif ($flowStep==='otp'): ?>
-              <?php $mask = $_SESSION['login_flow']['phone_mask'] ?? '+9665******'; $start = $_SESSION['login_flow']['otp_start'] ?? time(); $left = max(0, 60 - (time()-$start)); ?>
-              <div class="text-center mb-3 slide-in">
-                <h2 class="h4 mb-2">أدخل رمز التحقق</h2>
-                <div class="text-muted">تم إرسال رمز التحقق إلى <strong><?= e($mask) ?></strong></div>
-              </div>
-              <form method="post" id="otpForm" class="slide-in">
-                <input type="hidden" name="action" value="login_otp">
-                <input type="hidden" name="otp" id="otpVal">
-                <div class="d-flex justify-content-center gap-2 my-3" id="otp-container">
-                  <?php for($i=0;$i<4;$i++): ?>
-                    <input class="form-control otp-box" maxlength="1" inputmode="numeric" pattern="\d" <?= $i === 0 ? 'autocomplete="one-time-code"' : '' ?>>
-                  <?php endfor; ?>
-                </div>
-                <div class="text-center mb-2 small">
-                  <a href="?logout=1" class="text-danger text-decoration-none" style="cursor: pointer; font-weight: bold;">
-                    تسجيل الخروج
-                  </a>
-                  <span id="logoutTimer" class="text-danger"> ⏱ <?= sprintf('00:%02d',$left) ?></span>
-                </div>
-                <div class="d-grid">
-                  <button class="btn btn-success py-2">تأكيد</button>
-                </div>
-              </form>
-              <script>
-                const otpContainer = document.getElementById('otp-container');
-                const boxes = [...otpContainer.querySelectorAll('.otp-box')];
-                const form = document.getElementById('otpForm');
-                const otpValInput = document.getElementById('otpVal');
-
-                boxes.forEach((box, index) => {
-                    box.addEventListener('input', (e) => {
-                        // Sanitize input
-                        box.value = box.value.replace(/\D/g, '');
-
-                        // Move to next input if a digit is entered
-                        if (box.value.length === 1 && index < boxes.length - 1) {
-                            boxes[index + 1].focus();
-                        }
-                    });
-
-                    box.addEventListener('keydown', (e) => {
-                        // Move to previous input on backspace if current is empty
-                        if (e.key === 'Backspace' && !box.value && index > 0) {
-                            boxes[index - 1].focus();
-                        }
-                    });
-                });
-
-                otpContainer.addEventListener('paste', (e) => {
-                    e.preventDefault();
-                    const pastedData = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '');
-                    if (!pastedData) return;
-
-                    for (let i = 0; i < pastedData.length && i < boxes.length; i++) {
-                        boxes[i].value = pastedData[i];
-                    }
-
-                    const focusIndex = Math.min(pastedData.length, boxes.length - 1);
-                    boxes[focusIndex].focus();
-                });
-
-                form.addEventListener('submit', e => {
-                    otpValInput.value = boxes.map(b => b.value).join('');
-                });
-
-                let sec = <?= (int)$left ?>;
-                const t = document.getElementById('logoutTimer');
-                if (t) {
-                    const timer = setInterval(() => {
-                        if (sec > 0) {
-                            sec--;
-                            t.textContent = ' ⏱ ' + '00:' + String(sec).padStart(2, '0');
-                        } else {
-                            clearInterval(timer);
-                        }
-                    }, 1000);
-                }
-              </script>
-            <?php elseif ($flowStep==='forgot_password'): ?>
-              <div class="text-center mb-3 slide-in">
-                  <h2 class="h4 mb-2">إعادة تعيين كلمة المرور</h2>
-                  <div class="text-muted">أدخل رقم جوالك المسجل لإرسال رمز التحقق.</div>
-              </div>
-              <form method="post" class="slide-in">
-                  <input type="hidden" name="action" value="forgot_password_request">
-                  <div class="mb-3">
-                      <input class="form-control input-soft" type="text" name="phone_reset" placeholder="05XXXXXXXX" required pattern="^05\d{8}$">
-                  </div>
-                  <div class="d-grid"><button class="btn btn-main py-2">إرسال الرمز</button></div>
-                  <div class="text-center mt-3">
-                      <a href="?mode=login" class="link-secondary">العودة لتسجيل الدخول</a>
-                  </div>
-              </form>
-
-            <?php elseif ($flowStep==='forgot_password_otp'): ?>
-              <?php $start = $_SESSION['forgot_password_flow']['otp_start'] ?? time(); $left = max(0, 60 - (time()-$start)); ?>
-              <div class="text-center mb-3 slide-in">
-                  <h2 class="h4 mb-2">إعادة تعيين كلمة المرور</h2>
-                  <div class="text-muted">تم إرسال رمز التحقق إلى جوالك.</div>
-              </div>
-              <form method="post" id="otpForm" class="slide-in">
-                  <input type="hidden" name="action" value="forgot_password_reset">
-                  <input type="hidden" name="otp" id="otpVal">
-                  <div class="d-flex justify-content-center gap-2 my-3" id="otp-container">
-                      <?php for($i=0;$i<4;$i++): ?>
-                          <input class="form-control otp-box" maxlength="1" inputmode="numeric" pattern="\d" <?= $i === 0 ? 'autocomplete="one-time-code"' : '' ?>>
-                      <?php endfor; ?>
-                  </div>
-                  <div class="mb-3">
-                      <label class="form-label">كلمة المرور الجديدة</label>
-                      <input class="form-control input-soft" type="password" name="new_password" required>
-                  </div>
-                  <div class="text-center mb-2 small">
-                      <span id="logoutTimer" class="text-danger"> ⏱ <?= sprintf('00:%02d',$left) ?></span>
-                  </div>
-                  <div class="d-grid">
-                      <button class="btn btn-success py-2">تأكيد</button>
-                  </div>
-              </form>
-              <script>
-                const otpContainer2 = document.getElementById('otp-container');
-                const boxes2 = [...otpContainer2.querySelectorAll('.otp-box')];
-                const form2 = document.getElementById('otpForm');
-                const otpValInput2 = document.getElementById('otpVal');
-
-                boxes2.forEach((box, index) => {
-                    box.addEventListener('input', (e) => {
-                        box.value = box.value.replace(/\D/g, '');
-                        if (box.value.length === 1 && index < boxes2.length - 1) {
-                            boxes2[index + 1].focus();
-                        }
-                    });
-                    box.addEventListener('keydown', (e) => {
-                        if (e.key === 'Backspace' && !box.value && index > 0) {
-                            boxes2[index - 1].focus();
-                        }
-                    });
-                });
-                otpContainer2.addEventListener('paste', (e) => {
-                    e.preventDefault();
-                    const pastedData = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '');
-                    if (!pastedData) return;
-                    for (let i = 0; i < pastedData.length && i < boxes2.length; i++) {
-                        boxes2[i].value = pastedData[i];
-                    }
-                    const focusIndex = Math.min(pastedData.length, boxes2.length - 1);
-                    boxes2[focusIndex].focus();
-                });
-                form2.addEventListener('submit', e => {
-                    otpValInput2.value = boxes2.map(b => b.value).join('');
-                });
-
-                let sec2 = <?= (int)$left ?>;
-                const t2 = document.getElementById('logoutTimer');
-                if (t2) {
-                    const timer = setInterval(() => {
-                        if (sec2 > 0) {
-                            sec2--;
-                            t2.textContent = ' ⏱ ' + '00:' + String(sec2).padStart(2, '0');
-                        } else {
-                            clearInterval(timer);
-                        }
-                    }, 1000);
-                }
-              </script>
+        <?php if ($flowStep==='email' || (!$hasFlow && !$hasForgotFlow && $flowStep !== 'forgot_password')): ?>
+          <div class="mb-4">
+            <h2 class="h4 fw-bold mb-2">أدخل بريدك الإلكتروني</h2>
+            <p class="text-muted-soft mb-0">سنرسل لك رابط أو رمز للتحقق من حسابك.</p>
+          </div>
+          <form method="post" class="animate-fade" novalidate>
+            <input type="hidden" name="action" value="login_email">
+            <div class="mb-3">
+              <label class="form-label">البريد الإلكتروني</label>
+              <input class="form-control" type="email" name="email" placeholder="name@example.com" required value="<?= e($email) ?>">
+            </div>
+            <?php if ($TURNSTILE_SITEKEY && $TURNSTILE_SECRET && need_turnstile()): ?>
+              <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+              <div class="cf-turnstile mb-3" data-sitekey="<?= e($TURNSTILE_SITEKEY) ?>" data-theme="auto"></div>
             <?php endif; ?>
-          <?php endif; ?>
+            <div class="d-grid"><button class="btn btn-primary py-2">استمرار</button></div>
+          </form>
 
-          <!-- ====== محتوى وضع إنشاء الحساب ====== -->
-          <?php if ($mode==='register'): ?>
-            <form method="post" class="slide-in" novalidate>
-              <input type="hidden" name="action" value="register_submit">
-              <div class="row g-3">
-                <div class="col-md-12">
-                  <label class="form-label">اسم الشركة</label>
-                  <input class="form-control" name="name" required value="<?= e($nameReg) ?>">
-                </div>
-                <div class="col-md-12">
-                  <label class="form-label">البريد الإلكتروني</label>
-                  <input class="form-control" type="email" name="email" required value="<?= e($email) ?>">
-                </div>
-                <div class="col-md-12">
-                  <label class="form-label">رقم الجوال (محلي سعودي)</label>
-                  <input class="form-control" name="phone" placeholder="05XXXXXXXX" pattern="^05\d{8}$" required value="<?= e($phoneReg) ?>">
-                </div>
+        <?php elseif ($flowStep==='password'): ?>
+          <div class="mb-4">
+            <h2 class="h4 fw-bold mb-2">مرحبًا من جديد</h2>
+            <p class="text-muted-soft mb-0">أدخل كلمة المرور المتصلة بالحساب.</p>
+          </div>
+          <form method="post" class="animate-fade">
+            <input type="hidden" name="action" value="login_password">
+            <div class="mb-3">
+              <label class="form-label">البريد الإلكتروني</label>
+              <input class="form-control" type="email" name="email" required value="<?= e($email ?: ($_SESSION['login_flow']['email'] ?? '')) ?>">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">كلمة المرور</label>
+              <div class="input-group">
+                <input id="pwd" class="form-control" type="password" name="password" required>
+                <button class="btn btn-outline-secondary" type="button" onclick="const p=document.getElementById('pwd');p.type=p.type==='password'?'text':'password'">👁</button>
               </div>
+            </div>
+            <div class="d-flex justify-content-between small mb-3">
+              <a href="?mode=login&flow=forgot_password" class="text-decoration-none">نسيت كلمة المرور؟</a>
+            </div>
+            <div class="d-grid"><button class="btn btn-primary py-2">دخول</button></div>
+          </form>
 
-              <?php if ($TURNSTILE_SITEKEY && $TURNSTILE_SECRET && need_turnstile()): ?>
-                <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-                <div class="cf-turnstile my-3" data-sitekey="<?= e($TURNSTILE_SITEKEY) ?>" data-theme="auto"></div>
-              <?php endif; ?>
+        <?php elseif ($flowStep==='otp'): ?>
+          <?php $mask = $_SESSION['login_flow']['phone_mask'] ?? '+9665******'; $start = $_SESSION['login_flow']['otp_start'] ?? time(); $left = max(0, 60 - (time()-$start)); ?>
+          <div class="text-center mb-3 animate-fade">
+            <h2 class="h4 mb-2">أدخل رمز التحقق</h2>
+            <div class="text-muted-soft">تم إرسال الرمز إلى <strong><?= e($mask) ?></strong></div>
+          </div>
+          <form method="post" id="otpForm" class="animate-fade">
+            <input type="hidden" name="action" value="login_otp">
+            <input type="hidden" name="otp" id="otpVal">
+            <div class="d-flex justify-content-center gap-2 my-3" id="otp-container">
+              <?php for($i=0;$i<4;$i++): ?>
+                <input class="form-control otp-input" maxlength="1" inputmode="numeric" pattern="\d" <?= $i === 0 ? 'autocomplete="one-time-code"' : '' ?>>
+              <?php endfor; ?>
+            </div>
+            <div class="text-center mb-2 small">
+              <a href="?logout=1" class="text-danger text-decoration-none fw-semibold">تسجيل الخروج</a>
+              <span id="logoutTimer" class="text-danger"> ⏱ <?= sprintf('00:%02d',$left) ?></span>
+            </div>
+            <div class="d-grid"><button class="btn btn-primary py-2">تأكيد</button></div>
+          </form>
+          <script>
+            const otpContainer = document.getElementById('otp-container');
+            const boxes = [...otpContainer.querySelectorAll('.otp-input')];
+            const form = document.getElementById('otpForm');
+            const otpValInput = document.getElementById('otpVal');
 
-              <div class="d-grid mt-2"><button class="btn btn-success py-2">تسجيل</button></div>
-            </form>
-          <?php endif; ?>
+            boxes.forEach((box, index) => {
+                box.addEventListener('input', (e) => {
+                    box.value = box.value.replace(/\D/g, '');
+                    if (box.value.length === 1 && index < boxes.length - 1) {
+                        boxes[index + 1].focus();
+                    }
+                });
 
+                box.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && !box.value && index > 0) {
+                        boxes[index - 1].focus();
+                    }
+                });
+            });
+
+            otpContainer.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const pastedData = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '');
+                if (!pastedData) return;
+                for (let i = 0; i < pastedData.length && i < boxes.length; i++) {
+                    boxes[i].value = pastedData[i];
+                }
+                const focusIndex = Math.min(pastedData.length, boxes.length - 1);
+                boxes[focusIndex].focus();
+            });
+
+            form.addEventListener('submit', e => {
+                otpValInput.value = boxes.map(b => b.value).join('');
+            });
+
+            let sec = <?= (int)$left ?>;
+            const t = document.getElementById('logoutTimer');
+            if (t) {
+                const timer = setInterval(() => {
+                    if (sec > 0) {
+                        sec--;
+                        t.textContent = ' ⏱ ' + '00:' + String(sec).padStart(2, '0');
+                    } else {
+                        clearInterval(timer);
+                    }
+                }, 1000);
+            }
+          </script>
+
+        <?php elseif ($flowStep==='forgot_password'): ?>
+          <div class="text-center mb-3 animate-fade">
+            <h2 class="h4 mb-2">إعادة تعيين كلمة المرور</h2>
+            <div class="text-muted-soft">أدخل رقم جوالك المسجل لإرسال رمز التحقق.</div>
+          </div>
+          <form method="post" class="animate-fade">
+            <input type="hidden" name="action" value="forgot_password_request">
+            <div class="mb-3">
+              <label class="form-label">رقم الجوال</label>
+              <input class="form-control" type="text" name="phone_reset" placeholder="05XXXXXXXX" required pattern="^05\d{8}$">
+            </div>
+            <div class="d-grid"><button class="btn btn-primary py-2">إرسال الرمز</button></div>
+            <div class="text-center mt-3">
+              <a href="?mode=login" class="text-decoration-none">العودة لتسجيل الدخول</a>
+            </div>
+          </form>
+
+        <?php elseif ($flowStep==='forgot_password_otp'): ?>
+          <?php $start = $_SESSION['forgot_password_flow']['otp_start'] ?? time(); $left = max(0, 60 - (time()-$start)); ?>
+          <div class="text-center mb-3 animate-fade">
+            <h2 class="h4 mb-2">إعادة تعيين كلمة المرور</h2>
+            <div class="text-muted-soft">تم إرسال رمز التحقق إلى جوالك.</div>
+          </div>
+          <form method="post" id="otpForm" class="animate-fade">
+            <input type="hidden" name="action" value="forgot_password_reset">
+            <input type="hidden" name="otp" id="otpVal">
+            <div class="d-flex justify-content-center gap-2 my-3" id="otp-container">
+              <?php for($i=0;$i<4;$i++): ?>
+                <input class="form-control otp-input" maxlength="1" inputmode="numeric" pattern="\d" <?= $i === 0 ? 'autocomplete="one-time-code"' : '' ?>>
+              <?php endfor; ?>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">كلمة المرور الجديدة</label>
+              <input class="form-control" type="password" name="new_password" required>
+            </div>
+            <div class="text-center mb-2 small">
+              <span id="logoutTimer" class="text-danger"> ⏱ <?= sprintf('00:%02d',$left) ?></span>
+            </div>
+            <div class="d-grid"><button class="btn btn-primary py-2">تأكيد</button></div>
+          </form>
+          <script>
+            const otpContainer2 = document.getElementById('otp-container');
+            const boxes2 = [...otpContainer2.querySelectorAll('.otp-input')];
+            const form2 = document.getElementById('otpForm');
+            const otpValInput2 = document.getElementById('otpVal');
+
+            boxes2.forEach((box, index) => {
+                box.addEventListener('input', (e) => {
+                    box.value = box.value.replace(/\D/g, '');
+                    if (box.value.length === 1 && index < boxes2.length - 1) {
+                        boxes2[index + 1].focus();
+                    }
+                });
+            });
+
+            otpContainer2.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const pastedData = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '');
+                if (!pastedData) return;
+                for (let i = 0; i < pastedData.length && i < boxes2.length; i++) {
+                    boxes2[i].value = pastedData[i];
+                }
+                const focusIndex = Math.min(pastedData.length, boxes2.length - 1);
+                boxes2[focusIndex].focus();
+            });
+
+            form2.addEventListener('submit', e => {
+                otpValInput2.value = boxes2.map(b => b.value).join('');
+            });
+
+            let sec2 = <?= (int)$left ?>;
+            const t2 = document.getElementById('logoutTimer');
+            if (t2) {
+                const timer = setInterval(() => {
+                    if (sec2 > 0) {
+                        sec2--;
+                        t2.textContent = ' ⏱ ' + '00:' + String(sec2).padStart(2, '0');
+                    } else {
+                        clearInterval(timer);
+                    }
+                }, 1000);
+            }
+          </script>
+        <?php endif; ?>
+      <?php else: ?>
+        <div class="mb-4">
+          <h2 class="h4 fw-bold mb-2">أنشئ حساب شركتك</h2>
+          <p class="text-muted-soft mb-0">املأ البيانات التالية وسيتواصل معك فريقنا لتفعيل الخدمة.</p>
         </div>
+        <form method="post" class="animate-fade" novalidate>
+          <input type="hidden" name="action" value="register_submit">
+          <div class="row g-3">
+            <div class="col-12">
+              <label class="form-label">اسم الشركة</label>
+              <input class="form-control" name="name" required value="<?= e($nameReg) ?>">
+            </div>
+            <div class="col-12">
+              <label class="form-label">البريد الإلكتروني</label>
+              <input class="form-control" type="email" name="email" required value="<?= e($email) ?>">
+            </div>
+            <div class="col-12">
+              <label class="form-label">رقم الجوال (05XXXXXXXX)</label>
+              <input class="form-control" name="phone" placeholder="05XXXXXXXX" pattern="^05\d{8}$" required value="<?= e($phoneReg) ?>">
+            </div>
+          </div>
+          <?php if ($TURNSTILE_SITEKEY && $TURNSTILE_SECRET && need_turnstile()): ?>
+            <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+            <div class="cf-turnstile my-3" data-sitekey="<?= e($TURNSTILE_SITEKEY) ?>" data-theme="auto"></div>
+          <?php endif; ?>
+          <div class="d-grid mt-3"><button class="btn btn-primary py-2">تسجيل</button></div>
+        </form>
+      <?php endif; ?>
+
+      <div class="border-top pt-3 mt-4 text-muted-soft small text-center">
+        بحاجة للمساعدة؟ <a href="<?= e(app_href('support/index.php')) ?>" class="text-decoration-none">تواصل مع فريق الدعم</a>
       </div>
     </div>
-
   </div>
-</div>
-
-<script>
-/* Motion: تبديل القالب اليسار بدون ريفرش عند النقر على التبويبات */
-const tabLogin    = document.getElementById('tabLogin');
-const tabRegister = document.getElementById('tabRegister');
-const showLogin   = document.getElementById('showLogin');
-const showReg     = document.getElementById('showRegister');
-
-function swapShowcase(to){
-  if (!showLogin || !showReg) return;
-  if (to==='login'){
-    showReg.classList.add('crossfade-leave');
-    setTimeout(()=>{ showReg.classList.add('d-none'); showReg.classList.remove('crossfade-leave'); }, 280);
-    showLogin.classList.remove('d-none'); showLogin.classList.add('crossfade-enter');
-    setTimeout(()=>{ showLogin.classList.remove('crossfade-enter'); }, 400);
-  } else {
-    showLogin.classList.add('crossfade-leave');
-    setTimeout(()=>{ showLogin.classList.add('d-none'); showLogin.classList.remove('crossfade-leave'); }, 280);
-    showReg.classList.remove('d-none'); showReg.classList.add('crossfade-enter');
-    setTimeout(()=>{ showReg.classList.remove('crossfade-enter'); }, 400);
-  }
-}
-
-/* بدّل بدون ريفرش — ثم حدّث الاستعلام ?mode=... للحفظ */
-tabLogin?.addEventListener('click', (e)=>{
-  e.preventDefault(); swapShowcase('login');
-  history.replaceState(null,'','?mode=login');
-  // حمّل نموذج الدخول عبر fetch بسيط؟ هنا تكفي الحركة، النموذج موجود سلفًا حسب $mode, لكن للتبسيط نعمل ريفرش خفيف:
-  location.href='?mode=login';
-});
-tabRegister?.addEventListener('click', (e)=>{
-  e.preventDefault(); swapShowcase('register');
-  history.replaceState(null,'','?mode=register');
-  location.href='?mode=register';
-});
-</script>
+</main>
 
 <!-- نظام الدردشة الذكي - عزم -->
 <script src="<?= e(asset_href('assets/chatbot.js')) ?>"></script>
