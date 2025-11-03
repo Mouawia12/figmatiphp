@@ -39,9 +39,53 @@ body.has-floating-nav {
 }
 
 @media (max-width: 991.98px) {
-  body.has-floating-nav {
-    padding-top: 0;
+  .hero-section {
+    margin-top: 0;
+    padding: 200px 0 140px;
+    min-height: clamp(560px, 88vh, 720px);
   }
+
+  .hero-copy {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .about-section {
+    margin-top: 0;
+    padding: 90px 0 100px;
+  }
+
+  .about-highlight-card {
+    padding: 36px 32px;
+    margin: 30px auto 0;
+    max-width: 96%;
+  }
+
+  .about-logo-panel {
+    justify-content: flex-start;
+  }
+
+  .about-logo-circle {
+    width: clamp(180px, 28vw, 220px);
+    height: clamp(180px, 28vw, 220px);
+  }
+
+  .about-quote {
+    max-width: 100%;
+  }
+
+  .floating-nav .nav-actions {
+    align-items: stretch;
+  }
+
+  .floating-nav .nav-action-link {
+    justify-content: center;
+  }
+}
 }
 
 @media (max-width: 575.98px) {
@@ -412,13 +456,14 @@ main section {
 .hero-actions {
   display: flex;
   gap: 16px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  align-items: center;
   margin-top: 20px;
 }
 
 .hero-primary,
 .hero-secondary {
-  min-width: 210px;
+  min-width: 190px;
   justify-content: center;
 }
 
@@ -439,41 +484,36 @@ main section {
 
 .about-section {
   position: relative;
-  margin-top: clamp(40px, 6vw, 140px);
-  padding: clamp(60px, 6vw, 100px) 0 120px;
+  margin-top: clamp(-120px, -9vw, -60px);
+  padding: clamp(70px, 7vw, 120px) 0 120px;
   background: transparent;
   z-index: 4;
 }
 
 .about-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 80% -20%, rgba(28, 117, 188, 0.16), transparent 58%);
-  pointer-events: none;
-  z-index: 0;
+  content: none;
 }
 
 .about-highlight-card {
   position: relative;
-  border-radius: 34px;
+  border-radius: 48px;
   padding: clamp(26px, 5vw, 60px);
   overflow: hidden;
   border: 1px solid rgba(28, 117, 188, 0.12);
   box-shadow: 0 50px 140px -80px rgba(15, 23, 42, 0.45);
   background: rgba(255, 255, 255, 0.94);
-  margin: clamp(30px, 6vw, 90px) auto 0;
+  margin: clamp(-80px, -7vw, -30px) auto 0;
   max-width: min(980px, 94%);
   z-index: 2;
 }
 
 @media (min-width: 1200px) {
   .about-section {
-    margin-top: clamp(30px, 4vw, 90px);
+    margin-top: clamp(-140px, -10vw, -70px);
   }
 
   .about-highlight-card {
-    margin-top: clamp(-120px, -12vw, -60px);
+    margin-top: clamp(-110px, -8vw, -60px);
   }
 }
 
@@ -481,6 +521,7 @@ main section {
   content: '';
   position: absolute;
   inset: 0;
+  border-radius: inherit;
   background: linear-gradient(120deg, rgba(255, 255, 255, 0.94) 35%, rgba(244, 249, 255, 0.86) 70%), url('../design/About%20Us%20Background.png') center/cover no-repeat;
   opacity: 0.92;
   z-index: -2;
@@ -599,24 +640,37 @@ main section {
   margin: 0;
   font-weight: 400;
   font-size: 1.15rem;
-  color: #1c75bc;
   letter-spacing: 0.015em;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
+  gap: 12px;
   text-align: right;
+  direction: rtl;
 }
 
 .about-quote-text .quote-mark {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.9em;
+  font-size: 1.35rem;
   color: #1c75bc;
+  flex-shrink: 0;
+}
+
+.about-quote-text .quote-mark-open {
+  margin-inline-start: 0;
 }
 
 .about-quote-text .quote-mark-close {
   transform: translateY(2px);
+  margin-inline-end: 0;
+}
+
+.about-quote-text .quote-body {
+  flex: 1;
+  color: #1c75bc;
+  line-height: 1.9;
 }
 
 .about-logo-panel {
@@ -667,6 +721,9 @@ main section {
   max-width: 760px;
   margin: 0 auto 48px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .services-grid {
@@ -683,13 +740,17 @@ main section {
 
 .service-card {
   position: relative;
-  padding: 38px 32px;
+  padding: clamp(32px, 3vw, 40px) clamp(28px, 3vw, 36px);
   border-radius: var(--radius-xl);
   border: 1px solid rgba(255, 255, 255, 0.7);
   background: url("../design/Service Card Background.png") no-repeat center/cover;
   box-shadow: var(--shadow-soft);
   overflow: hidden;
   transition: transform 0.4s var(--transition-base), box-shadow 0.4s var(--transition-base);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .service-card::before {
@@ -736,7 +797,7 @@ main section {
   place-items: center;
   background: rgba(255, 255, 255, 0.85);
   border: 1px solid rgba(16, 77, 136, 0.12);
-  margin-bottom: 24px;
+  margin: 0 auto 24px;
 }
 
 .service-icon img {
@@ -1198,11 +1259,14 @@ main section {
 
 @media (max-width: 1199.98px) {
   .about-section {
-    margin-top: clamp(30px, 6vw, 100px);
+    margin-top: 0;
+    padding: 90px 0 100px;
   }
 
   .about-highlight-card {
-    margin: clamp(24px, 5vw, 70px) auto 0;
+    padding: 40px 36px;
+    margin: 30px auto 0;
+    max-width: 96%;
   }
 }
 
@@ -1220,16 +1284,19 @@ main section {
 
   .hero-actions {
     justify-content: center;
+    flex-wrap: nowrap;
+    gap: 14px;
+    align-items: center;
   }
 
   .about-section {
     margin-top: 0;
-    padding: 80px 0 90px;
+    padding: 90px 0 100px;
   }
 
   .about-highlight-card {
-    padding: 40px 36px;
-    margin: 30px auto 0;
+    padding: 36px 32px;
+    margin: 40px auto 0;
     max-width: 96%;
   }
 
@@ -1285,6 +1352,15 @@ main section {
 
   .hero-actions {
     flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 14px;
+  }
+
+  .hero-primary,
+  .hero-secondary {
+    min-width: 0;
+    width: min(280px, 100%);
   }
 
   .services-grid {
@@ -1298,13 +1374,13 @@ main section {
   }
 
   .about-section {
-    margin-top: 0;
-    padding: 80px 0 70px;
+    margin-top: 20px;
+    padding: 90px 0 80px;
   }
 
   .about-highlight-card {
-    padding: 30px 26px;
-    margin: 40px auto 0;
+    padding: 30px 24px;
+    margin: 30px auto 0;
   }
 
   .about-copy {
@@ -1322,6 +1398,16 @@ main section {
     text-align: center;
     gap: 14px;
   }
+
+  .faq-wrapper {
+    padding: 24px 20px;
+  }
+
+  .auth-card .auth-header,
+  .auth-card .auth-body {
+    padding-inline: 24px;
+  }
+}
 
   .faq-wrapper {
     padding: 24px 20px;
