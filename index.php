@@ -49,11 +49,31 @@ $serviceCards = [
     ],
 ];
 
-$aboutHighlights = [
-    'فريق متخصص في إدارة سلاسل الإمداد وتوريد مواد البناء بجودة عالية.',
-    'شراكات مع أفضل الموردين لضمان توفر المنتجات بسرعة وأسعار تنافسية.',
-    'نظام رقمي متكامل لتتبع الطلبات والتواصل مع فريق الدعم في كل لحظة.',
-    'حلول تصميم داخلي تجمع الجمالية بالوظيفية، مع التزام بتنفيذ متقن.',
+$aboutFeatures = [
+    [
+        'icon' => 'design/ايقونة2 2-1.svg',
+        'icon_alt' => 'توريد موثوق',
+        'title' => 'توريد موثوق',
+        'description' => 'شبكة توريد متكاملة تغطي مواد البناء والتشطيب مع التزام صارم بالمواعيد وجودة التنفيذ.',
+    ],
+    [
+        'icon' => 'design/ايقونة2 2.svg',
+        'icon_alt' => 'تمويل مرن',
+        'title' => 'تمويل مرن',
+        'description' => 'خيارات بيع بالأجل مصممة لتمنح شركتك حرية الحركة المالية وتدعم خطط التوسع بثقة.',
+    ],
+    [
+        'icon' => 'design/ايقونة2 2-2.svg',
+        'icon_alt' => 'تصميم هندسي',
+        'title' => 'تصميم هندسي متخصص',
+        'description' => 'فريق هندسي يطوّر تصاميم عملية وجذابة، مع مواءمة كاملة لحلول التوريد والتنفيذ.',
+    ],
+    [
+        'icon' => 'design/ايقونة2 2-3.svg',
+        'icon_alt' => 'دعم متكامل',
+        'title' => 'دعم متكامل',
+        'description' => 'مستشارون يتابعون مشروعك خطوة بخطوة لضمان تجربة سلسة من الطلب وحتى التسليم.',
+    ],
 ];
 
 $whyReasons = [
@@ -149,30 +169,46 @@ require __DIR__ . '/partials/header.php';
 
   <section class="about-section" id="about">
     <div class="container">
-      <div class="about-card-floating animate-fade">
-        <div class="row gy-4 align-items-center">
+      <div class="about-card-floating">
+        <div class="row gy-5 align-items-center">
           <div class="col-lg-6 order-lg-2">
-            <div class="about-visual">
-              <img src="<?= e(asset_href('design/About Us Background.png')) ?>" alt="" class="about-visual-bg" loading="lazy" aria-hidden="true">
-              <img src="<?= e(asset_href('design/About Us Description.png')) ?>" alt="نظرة عامة عن شركة عزم الإنجاز" class="about-visual-figure" loading="lazy">
+            <div class="about-visual animate-fade delay-2">
+              <img src="<?= e(asset_href('design/Gemini_Generated_Image_ip11ojip11ojip11 (1) 1.png')) ?>" alt="مشروع قيد الإنشاء يمثل أعمال عزم الإنجاز" class="about-visual-photo" loading="lazy">
+              <div class="about-visual-badge animate-fade delay-3">
+                <span class="badge-icon">
+                  <img src="<?= e(asset_href('design/whynous.png')) ?>" alt="أيقونة شراكة عزم الإنجاز" loading="lazy">
+                </span>
+                <div class="badge-text">
+                  <h3>عزم الإنجاز</h3>
+                  <p>شريكك الموثوق لتوريد وتمويل مشاريع البناء.</p>
+                </div>
+              </div>
             </div>
           </div>
           <div class="col-lg-6 order-lg-1">
-            <span class="section-eyebrow animate-fade">من نحن</span>
-            <h2 class="section-title animate-fade delay-1">
-              منصة سعودية تجمع <span class="accent">حلول البناء</span> والتمويل تحت سقف واحد.
-            </h2>
-            <p class="section-subtitle animate-fade delay-2">
-              منذ انطلاقتنا ونحن نمكّن الشركات من تنفيذ مشاريعها بمرونة، مع باقة خدمات تشمل الاستشارة، التوريد، والبيع بالأجل وفق أعلى المعايير.
-            </p>
-            <ul class="about-features animate-fade delay-3">
-              <?php foreach ($aboutHighlights as $highlight): ?>
-                <li>
-                  <span class="icon"><i class="fas fa-check"></i></span>
-                  <span><?= e($highlight) ?></span>
-                </li>
-              <?php endforeach; ?>
-            </ul>
+            <div class="about-copy">
+              <span class="section-eyebrow animate-fade">من نحن</span>
+              <h2 class="section-title animate-fade delay-1">
+                نبني الثقة مع كل مشروع ونقود رحلتك من التخطيط وحتى التسليم.
+              </h2>
+              <p class="section-subtitle animate-fade delay-2">
+                منصة عزم الإنجاز مجموعة متخصصة في حلول البناء والبيع بالأجل، تجمع بين الخبرة التشغيلية والتمويل المرن لتكون شريكك الاستراتيجي في كل مرحلة من مشروعك.
+              </p>
+              <div class="about-feature-grid">
+                <?php foreach ($aboutFeatures as $index => $feature): ?>
+                  <?php $delayClass = 'delay-' . min(4, $index + 2); ?>
+                  <article class="about-feature-card animate-fade <?= $delayClass ?>">
+                    <span class="feature-icon">
+                      <img src="<?= e(asset_href($feature['icon'])) ?>" alt="<?= e($feature['icon_alt']) ?>" loading="lazy">
+                    </span>
+                    <div class="feature-content">
+                      <h3><?= e($feature['title']) ?></h3>
+                      <p><?= e($feature['description']) ?></p>
+                    </div>
+                  </article>
+                <?php endforeach; ?>
+              </div>
+            </div>
           </div>
         </div>
       </div>
