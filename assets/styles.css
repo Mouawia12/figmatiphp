@@ -439,15 +439,17 @@ main section {
 
 .about-section {
   position: relative;
-  padding: clamp(90px, 9vw, 140px) 0;
-  background: linear-gradient(180deg, rgba(244, 248, 255, 0.7) 0%, rgba(255, 255, 255, 0.95) 100%);
+  margin-top: clamp(-220px, -18vw, -120px);
+  padding: clamp(60px, 6vw, 100px) 0 120px;
+  background: transparent;
+  z-index: 4;
 }
 
 .about-section::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at top right, rgba(28, 117, 188, 0.12), transparent 55%);
+  background: radial-gradient(circle at 80% -20%, rgba(28, 117, 188, 0.16), transparent 58%);
   pointer-events: none;
   z-index: 0;
 }
@@ -457,10 +459,12 @@ main section {
   border-radius: 34px;
   padding: clamp(26px, 5vw, 60px);
   overflow: hidden;
-  border: 1px solid rgba(28, 117, 188, 0.15);
-  box-shadow: 0 40px 120px -90px rgba(15, 23, 42, 0.4);
-  background: rgba(255, 255, 255, 0.92);
-  margin-top: clamp(-70px, -8vw, -40px);
+  border: 1px solid rgba(28, 117, 188, 0.12);
+  box-shadow: 0 50px 140px -80px rgba(15, 23, 42, 0.45);
+  background: rgba(255, 255, 255, 0.94);
+  margin: clamp(-110px, -12vw, -60px) auto 0;
+  max-width: min(980px, 94%);
+  z-index: 2;
 }
 
 .about-highlight-card::before {
@@ -1182,6 +1186,16 @@ main section {
   margin-bottom: 24px;
 }
 
+@media (max-width: 1199.98px) {
+  .about-section {
+    margin-top: clamp(-120px, -12vw, -60px);
+  }
+
+  .about-highlight-card {
+    margin: clamp(-40px, -6vw, -20px) auto 0;
+  }
+}
+
 @media (max-width: 991.98px) {
   .hero-section {
     margin-top: 0;
@@ -1199,11 +1213,14 @@ main section {
   }
 
   .about-section {
-    padding: 70px 0 90px;
+    margin-top: 0;
+    padding: 80px 0 90px;
   }
 
   .about-highlight-card {
     padding: 40px 36px;
+    margin: 30px auto 0;
+    max-width: 96%;
   }
 
   .about-logo-panel {
@@ -1271,11 +1288,13 @@ main section {
   }
 
   .about-section {
-    padding: 55px 0 70px;
+    margin-top: 0;
+    padding: 80px 0 70px;
   }
 
   .about-highlight-card {
     padding: 30px 26px;
+    margin: 40px auto 0;
   }
 
   .about-copy {
