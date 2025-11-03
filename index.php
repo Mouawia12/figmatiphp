@@ -186,21 +186,13 @@ require __DIR__ . '/partials/header.php';
                 </span>
                 <span>من نحن</span>
               </span>
-              <h2 class="section-title about-heading animate-fade delay-1">
-                عزم الإنجاز شركة سعودية متخصصة في بيع وتوريد مواد البناء بجودة مضمونة واسعار منافسة.
-              </h2>
-              <p class="section-subtitle about-description animate-fade delay-2">
-                وتقدم حلولًا متكاملة تشمل البيع بالأجل، التصميم الداخلي، والمتجر الإلكتروني. نؤمن أن البناء الحقيقي يبدآ من التوريد الصحيح، ولهذا كان شعارنا:
-              </p>
-              <div class="about-quote animate-fade delay-3">
-                <span class="about-quote-icon" aria-hidden="true">
-                  <i class="fas fa-quote-right"></i>
-                </span>
+            
                 <p class="about-quote-text">
                   <span class="quote-mark quote-mark-open" aria-hidden="true">
                     <i class="fas fa-quote-right"></i>
                   </span>
-                  عزمنا في التوريد ... اساس كل إنجاز
+                  عزم الإنجاز شركة سعودية متخصصة في بيع وتوريد مواد البناء بجودة مضمونة واسعار منافسة وتقدم حلولًا متكاملة تشمل البيع بالأجل، التصميم الداخلي، والمتجر الإلكتروني. نؤمن أن البناء الحقيقي يبدآ من التوريد الصحيح، ولهذا كان شعارنا:
+عزمنا في التوريد ... اساس كل إنجاز
                   <span class="quote-mark quote-mark-close" aria-hidden="true">
                     <i class="fas fa-quote-left"></i>
                   </span>
