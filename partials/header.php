@@ -64,6 +64,7 @@ if ($isAuth) {
 <html lang="ar" dir="rtl">
 <head>
 <script>window.APP_BASE_URL = '<?= e(rtrim(app_href(''), '/')) ?>';</script>
+<script>(function(){document.documentElement.classList.add('js');})();</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title><?= e($siteTitle) ?><?= $modelName ? ' – ' . e($modelName) : '' ?></title>

@@ -1441,6 +1441,15 @@ main section {
   opacity: 0;
   transform: translateY(22px);
   animation: fade-up 0.9s var(--transition-base) forwards;
+  will-change: transform, opacity;
+}
+
+.js .animate-fade {
+  animation-play-state: paused;
+}
+
+.js .animate-fade.visible {
+  animation-play-state: running;
 }
 
 .animate-fade.delay-1 { animation-delay: 0.1s; }

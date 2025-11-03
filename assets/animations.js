@@ -14,9 +14,12 @@
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+            if (!entry.isIntersecting) {
+                return;
             }
+
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
         });
     }, observerOptions);
 
@@ -30,6 +33,9 @@
             el.classList.add('fade-on-scroll');
             observer.observe(el);
         });
+
+        const animatedElements = document.querySelectorAll('.animate-fade');
+        animatedElements.forEach(el => observer.observe(el));
 
         if (heroVisual) {
             heroVisual.setAttribute('data-interactive', 'true');
