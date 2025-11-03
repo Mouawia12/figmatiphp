@@ -169,7 +169,7 @@ svg {
 }
 
 .floating-nav .navbar-brand img {
-  width: 190px;
+  width: 132px;
   height: auto;
 }
 
@@ -297,12 +297,10 @@ main section {
 }
 
 .hero-section {
-  padding: 170px 0 120px;
-  color: var(--color-primary-strong);
+  margin-top: -120px;
+  padding: 220px 0 140px;
   position: relative;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(248, 249, 255, 0.9) 45%, rgba(239, 244, 252, 0.9) 100%),
-    url("../design/Desktop - 9.png") no-repeat center top / cover;
+  background: url("../design/headerimg.png") no-repeat center top / cover;
 }
 
 .hero-section::before,
@@ -429,135 +427,10 @@ main section {
   font-size: 0.85rem;
 }
 
-.hero-media {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
-
-.hero-media-card {
-  position: relative;
-  border-radius: 38px;
-  padding: clamp(28px, 5vw, 40px);
-  background: linear-gradient(135deg, #0f4d88 0%, #1c75bc 60%, #4b94dc 100%);
-  color: #fff;
-  box-shadow: 0 36px 70px -32px rgba(13, 44, 88, 0.55);
-  overflow: hidden;
-  text-align: right;
-}
-
-.hero-media-card::before {
-  content: '';
-  position: absolute;
-  width: 360px;
-  height: 360px;
-  top: -160px;
-  left: -120px;
-  background: url("../design/Ellipse 2.svg") no-repeat center/contain;
-  opacity: 0.35;
-}
-
-.hero-media-card::after {
-  content: '';
-  position: absolute;
-  width: 320px;
-  height: 320px;
-  bottom: -180px;
-  right: -120px;
-  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.28), transparent 70%);
-  opacity: 0.4;
-}
-
-.hero-media-card > * {
-  position: relative;
-  z-index: 1;
-}
-
-.hero-media-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 18px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.18);
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-
-.hero-media-card h3 {
-  font-size: clamp(1.6rem, 3vw, 2rem);
-  font-weight: 700;
-  margin: 24px 0 12px;
-  color: #fff;
-}
-
-.hero-media-card p {
-  margin: 0;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.8;
-}
-
-.hero-media-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 26px;
-}
-
-.hero-media-pills span {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 20px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.92);
-  color: var(--color-primary);
-  font-weight: 700;
-  box-shadow: 0 18px 32px -22px rgba(15, 23, 42, 0.45);
-}
-
-.hero-metrics {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-  margin-top: -26px;
-  padding: 0 12px;
-}
-
-.hero-stat-card {
-  background: #fff;
-  border-radius: 24px;
-  padding: 18px 20px;
-  box-shadow: 0 24px 50px -28px rgba(16, 77, 136, 0.45);
-  border: 1px solid rgba(16, 77, 136, 0.08);
-}
-
-.hero-stat-card h3 {
-  color: var(--color-primary);
-  font-size: 1.65rem;
-  font-weight: 800;
-  margin-bottom: 6px;
-}
-
-.hero-stat-card p {
-  margin: 0;
-  color: rgba(15, 23, 42, 0.65);
-  font-weight: 600;
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-8px);
-  }
-}
+.hero-media, .hero-media-card, .hero-media-pills, .hero-metrics, .hero-stat-card { display: none !important; }
 
 .about-section {
-  margin-top: -140px;
+  margin-top: -96px;
   padding: 0 0 120px;
   position: relative;
   z-index: 5;
@@ -1245,7 +1118,8 @@ main section {
 
 @media (max-width: 991.98px) {
   .hero-section {
-    padding-bottom: 60px;
+    margin-top: -100px;
+    padding: 200px 0 120px;
   }
 
   .hero-copy {
@@ -1262,10 +1136,12 @@ main section {
   }
 
   .hero-media-card {
+  display: none;
     padding: 32px;
   }
 
   .hero-metrics {
+  display: none;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     margin-top: 12px;
     padding: 0;
@@ -1289,6 +1165,7 @@ main section {
   }
 
   .floating-nav .nav-action-link {
+  display: none;
     justify-content: center;
   }
 }
@@ -1315,6 +1192,11 @@ main section {
     font-size: 1rem;
   }
 
+  .hero-section {
+    margin-top: -80px;
+    padding: 180px 0 110px;
+  }
+
   .hero-actions {
     flex-direction: column;
   }
@@ -1332,6 +1214,7 @@ main section {
   }
 
   .hero-metrics {
+  display: none;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 

@@ -128,9 +128,8 @@ require __DIR__ . '/partials/header.php';
   <section class="hero-section" id="hero">
     <div class="container">
       <div class="row align-items-center gy-5 hero-row">
-        <div class="col-lg-6 order-lg-2">
+        <div class="col-lg-7 col-xl-6">
           <div class="hero-copy animate-fade">
-            <span class="hero-eyebrow">حلول البناء المتكاملة</span>
             <h1 class="hero-title animate-fade delay-1">
               <span>عزمنا في التوريد</span>
               <span class="accent">أساس كل إنجاز</span>
@@ -148,44 +147,6 @@ require __DIR__ . '/partials/header.php';
                 <span>تصفح المتجر</span>
               </a>
             </div>
-            <ul class="hero-checklist animate-fade delay-4 list-unstyled">
-              <li>
-                <span class="icon"><i class="fas fa-circle-check"></i></span>
-                <span>خطط تمويل مرنة تلائم الشركات والمنشآت الطموحة.</span>
-              </li>
-              <li>
-                <span class="icon"><i class="fas fa-circle-check"></i></span>
-                <span>تصميم، توريد، وتنفيذ في رحلة رقمية موحدة.</span>
-              </li>
-              <li>
-                <span class="icon"><i class="fas fa-circle-check"></i></span>
-                <span>دعم فوري عبر الشات الذكي وفريق مبيعات متخصص.</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-lg-6 order-lg-1">
-          <div class="hero-media animate-fade delay-1">
-            <div class="hero-media-card">
-              <span class="hero-media-label">خدمات متكاملة</span>
-              <h3>من الاستشارة إلى التسليم</h3>
-              <p>فريقنا يدير تفاصيل المشروع كاملة: توريد، تمويل، وتنفيذ بموثوقية عالية.</p>
-              <div class="hero-media-pills">
-                <span>تمويل</span>
-                <span>تصميم</span>
-                <span>توريد</span>
-              </div>
-            </div>
-            <?php if (!empty($heroStats)): ?>
-              <div class="hero-metrics">
-                <?php foreach ($heroStats as $stat): ?>
-                  <div class="hero-stat-card text-center">
-                    <h3><?= e($stat['value']) ?></h3>
-                    <p class="mb-0"><?= e($stat['label']) ?></p>
-                  </div>
-                <?php endforeach; ?>
-              </div>
-            <?php endif; ?>
           </div>
         </div>
       </div>
