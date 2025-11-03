@@ -22,28 +22,32 @@ $heroStats = [
 
 $serviceCards = [
     [
-        'icon' => 'fa-file-signature',
+        'icon' => 'design/ايقونة2 2-1.svg',
+        'icon_alt' => 'أيقونة طلب عرض السعر',
         'title' => 'طلبات عرض السعر',
         'description' => 'اطلب عرض سعر دقيق يلائم احتياجات مشروعك، مع توصيات المتخصصين وخيارات التوريد المناسبة.',
         'cta' => 'اطلب عرض سعر',
         'href' => app_href('request-for-quote.php'),
     ],
     [
-        'icon' => 'fa-hand-holding-dollar',
+        'icon' => 'design/ايقونة2 2.svg',
+        'icon_alt' => 'أيقونة البيع بالأجل',
         'title' => 'البيع بالأجل',
         'description' => 'حلول تمويل مرنة للشركات والمنشآت الصغيرة والمتوسطة بأسعار شفافة وخطط سداد ميسرة.',
         'cta' => 'ابدأ خدمة البيع بالأجل',
         'href' => app_href('form.php'),
     ],
     [
-        'icon' => 'fa-ruler-combined',
+        'icon' => 'design/ايقونة2 2-2.svg',
+        'icon_alt' => 'أيقونة التصميم الداخلي',
         'title' => 'التصميم الداخلي',
         'description' => 'صمّم مساحاتك مع مهندسين محترفين، واحصل على رؤية متكاملة للتوريد والتنفيذ قبل البدء.',
         'cta' => 'اطلب جلسة تصميم',
         'href' => app_href('interior-design-request.php'),
     ],
     [
-        'icon' => 'fa-store',
+        'icon' => 'design/ايقونة2 2-3.svg',
+        'icon_alt' => 'أيقونة المتجر الإلكتروني',
         'title' => 'المتجر الإلكتروني',
         'description' => 'تسوق منتجات البناء والتشطيب من منصة موثوقة مع خيارات شحن سريعة ودعم متخصص.',
         'cta' => 'تصفح المنتجات',
@@ -123,71 +127,65 @@ require __DIR__ . '/partials/header.php';
 <main class="overflow-hidden">
   <section class="hero-section" id="hero">
     <div class="container">
-      <div class="row align-items-center gy-5">
-        <div class="col-lg-6">
-          <span class="hero-eyebrow animate-fade">
-            <i class="fas fa-bolt"></i>
-            حلول البناء المتكاملة
-          </span>
-          <h1 class="hero-title animate-fade delay-1">
-            عزمنا في <span class="accent">التوريد</span> أساس كل إنجاز
-          </h1>
-          <p class="hero-subtitle animate-fade delay-2">
-            من خلال منصة عزم الإنجاز نوفر لك مسارًا واحدًا يضم التصميم، التوريد، والبيع بالأجل لتنجز مشروعك بثقة وسرعة وبجودة تتجاوز التوقعات.
-          </p>
-          <div class="hero-actions animate-fade delay-3">
-            <a href="<?= e(app_href('form.php')) ?>" class="btn btn-primary d-inline-flex align-items-center gap-2">
-              <i class="fas fa-credit-card"></i>
-              <span>ابدأ خدمة البيع بالأجل</span>
-            </a>
-            <a href="https://azmalenjaz.com/" class="btn btn-outline-secondary d-inline-flex align-items-center gap-2" target="_blank" rel="noopener">
-              <i class="fas fa-store"></i>
-              <span>تصفح المتجر</span>
-            </a>
+      <div class="row align-items-center gy-5 hero-row">
+        <div class="col-lg-6 order-lg-2">
+          <div class="hero-copy animate-fade">
+            <span class="hero-eyebrow">حلول البناء المتكاملة</span>
+            <h1 class="hero-title animate-fade delay-1">
+              <span>عزمنا في التوريد</span>
+              <span class="accent">أساس كل إنجاز</span>
+            </h1>
+            <p class="hero-subtitle animate-fade delay-2">
+              من خلال منصة عزم الإنجاز نوفر لك مسارًا واحدًا يضم التصميم، التوريد، والبيع بالأجل لتنجز مشروعك بثقة وسرعة وبجودة تتجاوز التوقعات.
+            </p>
+            <div class="hero-actions animate-fade delay-3">
+              <a href="<?= e(app_href('form.php')) ?>" class="btn btn-primary hero-primary d-inline-flex align-items-center gap-2">
+                <i class="fas fa-credit-card"></i>
+                <span>ابدأ خدمة البيع بالأجل</span>
+              </a>
+              <a href="https://azmalenjaz.com/" class="btn btn-outline-secondary hero-secondary d-inline-flex align-items-center gap-2" target="_blank" rel="noopener">
+                <i class="fas fa-store"></i>
+                <span>تصفح المتجر</span>
+              </a>
+            </div>
+            <ul class="hero-checklist animate-fade delay-4 list-unstyled">
+              <li>
+                <span class="icon"><i class="fas fa-circle-check"></i></span>
+                <span>خطط تمويل مرنة تلائم الشركات والمنشآت الطموحة.</span>
+              </li>
+              <li>
+                <span class="icon"><i class="fas fa-circle-check"></i></span>
+                <span>تصميم، توريد، وتنفيذ في رحلة رقمية موحدة.</span>
+              </li>
+              <li>
+                <span class="icon"><i class="fas fa-circle-check"></i></span>
+                <span>دعم فوري عبر الشات الذكي وفريق مبيعات متخصص.</span>
+              </li>
+            </ul>
           </div>
-          <ul class="hero-checklist animate-fade delay-4 list-unstyled">
-            <li>
-              <span class="icon"><i class="fas fa-circle-check"></i></span>
-              <span>خطط تمويل مرنة تلائم الشركات والمنشآت الطموحة.</span>
-            </li>
-            <li>
-              <span class="icon"><i class="fas fa-circle-check"></i></span>
-              <span>تصميم، توريد، وتنفيذ في رحلة رقمية موحدة.</span>
-            </li>
-            <li>
-              <span class="icon"><i class="fas fa-circle-check"></i></span>
-              <span>دعم فوري عبر الشات الذكي وفريق مبيعات متخصص.</span>
-            </li>
-          </ul>
         </div>
-        <div class="col-lg-6">
-          <div class="hero-illustration animate-fade delay-2">
-            <div class="hero-visual text-white position-relative overflow-hidden">
-              <div class="position-relative z-1 p-4 p-md-5 d-flex flex-column h-100">
-                <div>
-                  <span class="badge bg-white text-primary fw-semibold px-3 py-2 rounded-pill text-nowrap">خدمات متكاملة</span>
-                  <h3 class="fs-3 fw-bold mt-4 mb-3">من الاستشارة إلى التسليم</h3>
-                  <p class="mb-0 text-white-50">فريقنا يدير تفاصيل المشروع كاملة: توريد، تمويل، وتنفيذ بموثوقية عالية.</p>
-                </div>
-                <div class="d-flex flex-wrap gap-3 mt-auto pt-4">
-                  <div class="glass px-4 py-3 rounded-4 text-center text-primary fw-semibold">توريد</div>
-                  <div class="glass px-4 py-3 rounded-4 text-center text-primary fw-semibold">تصميم</div>
-                  <div class="glass px-4 py-3 rounded-4 text-center text-primary fw-semibold">تمويل</div>
-                </div>
+        <div class="col-lg-6 order-lg-1">
+          <div class="hero-media animate-fade delay-1">
+            <div class="hero-media-card">
+              <span class="hero-media-label">خدمات متكاملة</span>
+              <h3>من الاستشارة إلى التسليم</h3>
+              <p>فريقنا يدير تفاصيل المشروع كاملة: توريد، تمويل، وتنفيذ بموثوقية عالية.</p>
+              <div class="hero-media-pills">
+                <span>تمويل</span>
+                <span>تصميم</span>
+                <span>توريد</span>
               </div>
             </div>
-            <div class="hero-floating-card">
-              <div class="row g-3">
+            <?php if (!empty($heroStats)): ?>
+              <div class="hero-metrics">
                 <?php foreach ($heroStats as $stat): ?>
-                  <div class="col-6 col-md-4">
-                    <div class="hero-stat-card text-center">
-                      <h3><?= e($stat['value']) ?></h3>
-                      <p class="mb-0 text-muted-soft"><?= e($stat['label']) ?></p>
-                    </div>
+                  <div class="hero-stat-card text-center">
+                    <h3><?= e($stat['value']) ?></h3>
+                    <p class="mb-0"><?= e($stat['label']) ?></p>
                   </div>
                 <?php endforeach; ?>
               </div>
-            </div>
+            <?php endif; ?>
           </div>
         </div>
       </div>
@@ -214,11 +212,11 @@ require __DIR__ . '/partials/header.php';
           ?>
           <article class="service-card animate-fade <?= $delayClass ?>">
             <div class="service-icon">
-              <i class="fas <?= e($card['icon']) ?>"></i>
+              <img src="<?= e(asset_href($card['icon'])) ?>" alt="<?= e($card['icon_alt'] ?? $card['title']) ?>" loading="lazy">
             </div>
             <h3><?= e($card['title']) ?></h3>
             <p><?= e($card['description']) ?></p>
-            <a class="btn d-inline-flex align-items-center gap-2" href="<?= e($card['href']) ?>"<?= $isExternal ? ' target="_blank" rel="noopener"' : '' ?>>
+            <a class="btn service-link d-inline-flex align-items-center gap-2" href="<?= e($card['href']) ?>"<?= $isExternal ? ' target="_blank" rel="noopener"' : '' ?>>
               <span><?= e($card['cta']) ?></span>
               <i class="fas fa-arrow-left"></i>
             </a>
@@ -230,33 +228,31 @@ require __DIR__ . '/partials/header.php';
 
   <section class="about-section" id="about">
     <div class="container">
-      <div class="row gy-4 align-items-center">
-        <div class="col-lg-6 order-lg-2">
-          <div class="about-visual animate-fade delay-2 text-white">
-            <span class="badge d-inline-flex align-items-center gap-2 fw-semibold">
-              <i class="fas fa-shield-heart"></i>
-              ثقة وشراكات
-            </span>
-            <strong>منشآت رائدة تثق بنا لإنجاز مشاريعها الكبرى.</strong>
-            <p class="mb-0 text-white-50">نحن الشريك الموثوق للقطاعات التجارية والإنشائية في المملكة، نقدم حلولًا متكاملة تدعم رؤيتكم للنمو.</p>
+      <div class="about-card-floating animate-fade">
+        <div class="row gy-4 align-items-center">
+          <div class="col-lg-6 order-lg-2">
+            <div class="about-visual">
+              <img src="<?= e(asset_href('design/About Us Background.png')) ?>" alt="" class="about-visual-bg" loading="lazy" aria-hidden="true">
+              <img src="<?= e(asset_href('design/About Us Description.png')) ?>" alt="نظرة عامة عن شركة عزم الإنجاز" class="about-visual-figure" loading="lazy">
+            </div>
           </div>
-        </div>
-        <div class="col-lg-6 order-lg-1">
-          <span class="section-eyebrow animate-fade">من نحن</span>
-          <h2 class="section-title animate-fade delay-1">
-            منصة سعودية تجمع <span class="accent">حلول البناء</span> والتمويل تحت سقف واحد.
-          </h2>
-          <p class="section-subtitle animate-fade delay-2">
-            منذ انطلاقتنا ونحن نمكّن الشركات من تنفيذ مشاريعها بمرونة، مع باقة خدمات تشمل الاستشارة، التوريد، والبيع بالأجل وفق أعلى المعايير.
-          </p>
-          <ul class="about-features animate-fade delay-3">
-            <?php foreach ($aboutHighlights as $highlight): ?>
-              <li>
-                <span class="icon"><i class="fas fa-check"></i></span>
-                <span><?= e($highlight) ?></span>
-              </li>
-            <?php endforeach; ?>
-          </ul>
+          <div class="col-lg-6 order-lg-1">
+            <span class="section-eyebrow">من نحن</span>
+            <h2 class="section-title">
+              منصة سعودية تجمع <span class="accent">حلول البناء</span> والتمويل تحت سقف واحد.
+            </h2>
+            <p class="section-subtitle">
+              منذ انطلاقتنا ونحن نمكّن الشركات من تنفيذ مشاريعها بمرونة، مع باقة خدمات تشمل الاستشارة، التوريد، والبيع بالأجل وفق أعلى المعايير.
+            </p>
+            <ul class="about-features">
+              <?php foreach ($aboutHighlights as $highlight): ?>
+                <li>
+                  <span class="icon"><i class="fas fa-check"></i></span>
+                  <span><?= e($highlight) ?></span>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

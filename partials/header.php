@@ -101,34 +101,38 @@ if (isset($json_ld_output) && !empty($json_ld_output)) {
   <nav class="navbar navbar-expand-lg floating-nav navbar-light">
     <div class="container-fluid px-3 px-lg-4">
       <a class="navbar-brand d-flex align-items-center gap-2" href="<?= e(app_href('')) ?>" aria-label="<?= e($siteTitle) ?>">
-        <img src="<?= e(asset_href('assets/img/logo.svg')) ?>" alt="شركة عزم الإنجاز" class="brand-logo" decoding="async" fetchpriority="high" width="210" height="64">
+        <img src="<?= e(asset_href('design/logo 1.png')) ?>" alt="شركة عزم الإنجاز" class="brand-logo" decoding="async" fetchpriority="high" width="210" height="64">
         <span class="visually-hidden"><?= e($siteTitle) ?></span>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="تبديل القائمة">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div id="navMenu" class="collapse navbar-collapse">
-        <ul class="navbar-nav ms-auto align-items-lg-center gap-2 w-100 w-lg-auto">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-2 w-100 w-lg-auto nav-links">
           <li class="nav-item"><a class="nav-link" href="<?= e(app_href('index.php#top')) ?>">الرئيسية</a></li>
           <li class="nav-item"><a class="nav-link" href="<?= e(app_href('index.php#services')) ?>">خدماتنا</a></li>
-          <li class="nav-item"><a class="nav-link" href="<?= e(app_href('index.php#about')) ?>">من نحن</a></li>
-          <li class="nav-item"><a class="nav-link" href="<?= e(app_href('index.php#why')) ?>">لماذا عزم؟</a></li>
-          <li class="nav-item"><a class="nav-link" href="<?= e(app_href('index.php#faq')) ?>">الأسئلة الشائعة</a></li>
-          <li class="nav-item"><a class="nav-link" href="<?= e(app_href('index.php#contact')) ?>">تواصل</a></li>
-          <?php if(!$isAuth): ?>
-            <li class="nav-item"><a class="nav-link" href="<?= e(app_href('login.php')) ?>">تسجيل الدخول</a></li>
-            <li class="nav-item d-lg-flex">
-              <a class="btn btn-primary d-inline-flex align-items-center gap-2 w-100" href="<?= e(app_href('register.php')) ?>">
-                <i class="fas fa-user-plus small opacity-75"></i>
-                <span>إنشاء حساب</span>
-              </a>
-            </li>
-          <?php else: ?>
+          <li class="nav-item"><a class="nav-link" href="<?= e(app_href('index.php#about')) ?>">عن الشركة</a></li>
+          <li class="nav-item"><a class="nav-link" href="<?= e(app_href('index.php#contact')) ?>">تواصل معنا</a></li>
+          <?php if ($isAuth): ?>
             <li class="nav-item"><a class="nav-link" href="<?= e(app_href('dashboard.php')) ?>">لوحة التحكم</a></li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" id="navAccountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <?php endif; ?>
+        </ul>
+        <div class="nav-actions d-flex flex-column flex-lg-row flex-lg-row-reverse align-items-lg-center gap-2 w-100 w-lg-auto mt-3 mt-lg-0 ms-lg-3">
+          <?php if(!$isAuth): ?>
+            <a class="nav-action-link" href="<?= e(app_href('login.php')) ?>">تسجيل الدخول</a>
+            <a class="btn nav-action-secondary d-inline-flex align-items-center gap-2" href="<?= e(app_href('register.php')) ?>">
+              <i class="fas fa-user-plus small opacity-75"></i>
+              <span>إنشاء حساب</span>
+            </a>
+            <a class="btn nav-action-primary d-inline-flex align-items-center gap-2" href="<?= e(app_href('form.php')) ?>">
+              <i class="fas fa-file-signature small opacity-75"></i>
+              <span>اطلب عرض سعر</span>
+            </a>
+          <?php else: ?>
+            <div class="dropdown nav-account">
+              <a class="nav-action-link dropdown-toggle d-flex align-items-center gap-2" href="#" id="navAccountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="<?= e($avatarUrl ?: asset_href('assets/img/avatar-placeholder.png')) ?>" alt="صورة الحساب" class="nav-avatar">
-                <span class="d-none d-lg-inline">حسابي</span>
+                <span>حسابي</span>
                 <?php if ($unread_count > 0): ?>
                   <span class="badge rounded-pill bg-danger-subtle text-danger-emphasis small"><?= (int)$unread_count ?></span>
                 <?php endif; ?>
@@ -139,15 +143,13 @@ if (isset($json_ld_output) && !empty($json_ld_output)) {
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item text-danger" href="<?= e(app_href('logout.php')) ?>"><i class="fas fa-sign-out-alt ms-2"></i>تسجيل الخروج</a></li>
               </ul>
-            </li>
-          <?php endif; ?>
-          <li class="nav-item d-lg-flex">
-            <a class="btn btn-primary d-inline-flex align-items-center gap-2 w-100" href="<?= e(app_href('form.php')) ?>">
+            </div>
+            <a class="btn nav-action-primary d-inline-flex align-items-center gap-2" href="<?= e(app_href('form.php')) ?>">
               <i class="fas fa-file-signature small opacity-75"></i>
               <span>اطلب عرض سعر</span>
             </a>
-          </li>
-        </ul>
+          <?php endif; ?>
+        </div>
       </div>
     </div>
   </nav>
