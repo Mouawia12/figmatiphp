@@ -467,6 +467,16 @@ main section {
   z-index: 2;
 }
 
+@media (min-width: 1200px) {
+  .about-section {
+    margin-top: clamp(30px, 4vw, 90px);
+  }
+
+  .about-highlight-card {
+    margin-top: clamp(-120px, -12vw, -60px);
+  }
+}
+
 .about-highlight-card::before {
   content: '';
   position: absolute;
