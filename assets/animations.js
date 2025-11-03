@@ -34,7 +34,7 @@
             observer.observe(el);
         });
 
-        const animatedElements = document.querySelectorAll('.animate-fade');
+        const animatedElements = document.querySelectorAll('.animate-fade, .animate-slide-right, .animate-slide-left');
         animatedElements.forEach(el => observer.observe(el));
 
         if (heroVisual) {
