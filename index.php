@@ -169,44 +169,34 @@ require __DIR__ . '/partials/header.php';
 
   <section class="about-section" id="about">
     <div class="container">
-      <div class="about-card-floating">
-        <div class="row gy-5 align-items-center">
-          <div class="col-lg-6 order-lg-2">
-            <div class="about-visual animate-fade delay-2">
-              <img src="<?= e(asset_href('design/Gemini_Generated_Image_ip11ojip11ojip11 (1) 1.png')) ?>" alt="مشروع قيد الإنشاء يمثل أعمال عزم الإنجاز" class="about-visual-photo" loading="lazy">
-              <div class="about-visual-badge animate-fade delay-3">
-                <span class="badge-icon">
-                  <img src="<?= e(asset_href('design/whynous.png')) ?>" alt="أيقونة شراكة عزم الإنجاز" loading="lazy">
-                </span>
-                <div class="badge-text">
-                  <h3>عزم الإنجاز</h3>
-                  <p>شريكك الموثوق لتوريد وتمويل مشاريع البناء.</p>
-                </div>
+      <div class="about-highlight-card">
+        <div class="row align-items-center g-4 g-lg-5">
+          <div class="col-lg-4 order-lg-2">
+            <div class="about-logo-panel animate-fade delay-2">
+              <div class="about-logo-circle">
+                <img src="<?= e(asset_href('assets/img/logo.svg')) ?>" alt="شعار شركة عزم الإنجاز" loading="lazy">
               </div>
             </div>
           </div>
-          <div class="col-lg-6 order-lg-1">
+          <div class="col-lg-8 order-lg-1">
             <div class="about-copy">
-              <span class="section-eyebrow animate-fade">من نحن</span>
-              <h2 class="section-title animate-fade delay-1">
-                نبني الثقة مع كل مشروع ونقود رحلتك من التخطيط وحتى التسليم.
+              <span class="section-eyebrow about-eyebrow animate-fade">
+                <span class="about-eyebrow-icon">
+                  <i class="fas fa-person-digging"></i>
+                </span>
+                <span>من نحن</span>
+              </span>
+              <h2 class="section-title about-heading animate-fade delay-1">
+                عزم الإنجاز شركة سعودية متخصصة في بيع وتوريد مواد البناء بجودة مضمونة وأسعار منافسة.
               </h2>
-              <p class="section-subtitle animate-fade delay-2">
-                منصة عزم الإنجاز مجموعة متخصصة في حلول البناء والبيع بالأجل، تجمع بين الخبرة التشغيلية والتمويل المرن لتكون شريكك الاستراتيجي في كل مرحلة من مشروعك.
+              <p class="section-subtitle about-description animate-fade delay-2">
+                وتقدم حلولًا متكاملة تشمل البيع بالأجل، التصميم الداخلي، والمتجر الإلكتروني. نؤمن أن البناء الحقيقي يبدأ من التوريد الصحيح، ولهذا كان شعارنا:
               </p>
-              <div class="about-feature-grid">
-                <?php foreach ($aboutFeatures as $index => $feature): ?>
-                  <?php $delayClass = 'delay-' . min(4, $index + 2); ?>
-                  <article class="about-feature-card animate-fade <?= $delayClass ?>">
-                    <span class="feature-icon">
-                      <img src="<?= e(asset_href($feature['icon'])) ?>" alt="<?= e($feature['icon_alt']) ?>" loading="lazy">
-                    </span>
-                    <div class="feature-content">
-                      <h3><?= e($feature['title']) ?></h3>
-                      <p><?= e($feature['description']) ?></p>
-                    </div>
-                  </article>
-                <?php endforeach; ?>
+              <div class="about-quote animate-fade delay-3">
+                <span class="about-quote-icon">
+                  <i class="fas fa-quote-right"></i>
+                </span>
+                <p>عزمنا في التوريد ... أساس كل إنجاز</p>
               </div>
             </div>
           </div>
