@@ -454,12 +454,13 @@ main section {
 
 .about-highlight-card {
   position: relative;
-  border-radius: 42px;
-  padding: clamp(32px, 6vw, 72px);
+  border-radius: 34px;
+  padding: clamp(26px, 5vw, 60px);
   overflow: hidden;
   border: 1px solid rgba(28, 117, 188, 0.15);
-  box-shadow: 0 48px 140px -80px rgba(15, 23, 42, 0.4);
+  box-shadow: 0 40px 120px -90px rgba(15, 23, 42, 0.4);
   background: rgba(255, 255, 255, 0.92);
+  margin-top: clamp(-70px, -8vw, -40px);
 }
 
 .about-highlight-card::before {
@@ -557,40 +558,63 @@ main section {
 .about-quote {
   display: flex;
   align-items: center;
-  gap: 18px;
-  padding: 24px 28px;
-  border-radius: 26px;
+  gap: 16px;
+  padding: 20px 24px;
+  border-radius: 22px;
   background: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(28, 117, 188, 0.18);
-  box-shadow: 0 30px 80px -60px rgba(15, 23, 42, 0.45);
+  box-shadow: 0 26px 70px -60px rgba(15, 23, 42, 0.45);
   max-width: 520px;
+  flex-direction: row-reverse;
 }
 
 .about-quote-icon {
-  width: 58px;
-  height: 58px;
-  border-radius: 20px;
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
   background: linear-gradient(135deg, rgba(28, 117, 188, 0.22), rgba(28, 117, 188, 0.08));
   display: inline-flex;
   align-items: center;
   justify-content: center;
   color: var(--color-secondary);
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   flex-shrink: 0;
 }
 
-.about-quote p {
+.about-quote-text {
   margin: 0;
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: var(--color-primary);
+  font-weight: 400;
+  font-size: 1.15rem;
+  color: #1c75bc;
   letter-spacing: 0.015em;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-align: right;
+}
+
+.about-quote-text .quote-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9em;
+  color: #1c75bc;
+}
+
+.about-quote-text .quote-mark-close {
+  transform: translateY(2px);
 }
 
 .about-logo-panel {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (min-width: 992px) {
+  .about-logo-panel {
+    justify-content: flex-end;
+  }
 }
 
 .about-logo-circle {

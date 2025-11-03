@@ -171,14 +171,14 @@ require __DIR__ . '/partials/header.php';
     <div class="container">
       <div class="about-highlight-card">
         <div class="row align-items-center g-4 g-lg-5">
-          <div class="col-lg-4 order-lg-2">
+          <div class="col-lg-4 order-lg-1">
             <div class="about-logo-panel animate-fade delay-2">
               <div class="about-logo-circle">
                 <img src="<?= e(asset_href('assets/img/logo.svg')) ?>" alt="شعار شركة عزم الإنجاز" loading="lazy">
               </div>
             </div>
           </div>
-          <div class="col-lg-8 order-lg-1">
+          <div class="col-lg-8 order-lg-2">
             <div class="about-copy">
               <span class="section-eyebrow about-eyebrow animate-fade">
                 <span class="about-eyebrow-icon">
@@ -193,10 +193,18 @@ require __DIR__ . '/partials/header.php';
                 وتقدم حلولًا متكاملة تشمل البيع بالأجل، التصميم الداخلي، والمتجر الإلكتروني. نؤمن أن البناء الحقيقي يبدأ من التوريد الصحيح، ولهذا كان شعارنا:
               </p>
               <div class="about-quote animate-fade delay-3">
-                <span class="about-quote-icon">
+                <span class="about-quote-icon" aria-hidden="true">
                   <i class="fas fa-quote-right"></i>
                 </span>
-                <p>عزمنا في التوريد ... أساس كل إنجاز</p>
+                <p class="about-quote-text">
+                  <span class="quote-mark quote-mark-open" aria-hidden="true">
+                    <i class="fas fa-quote-right"></i>
+                  </span>
+                  عزمنا في التوريد ... أساس كل إنجاز
+                  <span class="quote-mark quote-mark-close" aria-hidden="true">
+                    <i class="fas fa-quote-left"></i>
+                  </span>
+                </p>
               </div>
             </div>
           </div>
