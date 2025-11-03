@@ -439,7 +439,7 @@ main section {
 
 .about-section {
   position: relative;
-  margin-top: clamp(-220px, -18vw, -120px);
+  margin-top: clamp(40px, 6vw, 140px);
   padding: clamp(60px, 6vw, 100px) 0 120px;
   background: transparent;
   z-index: 4;
@@ -462,7 +462,7 @@ main section {
   border: 1px solid rgba(28, 117, 188, 0.12);
   box-shadow: 0 50px 140px -80px rgba(15, 23, 42, 0.45);
   background: rgba(255, 255, 255, 0.94);
-  margin: clamp(-110px, -12vw, -60px) auto 0;
+  margin: clamp(30px, 6vw, 90px) auto 0;
   max-width: min(980px, 94%);
   z-index: 2;
 }
@@ -1188,11 +1188,11 @@ main section {
 
 @media (max-width: 1199.98px) {
   .about-section {
-    margin-top: clamp(-120px, -12vw, -60px);
+    margin-top: clamp(30px, 6vw, 100px);
   }
 
   .about-highlight-card {
-    margin: clamp(-40px, -6vw, -20px) auto 0;
+    margin: clamp(24px, 5vw, 70px) auto 0;
   }
 }
 
