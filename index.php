@@ -20,6 +20,12 @@ $heroStats = [
     ['value' => '24/7', 'label' => 'دعم فوري'],
 ];
 
+$heroHighlights = [
+    'تمويل مرن وخيارات بيع بالأجل بدون تعقيدات بنكية.',
+    'شبكة توريد وتوريد لوجستي تغطي مناطق المملكة بدقة وسرعة.',
+    'فريق تصميم وتنفيذ يتابع مشروعك خطوة بخطوة حتى التسليم.',
+];
+
 $serviceCards = [
     [
         'icon' => 'design/ايقونة2 2-1.svg',
@@ -128,8 +134,9 @@ require __DIR__ . '/partials/header.php';
   <section class="hero-section" id="hero">
     <div class="container">
       <div class="row align-items-center gy-5 hero-row">
-        <div class="col-lg-7 col-xl-6">
+        <div class="col-xl-6 col-lg-7">
           <div class="hero-copy animate-fade">
+            <span class="hero-eyebrow animate-fade">حلول التوريد والبيع بالأجل في منصة واحدة</span>
             <h1 class="hero-title animate-fade delay-1">
               <span>عزمنا في التوريد</span>
               <span class="accent">أساس كل إنجاز</span>
@@ -147,6 +154,65 @@ require __DIR__ . '/partials/header.php';
                 <span>تصفح المتجر</span>
               </a>
             </div>
+            <ul class="hero-checklist animate-fade delay-4">
+              <?php foreach ($heroHighlights as $item): ?>
+                <li>
+                  <span class="icon"><i class="fas fa-check"></i></span>
+                  <span><?= e($item) ?></span>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-5">
+          <div class="hero-media animate-fade delay-2">
+            <div class="hero-media-card">
+              <img src="<?= e(asset_href('design/headerimg.png')) ?>" alt="فريق عزم الإنجاز يعمل على تجهيز مشروع" class="hero-visual" loading="lazy">
+              <div class="hero-media-pills">
+                <span class="hero-pill"><i class="fas fa-shield-check"></i> توريد موثوق</span>
+                <span class="hero-pill"><i class="fas fa-microchip"></i> متابعة رقمية</span>
+              </div>
+            </div>
+            <div class="hero-metrics">
+              <?php foreach ($heroStats as $stat): ?>
+                <article class="hero-stat-card">
+                  <div class="hero-stat-value"><?= e($stat['value']) ?></div>
+                  <div class="hero-stat-label"><?= e($stat['label']) ?></div>
+                </article>
+              <?php endforeach; ?>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-section" id="about">
+    <div class="container">
+      <div class="about-card-floating animate-fade">
+        <div class="row gy-4 align-items-center">
+          <div class="col-lg-6 order-lg-2">
+            <div class="about-visual">
+              <img src="<?= e(asset_href('design/About Us Background.png')) ?>" alt="" class="about-visual-bg" loading="lazy" aria-hidden="true">
+              <img src="<?= e(asset_href('design/About Us Description.png')) ?>" alt="نظرة عامة عن شركة عزم الإنجاز" class="about-visual-figure" loading="lazy">
+            </div>
+          </div>
+          <div class="col-lg-6 order-lg-1">
+            <span class="section-eyebrow animate-fade">من نحن</span>
+            <h2 class="section-title animate-fade delay-1">
+              منصة سعودية تجمع <span class="accent">حلول البناء</span> والتمويل تحت سقف واحد.
+            </h2>
+            <p class="section-subtitle animate-fade delay-2">
+              منذ انطلاقتنا ونحن نمكّن الشركات من تنفيذ مشاريعها بمرونة، مع باقة خدمات تشمل الاستشارة، التوريد، والبيع بالأجل وفق أعلى المعايير.
+            </p>
+            <ul class="about-features animate-fade delay-3">
+              <?php foreach ($aboutHighlights as $highlight): ?>
+                <li>
+                  <span class="icon"><i class="fas fa-check"></i></span>
+                  <span><?= e($highlight) ?></span>
+                </li>
+              <?php endforeach; ?>
+            </ul>
           </div>
         </div>
       </div>
@@ -187,37 +253,7 @@ require __DIR__ . '/partials/header.php';
     </div>
   </section>
 
-  <section class="about-section" id="about">
-    <div class="container">
-      <div class="about-card-floating animate-fade">
-        <div class="row gy-4 align-items-center">
-          <div class="col-lg-6 order-lg-2">
-            <div class="about-visual">
-              <img src="<?= e(asset_href('design/About Us Background.png')) ?>" alt="" class="about-visual-bg" loading="lazy" aria-hidden="true">
-              <img src="<?= e(asset_href('design/About Us Description.png')) ?>" alt="نظرة عامة عن شركة عزم الإنجاز" class="about-visual-figure" loading="lazy">
-            </div>
-          </div>
-          <div class="col-lg-6 order-lg-1">
-            <span class="section-eyebrow">من نحن</span>
-            <h2 class="section-title">
-              منصة سعودية تجمع <span class="accent">حلول البناء</span> والتمويل تحت سقف واحد.
-            </h2>
-            <p class="section-subtitle">
-              منذ انطلاقتنا ونحن نمكّن الشركات من تنفيذ مشاريعها بمرونة، مع باقة خدمات تشمل الاستشارة، التوريد، والبيع بالأجل وفق أعلى المعايير.
-            </p>
-            <ul class="about-features">
-              <?php foreach ($aboutHighlights as $highlight): ?>
-                <li>
-                  <span class="icon"><i class="fas fa-check"></i></span>
-                  <span><?= e($highlight) ?></span>
-                </li>
-              <?php endforeach; ?>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  
 
   <section class="why-section" id="why">
     <div class="container">

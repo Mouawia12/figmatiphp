@@ -35,8 +35,9 @@
         const hero = document.querySelector('.hero-section');
         
         if (hero) {
-            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-            hero.style.opacity = 1 - (scrolled / 500);
+            const fadeProgress = Math.min(scrolled / 600, 1);
+            hero.style.transform = 'translateY(0)';
+            hero.style.opacity = (1 - fadeProgress * 0.35).toString();
         }
     });
 
@@ -114,7 +115,6 @@
     });
 
     // ============ Navbar Scroll Effect ============
-    let lastScroll = 0;
     const navbar = document.querySelector('.navbar');
     
     window.addEventListener('scroll', function() {
@@ -129,13 +129,7 @@
                 navbar.style.backdropFilter = '';
             }
             
-            if (currentScroll > lastScroll && currentScroll > 200) {
-                navbar.style.transform = 'translateY(-100%)';
-            } else {
-                navbar.style.transform = 'translateY(0)';
-            }
-            
-            lastScroll = currentScroll;
+            navbar.style.transform = 'translateY(0)';
         }
     });
 
