@@ -379,23 +379,6 @@ require __DIR__ . '/partials/header.php';
       </div>
     </div>
   </section>
-
-  <section class="cta-section text-center text-white">
-    <div class="container">
-      <h2 class="fw-bold mb-3 animate-fade">جاهزون لتجهيز مشروعك؟</h2>
-      <p class="lead mb-4 text-white-50 animate-fade delay-1">تواصل معنا الآن لحلول مخصصة لمشروعك، وسنكون شريكك في كل خطوة من التخطيط حتى التسليم.</p>
-      <div class="d-flex flex-wrap justify-content-center gap-3 animate-fade delay-2">
-        <a href="<?= e(app_href('support/index.php')) ?>" class="btn btn-outline-light d-inline-flex align-items-center gap-2">
-          <i class="fas fa-comments"></i>
-          <span>تواصل مع فريق الدعم</span>
-        </a>
-        <a href="<?= e(app_href('form.php')) ?>" class="btn btn-primary d-inline-flex align-items-center gap-2">
-          <i class="fas fa-calendar-check"></i>
-          <span>احجز مكالمة استشارية</span>
-        </a>
-      </div>
-    </div>
-  </section>
 </main>
 
 
