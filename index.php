@@ -220,15 +220,15 @@ require __DIR__ . '/partials/header.php';
             </div>
           </div>
           <div class="col-lg-8 order-lg-2">
-            <div class="about-copy">
-              <span class="section-eyebrow about-eyebrow animate-fade">
+            <div class="about-copy animate-fade">
+              <span class="section-eyebrow about-eyebrow animate-fade delay-1">
                 <span class="about-eyebrow-icon">
                   <i class="fas fa-person-digging"></i>
                 </span>
                 <span>من نحن</span>
               </span>
-            
-                <p class="about-quote-text">
+
+                <p class="about-quote-text animate-fade delay-2">
                   <span class="quote-mark quote-mark-open" aria-hidden="true">
                     <i class="fas fa-quote-right"></i>
                   </span>
@@ -381,9 +381,9 @@ require __DIR__ . '/partials/header.php';
 
   <section class="cta-section text-center text-white">
     <div class="container">
-      <h2 class="fw-bold mb-3">جاهزون لتجهيز مشروعك؟</h2>
-      <p class="lead mb-4 text-white-50">تواصل معنا الآن لحلول مخصصة لمشروعك، وسنكون شريكك في كل خطوة من التخطيط حتى التسليم.</p>
-      <div class="d-flex flex-wrap justify-content-center gap-3">
+      <h2 class="fw-bold mb-3 animate-fade">جاهزون لتجهيز مشروعك؟</h2>
+      <p class="lead mb-4 text-white-50 animate-fade delay-1">تواصل معنا الآن لحلول مخصصة لمشروعك، وسنكون شريكك في كل خطوة من التخطيط حتى التسليم.</p>
+      <div class="d-flex flex-wrap justify-content-center gap-3 animate-fade delay-2">
         <a href="<?= e(app_href('support/index.php')) ?>" class="btn btn-outline-light d-inline-flex align-items-center gap-2">
           <i class="fas fa-comments"></i>
           <span>تواصل مع فريق الدعم</span>
