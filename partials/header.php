@@ -85,7 +85,7 @@ if (isset($json_ld_output) && !empty($json_ld_output)) {
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet" crossorigin="anonymous">
 
 <!-- Font Awesome للأيقونات -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2Pkf6CG5s8zUqDbgHgtE7SNY7VZqC2T9gFSkKf+DQ5BqZbP6Vx1E06R9uA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <!-- خطوط Google -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -101,7 +101,7 @@ if (isset($json_ld_output) && !empty($json_ld_output)) {
   <nav class="navbar navbar-expand-lg floating-nav navbar-light">
     <div class="container-fluid px-3 px-lg-4">
       <a class="navbar-brand d-flex align-items-center gap-2" href="<?= e(app_href('')) ?>" aria-label="<?= e($siteTitle) ?>">
-        <img src="<?= e(asset_href('design/logo 1.png')) ?>" alt="شركة عزم الإنجاز" class="brand-logo" decoding="async" fetchpriority="high" width="210" height="64">
+        <img src="<?= e(asset_href('design/Rectangle.png')) ?>" alt="شركة عزم الإنجاز" class="brand-logo" decoding="async" fetchpriority="high" width="220" height="80">
         <span class="visually-hidden"><?= e($siteTitle) ?></span>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="تبديل القائمة">
@@ -119,11 +119,6 @@ if (isset($json_ld_output) && !empty($json_ld_output)) {
         </ul>
         <div class="nav-actions d-flex flex-column flex-lg-row flex-lg-row-reverse align-items-lg-center gap-2 w-100 w-lg-auto mt-3 mt-lg-0 ms-lg-3">
           <?php if(!$isAuth): ?>
-            <a class="nav-action-link" href="<?= e(app_href('login.php')) ?>">تسجيل الدخول</a>
-            <a class="btn nav-action-secondary d-inline-flex align-items-center gap-2" href="<?= e(app_href('register.php')) ?>">
-              <i class="fas fa-user-plus small opacity-75"></i>
-              <span>إنشاء حساب</span>
-            </a>
             <a class="btn nav-action-primary d-inline-flex align-items-center gap-2" href="<?= e(app_href('form.php')) ?>">
               <i class="fas fa-file-signature small opacity-75"></i>
               <span>اطلب عرض سعر</span>

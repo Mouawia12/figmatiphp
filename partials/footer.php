@@ -12,7 +12,7 @@ $year = date('Y');
     <div class="row gy-5 align-items-start">
       <div class="col-lg-5">
         <div class="logo-wrap mb-4">
-          <img src="<?= e(asset_href('design/logo 1.png')) ?>" alt="<?= e($siteTitle) ?>" width="210" height="64" loading="lazy">
+          <img src="<?= e(asset_href('design/Rectangle.png')) ?>" alt="<?= e($siteTitle) ?>" width="210" height="64" loading="lazy">
         </div>
         <p class="text-muted-soft mb-4">
           شركة عزم الإنجاز تجمع حلول التوريد، والتصميم، والبيع بالأجل في منصة واحدة تساعد منشأتك على النمو بثقة وسرعة.

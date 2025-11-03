@@ -115,23 +115,16 @@
     });
 
     // ============ Navbar Scroll Effect ============
-    const navbar = document.querySelector('.navbar');
+    const navbar = document.querySelector('.floating-nav');
     
-    window.addEventListener('scroll', function() {
-        const currentScroll = window.pageYOffset;
-        
-        if (navbar) {
-            if (currentScroll > 100) {
-                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
-                navbar.style.backdropFilter = 'blur(10px)';
-            } else {
-                navbar.style.boxShadow = '';
-                navbar.style.backdropFilter = '';
-            }
-            
-            navbar.style.transform = 'translateY(0)';
-        }
-    });
+    const updateNavState = () => {
+        if (!navbar) return;
+        const shouldSolid = (window.pageYOffset || document.documentElement.scrollTop || 0) > 50;
+        navbar.classList.toggle('scrolled', shouldSolid);
+    };
+    
+    updateNavState();
+    window.addEventListener('scroll', updateNavState, { passive: true });
 
     // ============ Cursor Follow Effect ============
     let cursor = null;
