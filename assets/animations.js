@@ -20,26 +20,57 @@
         });
     }, observerOptions);
 
-    // إضافة fade-on-scroll للعناصر
+    const heroSection = document.querySelector('.hero-section');
+    const heroVisual = document.querySelector('.hero-visual');
+
+    // إضافة fade-on-scroll للعناصر + تحضير بطاقات الهيرو
     document.addEventListener('DOMContentLoaded', function() {
         const elements = document.querySelectorAll('.section-pad, .accordion-item, .soft-link');
         elements.forEach(el => {
             el.classList.add('fade-on-scroll');
             observer.observe(el);
         });
+
+        if (heroVisual) {
+            heroVisual.setAttribute('data-interactive', 'true');
+
+            const counters = heroVisual.querySelectorAll('.metric-value[data-count]');
+            if (counters.length) {
+                const metricsObserver = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (!entry.isIntersecting) return;
+                        const el = entry.target;
+                        const target = parseInt(el.getAttribute('data-count') || '0', 10);
+                        if (!Number.isNaN(target)) {
+                            animateCounter(el, target, 1600);
+                        }
+                        obs.unobserve(el);
+                    });
+                }, { threshold: 0.6 });
+
+                counters.forEach(counter => metricsObserver.observe(counter));
+            }
+        }
     });
 
     // ============ Parallax Effect ============
-    window.addEventListener('scroll', function() {
+    const updateHeroOnScroll = () => {
         const scrolled = window.pageYOffset;
-        const hero = document.querySelector('.hero-section');
-        
-        if (hero) {
+
+        if (heroSection) {
             const fadeProgress = Math.min(scrolled / 600, 1);
-            hero.style.transform = 'translateY(0)';
-            hero.style.opacity = (1 - fadeProgress * 0.35).toString();
+            heroSection.style.transform = 'translateY(0)';
+            heroSection.style.opacity = (1 - fadeProgress * 0.35).toString();
         }
-    });
+
+        if (heroVisual) {
+            const progress = Math.min(scrolled / 1200, 1);
+            heroVisual.style.setProperty('--scroll-progress', progress.toFixed(3));
+        }
+    };
+
+    updateHeroOnScroll();
+    window.addEventListener('scroll', updateHeroOnScroll, { passive: true });
 
     // ============ Particles Background ============
     function createParticles() {
@@ -81,18 +112,20 @@
     // ============ Counter Animation ============
     function animateCounter(element, target, duration = 2000) {
         if (!element) return;
-        
+
         const start = 0;
         const increment = target / (duration / 16);
         let current = start;
-        
+        const prefix = element.getAttribute('data-prefix') || '';
+        const suffix = element.getAttribute('data-suffix') || '';
+
         const timer = setInterval(() => {
             current += increment;
             if (current >= target) {
-                element.textContent = target;
+                element.textContent = `${prefix}${target}${suffix}`;
                 clearInterval(timer);
             } else {
-                element.textContent = Math.floor(current);
+                element.textContent = `${prefix}${Math.floor(current)}${suffix}`;
             }
         }, 16);
     }
@@ -182,10 +215,15 @@
         // إضافة fade-in للصفحة
         document.body.style.opacity = '0';
         document.body.style.transition = 'opacity 0.5s ease-in';
-        
+
         setTimeout(() => {
             document.body.style.opacity = '1';
         }, 100);
+
+        if (heroVisual) {
+            heroVisual.style.setProperty('--pointer-x', '0');
+            heroVisual.style.setProperty('--pointer-y', '0');
+        }
     });
 
     // ============ Accordion Smooth Animation ============
@@ -255,6 +293,47 @@
     document.querySelectorAll('.hero-card ul, .footer ul').forEach(list => {
         staggerListItems(list);
     });
+
+    // ============ Hero Interactive Motion ============
+    if (heroSection && heroVisual) {
+        let pointerX = 0;
+        let pointerY = 0;
+        let raf = null;
+
+        const applyPointer = () => {
+            heroVisual.style.setProperty('--pointer-x', pointerX.toFixed(3));
+            heroVisual.style.setProperty('--pointer-y', pointerY.toFixed(3));
+            raf = null;
+        };
+
+        const schedule = () => {
+            if (raf !== null) return;
+            raf = requestAnimationFrame(applyPointer);
+        };
+
+        const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+        heroSection.addEventListener('pointermove', (event) => {
+            const rect = heroVisual.getBoundingClientRect();
+            const x = (event.clientX - rect.left) / rect.width;
+            const y = (event.clientY - rect.top) / rect.height;
+
+            if (x >= 0 && x <= 1 && y >= 0 && y <= 1) {
+                pointerX = clamp((x - 0.5) * 30, -18, 18);
+                pointerY = clamp((y - 0.5) * 30, -18, 18);
+            } else {
+                pointerX = 0;
+                pointerY = 0;
+            }
+            schedule();
+        });
+
+        heroSection.addEventListener('pointerleave', () => {
+            pointerX = 0;
+            pointerY = 0;
+            schedule();
+        });
+    }
 
 })();
 

@@ -163,6 +163,47 @@ require __DIR__ . '/partials/header.php';
             </div>
           </div>
         </div>
+        <div class="col-lg-5 col-xl-6 hero-visual-col">
+          <div class="hero-visual" aria-hidden="true">
+            <div class="hero-visual-layer layer-primary"></div>
+            <div class="hero-visual-layer layer-secondary"></div>
+            <div class="hero-visual-layer layer-tertiary"></div>
+
+            <div class="hero-visual-card hero-visual-card-main">
+              <div class="hero-card-icon">
+                <i class="fas fa-truck-fast"></i>
+              </div>
+              <div class="hero-card-copy">
+                <strong>توريد سريع</strong>
+                <span>شبكة لوجستية تغطي المملكة</span>
+              </div>
+            </div>
+
+            <div class="hero-visual-card hero-visual-card-secondary">
+              <div class="hero-card-icon">
+                <i class="fas fa-helmet-safety"></i>
+              </div>
+              <div class="hero-card-copy">
+                <strong>إشراف هندسي</strong>
+                <span>فريق متخصص يتابع مشروعك</span>
+              </div>
+            </div>
+
+            <div class="hero-visual-metric metric-one">
+              <span class="metric-label">طلبات منجزة</span>
+              <span class="metric-value" data-count="2500" data-prefix="+">0</span>
+            </div>
+
+            <div class="hero-visual-metric metric-two">
+              <span class="metric-label">شركاء موثقون</span>
+              <span class="metric-value" data-count="120" data-suffix="+">0</span>
+            </div>
+
+            <span class="hero-visual-spark spark-one"></span>
+            <span class="hero-visual-spark spark-two"></span>
+            <span class="hero-visual-spark spark-three"></span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
