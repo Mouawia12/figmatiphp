@@ -1444,18 +1444,49 @@ main section {
   will-change: transform, opacity;
 }
 
-.js .animate-fade {
+.animate-slide-right,
+.animate-slide-left {
+  opacity: 0;
+  will-change: transform, opacity;
+  animation-duration: 0.9s;
+  animation-timing-function: var(--transition-base);
+  animation-fill-mode: forwards;
+}
+
+.animate-slide-right {
+  transform: translateX(42px);
+  animation-name: slide-in-from-right;
+}
+
+.animate-slide-left {
+  transform: translateX(-42px);
+  animation-name: slide-in-from-left;
+}
+
+.js .animate-fade,
+.js .animate-slide-right,
+.js .animate-slide-left {
   animation-play-state: paused;
 }
 
-.js .animate-fade.visible {
+.js .animate-fade.visible,
+.js .animate-slide-right.visible,
+.js .animate-slide-left.visible {
   animation-play-state: running;
 }
 
-.animate-fade.delay-1 { animation-delay: 0.1s; }
-.animate-fade.delay-2 { animation-delay: 0.2s; }
-.animate-fade.delay-3 { animation-delay: 0.3s; }
-.animate-fade.delay-4 { animation-delay: 0.4s; }
+.animate-fade.delay-1,
+.animate-slide-right.delay-1,
+.animate-slide-left.delay-1 { animation-delay: 0.1s; }
+.animate-fade.delay-2,
+.animate-slide-right.delay-2,
+.animate-slide-left.delay-2 { animation-delay: 0.2s; }
+.animate-fade.delay-3,
+.animate-slide-right.delay-3,
+.animate-slide-left.delay-3 { animation-delay: 0.3s; }
+.animate-fade.delay-4,
+.animate-slide-right.delay-4,
+.animate-slide-left.delay-4 { animation-delay: 0.4s; }
 
 @keyframes fade-up {
   0% {
@@ -1466,6 +1497,30 @@ main section {
   100% {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-from-right {
+  0% {
+    opacity: 0;
+    transform: translateX(42px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-from-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-42px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 

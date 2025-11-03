@@ -264,9 +264,10 @@ require __DIR__ . '/partials/header.php';
         <?php foreach ($serviceCards as $index => $card): ?>
           <?php
             $delayClass = 'delay-' . min(4, $index + 1);
+            $animationClass = ($index % 2 === 0) ? 'animate-slide-right' : 'animate-slide-left';
             $isExternal = strpos($card['href'], 'http') === 0;
           ?>
-          <article class="service-card animate-fade <?= $delayClass ?>">
+          <article class="service-card <?= $animationClass ?> <?= $delayClass ?>">
             <div class="service-icon">
               <img src="<?= e(asset_href($card['icon'])) ?>" alt="<?= e($card['icon_alt'] ?? $card['title']) ?>" loading="lazy">
             </div>
