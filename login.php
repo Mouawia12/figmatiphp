@@ -229,20 +229,29 @@ require __DIR__ . '/partials/header.php';
 
 <main class="auth-wrapper">
   <div class="auth-card">
-    <div class="auth-header text-center text-lg-start">
-      <h1 class="fw-bold mb-2">مرحبًا بك في عزم الإنجاز</h1>
-      <p class="lead mb-0">إدارة الطلبات، التوريد، وخدمات البيع بالأجل تبدأ من هنا.</p>
+    <div class="auth-header">
+      <div class="auth-header-inner">
+        <span class="auth-badge">حلول عزم الرقمية</span>
+        <h1 class="fw-bold">مرحبًا بك في عزم الإنجاز</h1>
+        <p class="lead">إدارة الطلبات، التوريد، وخدمات البيع بالأجل تبدأ من هنا.</p>
+        <ul class="auth-highlights">
+          <li>لوحة تحكم لحظية لتتبع مشاريعك وطلباتها</li>
+          <li>فريق دعم متخصص لقطاع الأعمال والشركات</li>
+          <li>تقارير مالية ومؤشرات أداء واضحة وسريعة</li>
+        </ul>
+      </div>
     </div>
     <div class="auth-body">
-      <ul class="nav nav-tabs justify-content-center mb-4">
-        <li class="nav-item"><a class="nav-link <?= $mode==='login' ? 'active' : '' ?>" href="?mode=login">تسجيل الدخول</a></li>
-        <li class="nav-item"><a class="nav-link <?= $mode==='register' ? 'active' : '' ?>" href="?mode=register">إنشاء حساب</a></li>
-      </ul>
+      <div class="auth-body-inner">
+        <ul class="nav nav-pills auth-toggle justify-content-center justify-content-lg-start mb-4">
+          <li class="nav-item"><a class="nav-link <?= $mode==='login' ? 'active' : '' ?>" href="?mode=login">تسجيل الدخول</a></li>
+          <li class="nav-item"><a class="nav-link <?= $mode==='register' ? 'active' : '' ?>" href="?mode=register">إنشاء حساب</a></li>
+        </ul>
 
-      <?php if ($err): ?><div class="alert alert-danger"><?= e($err) ?></div><?php endif; ?>
-      <?php if ($info): ?><div class="alert alert-info"><?= e($info) ?></div><?php endif; ?>
+        <?php if ($err): ?><div class="alert alert-danger"><?= e($err) ?></div><?php endif; ?>
+        <?php if ($info): ?><div class="alert alert-info"><?= e($info) ?></div><?php endif; ?>
 
-      <?php if ($mode==='login'): ?>
+        <?php if ($mode==='login'): ?>
         <?php
           $hasFlow  = isset($_SESSION['login_flow']);
           $hasForgotFlow = isset($_SESSION['forgot_password_flow']);
@@ -490,6 +499,7 @@ require __DIR__ . '/partials/header.php';
       </div>
     </div>
   </div>
+</div>
 </main>
 
 <!-- نظام الدردشة الذكي - عزم -->
