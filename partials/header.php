@@ -59,6 +59,13 @@ if ($isAuth) {
         $avatarUrl = asset_href($avatarUrl);
     }
 }
+// Build configurable body classes while keeping the defaults.
+$bodyClass = trim((string)($bodyClass ?? ''));
+$bodyClassParts = array_filter(array_map('trim', preg_split('/\s+/', $bodyClass) ?: []));
+$bodyClassParts = array_merge(['app-bg', 'has-floating-nav'], $bodyClassParts);
+$bodyClassParts = array_values(array_unique(array_filter($bodyClassParts, static fn($c) => $c !== '')));
+$bodyClassAttr = implode(' ', $bodyClassParts);
+
 ?>
 <!doctype html>
 <html lang="ar" dir="rtl">
@@ -96,7 +103,7 @@ if (isset($json_ld_output) && !empty($json_ld_output)) {
 <!-- النمط المخصص -->
 <link rel="stylesheet" href="<?= e(asset_href('assets/styles.css')) ?>">
 </head>
-<body class="app-bg has-floating-nav">
+<body class="<?= e($bodyClassAttr) ?>">
 
 <header id="top">
   <nav class="navbar navbar-expand-lg floating-nav navbar-light">
@@ -150,3 +157,4 @@ if (isset($json_ld_output) && !empty($json_ld_output)) {
     </div>
   </nav>
 </header>
+<div class="floating-nav-spacer" aria-hidden="true"></div>
