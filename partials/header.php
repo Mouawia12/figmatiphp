@@ -65,6 +65,8 @@ $bodyClassParts = array_filter(array_map('trim', preg_split('/\s+/', $bodyClass)
 $bodyClassParts = array_merge(['app-bg', 'has-floating-nav'], $bodyClassParts);
 $bodyClassParts = array_values(array_unique(array_filter($bodyClassParts, static fn($c) => $c !== '')));
 $bodyClassAttr = implode(' ', $bodyClassParts);
+$isHomePage = in_array('home-page', $bodyClassParts, true);
+$navClass = 'navbar navbar-expand-lg floating-nav' . ($isHomePage ? '' : ' scrolled') . ' navbar-light';
 
 ?>
 <!doctype html>
@@ -106,7 +108,7 @@ if (isset($json_ld_output) && !empty($json_ld_output)) {
 <body class="<?= e($bodyClassAttr) ?>">
 
 <header id="top">
-  <nav class="navbar navbar-expand-lg floating-nav navbar-light">
+  <nav class="<?= e($navClass) ?>">
     <div class="container-fluid px-3 px-lg-4">
       <a class="navbar-brand d-flex align-items-center gap-2" href="<?= e(app_href('')) ?>" aria-label="<?= e($siteTitle) ?>">
         <img src="<?= e(asset_href('design/Rectangle.png')) ?>" alt="شركة عزم الإنجاز" class="brand-logo" decoding="async" fetchpriority="high" width="220" height="80">

@@ -224,23 +224,12 @@ try {
   }
 }
 
+$bodyClass = 'auth-page';
 require __DIR__ . '/partials/header.php';
 ?>
 
 <main class="auth-wrapper">
   <div class="auth-card">
-    <div class="auth-header">
-      <div class="auth-header-inner">
-        <span class="auth-badge">حلول عزم الرقمية</span>
-        <h1 class="fw-bold">مرحبًا بك في عزم الإنجاز</h1>
-        <p class="lead">إدارة الطلبات، التوريد، وخدمات البيع بالأجل تبدأ من هنا.</p>
-        <ul class="auth-highlights">
-          <li>لوحة تحكم لحظية لتتبع مشاريعك وطلباتها</li>
-          <li>فريق دعم متخصص لقطاع الأعمال والشركات</li>
-          <li>تقارير مالية ومؤشرات أداء واضحة وسريعة</li>
-        </ul>
-      </div>
-    </div>
     <div class="auth-body">
       <div class="auth-body-inner">
         <ul class="nav nav-pills auth-toggle justify-content-center justify-content-lg-start mb-4">

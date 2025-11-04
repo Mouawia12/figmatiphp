@@ -155,17 +155,26 @@
 
     // ============ Navbar Scroll Effect ============
     const navbar = document.querySelector('.floating-nav');
-    
+    const isHomePage = document.body.classList.contains('home-page');
+
     const updateNavState = () => {
         if (!navbar) return;
+        if (!isHomePage) {
+            navbar.classList.add('scrolled');
+            return;
+        }
         const shouldSolid = (window.pageYOffset || document.documentElement.scrollTop || 0) > 50;
         navbar.classList.toggle('scrolled', shouldSolid);
     };
-    
-    updateNavState();
-    window.addEventListener('scroll', updateNavState, { passive: true });
 
     if (navbar) {
+        if (isHomePage) {
+            updateNavState();
+            window.addEventListener('scroll', updateNavState, { passive: true });
+        } else {
+            navbar.classList.add('scrolled');
+        }
+
         const navMenu = document.getElementById('navMenu');
         if (navMenu) {
             if (navMenu.classList.contains('show')) {
@@ -366,4 +375,3 @@
     }
 
 })();
-
