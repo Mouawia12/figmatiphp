@@ -165,6 +165,30 @@
     updateNavState();
     window.addEventListener('scroll', updateNavState, { passive: true });
 
+    if (navbar) {
+        const navMenu = document.getElementById('navMenu');
+        if (navMenu) {
+            if (navMenu.classList.contains('show')) {
+                navbar.classList.add('nav-open');
+            }
+
+            navMenu.addEventListener('shown.bs.collapse', () => {
+                navbar.classList.add('nav-open');
+            });
+
+            navMenu.addEventListener('hidden.bs.collapse', () => {
+                navbar.classList.remove('nav-open');
+                updateNavState();
+            });
+        }
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 991.98) {
+                navbar.classList.remove('nav-open');
+            }
+        });
+    }
+
     // ============ Cursor Follow Effect ============
     let cursor = null;
     
