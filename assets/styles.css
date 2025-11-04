@@ -1130,6 +1130,15 @@ main section {
   margin: 0;
   color: rgba(15, 23, 42, 0.7);
 }
+
+.why-card.animate-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.why-card.animate-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 28px 80px -60px rgba(15, 23, 42, 0.32);
+}
 .faq-section {
   padding: 140px 0;
   position: relative;
@@ -1317,7 +1326,7 @@ main section {
   align-items: center;
   justify-content: center;
   padding: clamp(48px, 8vw, 96px) 16px;
-  background: linear-gradient(135deg, #f5f1ff 0%, #ffffff 52%, #ffffff 100%);
+  background: linear-gradient(135deg, rgba(16, 77, 136, 0.08) 0%, #ffffff 54%, #ffffff 100%);
   overflow: hidden;
 }
 
@@ -1335,7 +1344,7 @@ main section {
   height: clamp(420px, 55vw, 680px);
   right: -18vw;
   top: -22vh;
-  background: radial-gradient(circle at center, rgba(135, 106, 255, 0.35) 0%, rgba(135, 106, 255, 0.08) 45%, rgba(255, 255, 255, 0) 70%);
+  background: radial-gradient(circle at center, rgba(28, 117, 188, 0.28) 0%, rgba(28, 117, 188, 0.06) 55%, rgba(255, 255, 255, 0) 72%);
   filter: blur(0.5px);
 }
 
@@ -1344,17 +1353,17 @@ main section {
   height: clamp(280px, 32vw, 460px);
   bottom: -22vh;
   left: -14vw;
-  background: radial-gradient(circle at center, rgba(217, 201, 255, 0.55) 0%, rgba(255, 255, 255, 0) 70%);
+  background: radial-gradient(circle at center, rgba(49, 114, 180, 0.35) 0%, rgba(255, 255, 255, 0) 70%);
 }
 
 .auth-card {
   position: relative;
   z-index: 1;
   width: min(100%, 1080px);
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.94);
   border-radius: 28px;
-  box-shadow: 0 40px 80px rgba(102, 77, 230, 0.16);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 40px 80px rgba(16, 77, 136, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.65);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -1378,9 +1387,9 @@ main section {
 .auth-card .auth-header {
   position: relative;
   background:
-    radial-gradient(circle at 20% 25%, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 55%),
-    radial-gradient(circle at 85% 80%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0) 48%),
-    linear-gradient(135deg, #7c62ff 0%, #925df5 40%, #c46bff 100%);
+    radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 55%),
+    radial-gradient(circle at 82% 78%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0) 48%),
+    linear-gradient(135deg, #104d88 0%, #1c75bc 42%, #3172b4 100%);
   color: #fff;
   padding: clamp(40px, 6vw, 68px);
   display: flex;
@@ -1415,7 +1424,7 @@ main section {
   align-self: flex-start;
   padding: 8px 16px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(6px);
   font-weight: 600;
   font-size: 0.95rem;
@@ -1477,8 +1486,8 @@ main section {
 
 .auth-toggle {
   border-radius: 999px;
-  border: 1px solid rgba(124, 98, 255, 0.22);
-  background: rgba(124, 98, 255, 0.08);
+  border: 1px solid rgba(16, 77, 136, 0.2);
+  background: rgba(16, 77, 136, 0.08);
   padding: 6px;
   display: inline-flex;
   align-items: center;
@@ -1490,7 +1499,7 @@ main section {
   border: none;
   padding: 10px 28px;
   font-weight: 600;
-  color: rgba(60, 43, 131, 0.85);
+  color: rgba(16, 77, 136, 0.75);
   transition: background 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
 }
 
@@ -1501,63 +1510,63 @@ main section {
 }
 
 .auth-toggle .nav-link.active {
-  background: linear-gradient(135deg, #7c62ff 0%, #b76bff 100%);
-  box-shadow: 0 14px 30px rgba(124, 98, 255, 0.28);
+  background: linear-gradient(135deg, #104d88 0%, #1c75bc 100%);
+  box-shadow: 0 14px 30px rgba(16, 77, 136, 0.24);
 }
 
 .auth-toggle .nav-link:hover:not(.active) {
-  background: rgba(124, 98, 255, 0.12);
+  background: rgba(16, 77, 136, 0.14);
 }
 
 .auth-card .alert {
   border-radius: var(--radius-sm);
   border: none;
-  box-shadow: 0 20px 40px rgba(124, 98, 255, 0.16);
+  box-shadow: 0 20px 40px rgba(16, 77, 136, 0.18);
 }
 
 .auth-card .form-control {
   border-radius: 16px;
-  border: 1px solid rgba(124, 98, 255, 0.25);
+  border: 1px solid rgba(16, 77, 136, 0.25);
   padding: 12px 16px;
   background: rgba(255, 255, 255, 0.95);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .auth-card .form-control:focus {
-  border-color: rgba(124, 98, 255, 0.8);
-  box-shadow: 0 0 0 3px rgba(124, 98, 255, 0.22);
+  border-color: rgba(28, 117, 188, 0.8);
+  box-shadow: 0 0 0 3px rgba(28, 117, 188, 0.22);
 }
 
 .auth-card .btn-primary,
 .auth-card .btn-primary:focus {
-  background: linear-gradient(135deg, #7c62ff 0%, #b76bff 100%);
+  background: linear-gradient(135deg, #104d88 0%, #1c75bc 100%);
   border: none;
-  box-shadow: 0 16px 32px rgba(124, 98, 255, 0.2);
+  box-shadow: 0 16px 32px rgba(16, 77, 136, 0.22);
 }
 
 .auth-card .btn-primary:hover {
-  background: linear-gradient(135deg, #6c58f2 0%, #a965ff 100%);
+  background: linear-gradient(135deg, #0f3c80 0%, #1a66d0 100%);
 }
 
 .auth-card .btn-outline-secondary {
-  border-color: rgba(124, 98, 255, 0.45);
-  color: rgba(60, 43, 131, 0.9);
+  border-color: rgba(16, 77, 136, 0.4);
+  color: rgba(16, 77, 136, 0.85);
 }
 
 .auth-card .btn-outline-secondary:hover {
-  background: rgba(124, 98, 255, 0.12);
+  background: rgba(16, 77, 136, 0.12);
 }
 
 .form-check-input {
   width: 18px;
   height: 18px;
   border-radius: 6px;
-  border: 1px solid rgba(124, 98, 255, 0.35);
+  border: 1px solid rgba(16, 77, 136, 0.35);
 }
 
 .form-check-input:checked {
-  background-color: #7c62ff;
-  border-color: #7c62ff;
+  background-color: #104d88;
+  border-color: #104d88;
 }
 
 .otp-input {
@@ -1566,14 +1575,14 @@ main section {
   text-align: center;
   font-size: 1.5rem;
   border-radius: var(--radius-sm);
-  border: 1px solid rgba(124, 98, 255, 0.3);
+  border: 1px solid rgba(16, 77, 136, 0.3);
   background: rgba(255, 255, 255, 0.95);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .otp-input:focus {
-  border-color: rgba(124, 98, 255, 0.9);
-  box-shadow: 0 0 0 3px rgba(124, 98, 255, 0.22);
+  border-color: rgba(16, 77, 136, 0.9);
+  box-shadow: 0 0 0 3px rgba(28, 117, 188, 0.22);
 }
 
 .upload-progress-container {
