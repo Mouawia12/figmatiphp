@@ -38,6 +38,22 @@ body.has-floating-nav {
   padding-top: 0;
 }
 
+body.has-floating-nav.no-nav-offset,
+body.has-floating-nav.home-page,
+body.no-nav-offset {
+  padding-top: 0;
+}
+
+.floating-nav-spacer {
+  height: clamp(120px, 18vh, 220px);
+  width: 100%;
+}
+
+body.home-page .floating-nav-spacer,
+body.no-nav-offset .floating-nav-spacer {
+  height: 0;
+}
+
 @media (max-width: 991.98px) {
   .hero-section {
     margin-top: 0;

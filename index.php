@@ -134,6 +134,7 @@ $quickLinks = [
 
 // تضمين SEO قبل header
 include __DIR__ . "/partials/seo.php";
+$bodyClass = 'home-page no-nav-offset';
 require __DIR__ . '/partials/header.php';
 ?>
 
